@@ -1,5 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
+import styles from "../../styles/style";
 
 export default class SplashScreenPage extends React.Component {
   render() {
@@ -10,12 +12,3 @@ export default class SplashScreenPage extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
