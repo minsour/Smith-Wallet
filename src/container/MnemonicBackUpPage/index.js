@@ -12,15 +12,15 @@ export default class MnemonicBackUpPage extends React.Component {
         <Button
           icon="add-a-photo"
           mode="contained"
-          onPress={() => navigateToSplashPage(this.props)}
+          onPress={this.navigateToSplashPage}
         >
           Next
         </Button>
       </View>
     );
   }
-}
 
-function navigateToSplashPage(props) {
-  props.navigation.navigate(route.SPLASH_PAGE);
+  navigateToSplashPage = () => {
+    this.props.navigation.navigate(route.SPLASH_PAGE);
+  };
 }
