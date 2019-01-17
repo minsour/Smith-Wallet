@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { Text } from "react-native-paper";
-import styles from "../../styles/style";
+import styles from "./Styles";
 
 export default class SplashScreenPage extends React.Component {
   render() {

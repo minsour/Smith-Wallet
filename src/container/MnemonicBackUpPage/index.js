@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { route } from "../../constants/route";
 import { Button, Text } from "react-native-paper";
-import styles from "../../styles/style";
+import styles from "./Styles";
 
 export default class MnemonicBackUpPage extends React.Component {
   render() {
