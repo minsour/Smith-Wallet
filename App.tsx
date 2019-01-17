@@ -5,9 +5,7 @@ import { Provider as PaperProvider } from "react-native-paper";
 
 const AppContainer = createAppContainer(CreateAccountStack);
 
-interface Props {}
-
-export default class App extends React.Component<Props> {
+export default class App extends React.Component {
   render() {
     return (
       <PaperProvider>
