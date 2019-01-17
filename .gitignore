@@ -57,3 +57,6 @@ buck-out/
 
 # yarn
 yarn.lock
+
+#expo
+.expo/
