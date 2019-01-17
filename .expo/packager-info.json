@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19005,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 64412,
+  "packagerPort": 19006,
+  "packagerPid": 3176,
   "expoServerNgrokUrl": "https://my-7m9.anonymous.newbie-wallet.exp.direct",
   "packagerNgrokUrl": "https://packager.my-7m9.anonymous.newbie-wallet.exp.direct",
-  "ngrokPid": 64432
+  "ngrokPid": 3211
 }
