@@ -3,7 +3,7 @@ import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
 import MnemonicBackUpScreen from "../container/MnemonicBackUpScreen";
 import SplashScreen from "../container/SplashScreen";
-import LoginRoute from "./Login";
+import LoginRoute from "./LoginRoute";
 
 export const CreateAccountStack = createStackNavigator({
   MnemonicBackUp: MnemonicBackUpScreen,

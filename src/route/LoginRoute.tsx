@@ -1,7 +1,7 @@
 // src/route
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
-import CreateWalletRoute from '../route/CreateWallet';
-import ImportMnemonicRoute from '../route/ImportMnemonic';
+import CreateWalletRoute from './CreateWalletRoute';
+import ImportMnemonicRoute from '../route/ImportMnemonicRoute';
 import InitialScreen from '../container/InitialScreen';
 
 const CreateOrImportSwitch = createSwitchNavigator ({
