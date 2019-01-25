@@ -5,7 +5,7 @@ import { Button, Text } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 
-export default class MnemonicBackUpPage extends React.Component<NavigationScreenProps> {
+export default class MnemonicBackUpScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
@@ -13,7 +13,7 @@ export default class MnemonicBackUpPage extends React.Component<NavigationScreen
         <Button
           icon="add-a-photo"
           mode="contained"
-          onPress={this.navigateToSplashPage}
+          onPress={this.navigateToSplash}
         >
           Next
         </Button>
@@ -21,7 +21,7 @@ export default class MnemonicBackUpPage extends React.Component<NavigationScreen
     );
   }
 
-  navigateToSplashPage = () => {
-    this.props.navigation.navigate(route.SPLASH_PAGE);
+  navigateToSplash = () => {
+    this.props.navigation.navigate(route.SPLASH_SCREEN);
   };
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import { createAppContainer } from "react-navigation"; // Version can be specified in package.json
-import { CreateAccountStack } from "./src/route/index";
+import { RootRoute } from "./src/route/index";
 import { Provider as PaperProvider } from "react-native-paper";
 
-const AppContainer = createAppContainer(CreateAccountStack);
+const AppContainer = createAppContainer(RootRoute);
 
 export default class App extends React.Component {
   render() {
