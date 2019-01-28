@@ -3,20 +3,25 @@ import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
+import { UserHeader } from "../UserInterfaceStyle";
+import userStyle from "../UserInterfaceStyle/Styles";
 
 
 export default class AuthorizePinCodeScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>This is Authorize PinCode Screen</Text>
-        <Button
-          icon="add-a-photo"
-          mode="contained"
-          onPress={this.navigateToDestination}
-        >
-          핀코드 입력 완료
-        </Button>
+        <UserHeader title="비밀번호 입력" leftMode="close" navigationProps={this.props.navigation}/>
+        <View style={userStyle.userBody}>
+          <Text>This is Authorize PinCode Screen</Text>
+          <Button
+            icon="add-a-photo"
+            mode="contained"
+            onPress={this.navigateToDestination}
+          >
+            핀코드 입력 완료
+          </Button>
+        </View>
       </View>
     );
   }
