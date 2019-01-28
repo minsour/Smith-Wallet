@@ -1,4 +1,24 @@
 export const route = {
-  MNEMONIC_BACKUP_SCREEN: "MnemonicBackUp",
-  SPLASH_SCREEN: "Splash"
+  BACKUP_MNEMONIC_SCREEN: "BackUpMnemonic",
+  ENTER_MNEMONIC_SCREEN: "EnterMnemonic",
+  SPLASH_SCREEN: "Splash",
+  AUTHORIZE_PINCODE_SCREEN: "AuthorizePinCode",
+  CREATE_PINCODE_SCREEN: "CreatePinCode",
+  INITIAL_SCREEN: "Initial",
+  SUMMARY_SCREEN: "Summary",
+  ETHEREUM_ROUTE: "Ethereum",
+  BITCOIN_ROUTE: "Bitcoin",
+  SELECT_ADDRESS_SCREEN: "SelectAddress",
+  TOKEN_SEND_SCREEN: "TokenSend",
+  SUMMARY_TX_ROUTE: "SummaryTx",
+  TOKEN_DETAIL_SCREEN: "TokenDetail",
+  DETAIL_TX_ROUTE: "DetailTx",
+  ADD_TOKEN_SCREEN: "AddToken",
+  ADDRESS_LIST_SCREEN: "AddressList",
+  MANAGING_SCREEN: "Managing",
+  MANAGE_WALLET_ROUTE: "ManageWallet",
+  BACKUP_OR_DELETE_ROUTE: "BackUpOrDelete",
+  BACKUP_QR_SCREEN: "BackUpQRCode",
+  DELETE_WALLET_SCREEN: "DeleteWallet",
+  SETTING_SCREEN: "Setting"
 };

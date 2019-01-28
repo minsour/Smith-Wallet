@@ -5,27 +5,25 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
 
-export default class SplashScreen extends React.Component<NavigationScreenProps> {
+export class DeleteWalletScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          스플래시 스크린
+          지갑 삭제 스크린
         </Text>
         <Button
           style={styles.Button}
           mode="contained"
-          onPress={this.navigateToAuthorizePin}
+          onPress={this.navigateToSplash} // 테스트용
         >
-          로딩 끝
+          지갑 삭제
         </Button>
       </View>
     );
   }
 
-  navigateToAuthorizePin = () => {
-    this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
-      destination: route.INITIAL_SCREEN
-    })
+  navigateToSplash = () => {
+    this.props.navigation.navigate(route.SPLASH_SCREEN)
   }
 }

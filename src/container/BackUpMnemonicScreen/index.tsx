@@ -5,23 +5,23 @@ import { Button, Text } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 
-export default class MnemonicBackUpScreen extends React.Component<NavigationScreenProps> {
+export default class BackUpMnemScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>This is Mnemonic Backup Page</Text>
+        <Text>This is BackUp Mnem Screen</Text>
         <Button
           icon="add-a-photo"
           mode="contained"
-          onPress={this.navigateToSplash}
+          onPress={this.navigateToWallet}
         >
-          Next
+          월렛으로
         </Button>
       </View>
     );
   }
 
-  navigateToSplash = () => {
-    this.props.navigation.navigate(route.SPLASH_SCREEN);
+  navigateToWallet = () => {
+    this.props.navigation.navigate(route.SUMMARY_SCREEN);
   };
 }

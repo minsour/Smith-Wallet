@@ -1,17 +1,15 @@
 // src/route
-import { createStackNavigator, createSwitchNavigator } from "react-navigation";
-
-import MnemonicBackUpScreen from "../container/MnemonicBackUpScreen";
+import { createSwitchNavigator } from "react-navigation";
 import SplashScreen from "../container/SplashScreen";
-import LoginRoute from "./LoginRoute";
-
-export const CreateAccountStack = createStackNavigator({
-  MnemonicBackUp: MnemonicBackUpScreen,
-  Splash: SplashScreen, //페이지 이동 테스트용
-});
+import { LoginRoute } from "./LoginRoute";
+import AuthorizePinCodeScreen from "../container/AuthorizePinCodeScreen";
+import { WalletRoute } from "./WalletRoute";
 
 export const RootRoute = createSwitchNavigator(
   {
-    Login: LoginRoute
+    Splash: SplashScreen,
+    AuthorizePinCode: AuthorizePinCodeScreen,
+    Login: LoginRoute,
+    Wallet: WalletRoute
   }
 );

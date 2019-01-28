@@ -5,27 +5,38 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
 
-export default class SplashScreen extends React.Component<NavigationScreenProps> {
+export class TokenListScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          스플래시 스크린
+          토큰 리스트 스크린
         </Text>
         <Button
           style={styles.Button}
           mode="contained"
-          onPress={this.navigateToAuthorizePin}
+          onPress={this.navigateToDetailTx} // 테스트용
         >
-          로딩 끝
+          추가
+        </Button>
+        <Button
+          style={styles.Button}
+          mode="contained"
+          onPress={this.navigateToSend} // 테스트용
+        >
+          송금
         </Button>
       </View>
     );
   }
 
-  navigateToAuthorizePin = () => {
+  navigateToDetailTx = () => {
+    this.props.navigation.navigate(route.DETAIL_TX_ROUTE)
+  }
+
+  navigateToSend = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
-      destination: route.INITIAL_SCREEN
+        destination: route.SELECT_ADDRESS_SCREEN
     })
   }
 }

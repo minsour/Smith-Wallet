@@ -5,27 +5,25 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
 
-export default class SplashScreen extends React.Component<NavigationScreenProps> {
+export class EOAListScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          스플래시 스크린
+          EOA 리스트 스크린
         </Text>
         <Button
           style={styles.Button}
           mode="contained"
-          onPress={this.navigateToAuthorizePin}
+          onPress={this.navigateToSplash} // 테스트용
         >
-          로딩 끝
+          추가
         </Button>
       </View>
     );
   }
 
-  navigateToAuthorizePin = () => {
-    this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
-      destination: route.INITIAL_SCREEN
-    })
+  navigateToSplash = () => {
+    this.props.navigation.navigate(route.SPLASH_SCREEN)
   }
 }

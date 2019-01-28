@@ -5,19 +5,19 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
 
-export default class SplashScreen extends React.Component<NavigationScreenProps> {
+export class AddressListScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          스플래시 스크린
+          주소록 스크린
         </Text>
         <Button
           style={styles.Button}
           mode="contained"
-          onPress={this.navigateToAuthorizePin}
+          onPress={this.navigateToAuthorizePin} // 테스트용
         >
-          로딩 끝
+          친구 추가
         </Button>
       </View>
     );

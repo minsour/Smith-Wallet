@@ -5,27 +5,25 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
 
-export default class SplashScreen extends React.Component<NavigationScreenProps> {
+export class SelectAddressScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          스플래시 스크린
+          받는 주소 선택 스크린
         </Text>
         <Button
           style={styles.Button}
           mode="contained"
-          onPress={this.navigateToAuthorizePin}
+          onPress={this.navigateToSend} // 테스트용
         >
-          로딩 끝
+          Send 스크린
         </Button>
       </View>
     );
   }
 
-  navigateToAuthorizePin = () => {
-    this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
-      destination: route.INITIAL_SCREEN
-    })
+  navigateToSend = () => {
+    this.props.navigation.navigate(route.TOKEN_SEND_SCREEN)
   }
 }
