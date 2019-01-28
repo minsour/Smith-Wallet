@@ -1,12 +1,11 @@
 // src/route
-import { createStackNavigator } from "react-navigation";
+import { createSwitchNavigator } from "react-navigation";
+import CreatePinCodeScreen from "../container/CreatePinCodeScreen";
+import EnterMnemonicScreen from "../container/EnterMnemonicScreen";
+import BackUpMnemonicScreen from "../container/BackUpMnemonicScreen";
 
-import MnemonicBackUpScreen from "../container/MnemonicBackUpScreen";
-import SplashScreen from "../container/SplashScreen";
-
-const CreateWalletRoute = createStackNavigator({
-  MnemonicBackUp: MnemonicBackUpScreen, //페이지 이동 테스트용
-  Splash: SplashScreen, //페이지 이동 테스트용
+export const ImportMnemonicRoute = createSwitchNavigator({
+  CreatePinCode: CreatePinCodeScreen,
+  EnterMnemonic: EnterMnemonicScreen,
+  BackUpMnemonic: BackUpMnemonicScreen
 });
-
-export default CreateWalletRoute;
