@@ -4,11 +4,14 @@ import { NavigationScreenProps } from "react-navigation";
 import { route } from "../../constants/route";
 import styles from "./Styles";
 
+const SPLASH_VISIABLE_TIME: number = 3 * 1000;
+
 export default class SplashScreen extends React.Component<
   NavigationScreenProps
 > {
+  visiableTime = 3 * 1000;
   componentDidMount() {
-    setTimeout(this.navigateToCreatePincodePage, 3 * 1000);
+    setTimeout(this.navigateToCreatePincodePage, SPLASH_VISIABLE_TIME);
   }
 
   render() {
