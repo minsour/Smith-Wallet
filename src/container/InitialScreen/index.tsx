@@ -20,14 +20,14 @@ export default class InitialScreen extends React.Component<NavigationScreenProps
           <Button
             style={styles.createButton}
             mode="contained"
-            onPress={this.navigateToInitial} //테스트용
+            onPress={this.navigateToCreateWallet} //테스트용
           >
             지갑 생성
           </Button>
           <Button
             style={styles.importButton}
             mode="contained"
-            onPress={this.navigateToInitial} //테스트용
+            onPress={this.navigateToImportMnemonic} //테스트용
           >
             니모닉 가져오기
           </Button>
@@ -36,7 +36,15 @@ export default class InitialScreen extends React.Component<NavigationScreenProps
     );
   }
 
-  navigateToInitial = () => {
-    this.props.navigation.navigate(route.SPLASH_SCREEN);
+  navigateToCreateWallet = () => {
+    this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
+      destination: route.BACKUP_MNEMONIC_SCREEN
+    });
+  };
+
+  navigateToImportMnemonic = () => {
+    this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
+      destination: route.ENTER_MNEMONIC_SCREEN
+    });
   };
 }
