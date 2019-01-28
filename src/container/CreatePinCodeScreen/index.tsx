@@ -15,9 +15,9 @@ export default class CreatePinCodeScreen extends React.Component<
           finishProcess={this.navigateToMnemonicBackupPage}
           status={"choose"}
           passwordLength={6}
-          titleChoose="Enter a PIN Code"
-          subtitleChoose="input 6 digits of pincode"
-          storePin={(pin: string) => this.savePincode(pin)}
+          titleChoose="Enter a PIN code"
+          subtitleChoose="Input 6 digits of pincode"
+          storePin={AsyncStorageUtils.storePin}
         />
       </View>
     );
@@ -26,8 +26,10 @@ export default class CreatePinCodeScreen extends React.Component<
   navigateToMnemonicBackupPage = () => {
     this.props.navigation.navigate(route.BACKUP_MNEMONIC_SCREEN);
   };
+}
 
-  savePincode = async (pin: string) => {
+class AsyncStorageUtils {
+  static storePin = async (pin: string) => {
     try {
       await AsyncStorage.setItem("@MyStore:pin", pin);
       console.log("stored pin:::" + pin);
