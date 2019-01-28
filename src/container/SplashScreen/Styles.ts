@@ -6,5 +6,11 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
+  },
+  Button: {
+    width:250,
+    height:40,
+    backgroundColor:"#030066",
+    margin:15
   }
 });
