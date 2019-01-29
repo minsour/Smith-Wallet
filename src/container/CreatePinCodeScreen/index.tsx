@@ -4,6 +4,7 @@ import { NavigationScreenProps } from "react-navigation";
 import { route } from "../../constants/route";
 import styles from "./Styles";
 import PINCode from "@haskkor/react-native-pincode";
+import AsyncStorageUtils from "./asyncStorageUtils";
 
 export default class CreatePinCodeScreen extends React.Component<
   NavigationScreenProps
@@ -25,16 +26,5 @@ export default class CreatePinCodeScreen extends React.Component<
 
   navigateToMnemonicBackupPage = () => {
     this.props.navigation.navigate(route.BACKUP_MNEMONIC_SCREEN);
-  };
-}
-
-class AsyncStorageUtils {
-  static storePin = async (pin: string) => {
-    try {
-      await AsyncStorage.setItem("@MyStore:pin", pin);
-      console.log("stored pin:::" + pin);
-    } catch (error) {
-      console.log("Error occurs during saving pincode:::" + error);
-    }
   };
 }
