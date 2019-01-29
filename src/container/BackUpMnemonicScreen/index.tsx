@@ -1,5 +1,5 @@
 import React from "react";
-import { View, AsyncStorage } from "react-native";
+import { View } from "react-native";
 import { route } from "../../constants/route";
 import {
   Button,
@@ -12,17 +12,25 @@ import {
 } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
+import { observer } from "mobx-react/native";
+import { observable } from "mobx";
+import { AsyncStorageUtils } from "./asyncStorageUtils";
 
-const ethers = require("ethers");
-
-export default class BackUpMnemonicScreen extends React.Component<
+@observer
+export class BackUpMnemonicScreen extends React.Component<
   NavigationScreenProps
 > {
+  @observable static visible: boolean = true;
+  @observable static myMnemonic: string = "";
+
   render() {
     return (
       <View style={styles.container}>
         <Portal>
-          <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
+          <Dialog
+            visible={BackUpMnemonicScreen.visible}
+            onDismiss={this.hideDialog}
+          >
             <Dialog.Title>Mnemonic Backup</Dialog.Title>
             <Dialog.Content>
               <Paragraph>
@@ -40,7 +48,7 @@ export default class BackUpMnemonicScreen extends React.Component<
           style={styles.mnemonicContainer}
           mode={"outlined"}
           multiline={true}
-          value={this.state.myMnemonic}
+          value={BackUpMnemonicScreen.myMnemonic}
         />
         <Button
           style={styles.createButton}
@@ -53,38 +61,12 @@ export default class BackUpMnemonicScreen extends React.Component<
     );
   }
 
-  state = {
-    visible: true,
-    myMnemonic: ""
+  hideDialog = () => {
+    AsyncStorageUtils.storeMnemonic();
+    this.visible = false;
   };
 
   navigateToNextPage = () => {
     this.props.navigation.navigate(route.SPLASH_SCREEN);
-  };
-
-  hideDialog = () => {
-    this.setState({ visible: false });
-    this.generateMnemonic();
-  };
-
-  generateMnemonic = async () => {
-    try {
-      const myMnemonic = ethers.Wallet.createRandom().mnemonic;
-      await AsyncStorage.setItem("@MyStore:key", myMnemonic);
-      this.getMnemonic();
-    } catch (error) {
-      console.log("Error occurs during saving data:::" + error);
-    }
-  };
-
-  getMnemonic = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@MyStore:key");
-      if (value !== null) {
-        this.setState({ myMnemonic: value });
-      }
-    } catch (error) {
-      console.log("Error occurs during retriving data:::" + error);
-    }
   };
 }
