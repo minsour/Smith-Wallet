@@ -14,15 +14,14 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { observer } from "mobx-react/native";
 import { observable } from "mobx";
-import { AsyncStorageUtils } from "./asyncStorageUtils";
+import AsyncStorageUtils from "./asyncStorageUtils";
 
 @observer
-export class BackUpMnemonicScreen extends React.Component<
+export default class BackUpMnemonicScreen extends React.Component<
   NavigationScreenProps
 > {
   @observable static visible: boolean = true;
   @observable static myMnemonic: string = "";
-
   render() {
     return (
       <View style={styles.container}>
@@ -63,7 +62,7 @@ export class BackUpMnemonicScreen extends React.Component<
 
   hideDialog = () => {
     AsyncStorageUtils.storeMnemonic();
-    this.visible = false;
+    BackUpMnemonicScreen.visible = false;
   };
 
   navigateToNextPage = () => {

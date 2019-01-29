@@ -1,8 +1,8 @@
 import { AsyncStorage } from "react-native";
-import { BackUpMnemonicScreen } from "./index";
+import BackUpMnemonicScreen from "./index";
 const ethers = require("ethers");
 
-export class AsyncStorageUtils {
+export default class AsyncStorageUtils {
   static storeMnemonic = async () => {
     try {
       const newMnemonic = ethers.Wallet.createRandom().mnemonic;
@@ -15,9 +15,9 @@ export class AsyncStorageUtils {
 
   static getMnemonic = async () => {
     try {
-      const value = await AsyncStorage.getItem("@MyStore:key");
-      if (value !== null) {
-        BackUpMnemonicScreen.myMnemonic = value;
+      const savedMnemonic = await AsyncStorage.getItem("@MyStore:key");
+      if (savedMnemonic !== null) {
+        BackUpMnemonicScreen.myMnemonic = savedMnemonic;
       }
     } catch (error) {
       console.log("Error occurs during retriving data:::" + error);
