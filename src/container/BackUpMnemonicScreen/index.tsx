@@ -53,6 +53,6 @@ export default class BackUpMnemonicScreen extends React.Component<
   };
 
   navigateToNextPage = () => {
-    this.props.navigation.navigate(route.SPLASH_SCREEN);
+    this.props.navigation.navigate(route.SUMMARY_SCREEN);
   };
 }
