@@ -5,7 +5,9 @@ export class AsyncStorageUtils {
     try {
       await AsyncStorage.setItem("@MyStore:key", newMnemonic);
     } catch (error) {
-      console.log("Error occurs during saving data:::" + error);
+      console.error(
+        "Error occurs during saving data in @MyStore:key:::" + error
+      );
     }
   };
 }
