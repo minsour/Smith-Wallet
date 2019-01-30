@@ -9,21 +9,15 @@ import styles from "./Styles";
 interface UserHeaderProps {
     title?: string;
     navigation?: NavigationScreenProp<any,any>;
-    children: JSX.Element[];
   }
 
 export class UserHeader extends React.Component<UserHeaderProps> {
   render() {
     return (
-        <View>
-            <View style={styles.userHeader}>
-                <UserHeaderLeft>{this.props.navigation}</UserHeaderLeft>
-                <UserHeaderTitle>{this.props.title}</UserHeaderTitle>
-                <UserHeaderRight />
-            </View>
-            <View style={styles.userBody}>
-                {this.props.children}
-            </View>
+        <View style={styles.userHeader}>
+            <UserHeaderLeft navigation={this.props.navigation} />
+            <UserHeaderTitle>{this.props.title} </UserHeaderTitle>
+            <UserHeaderRight />
         </View>
     );
   }

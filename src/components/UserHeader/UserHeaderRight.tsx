@@ -6,7 +6,7 @@ export class UserHeaderRight extends React.Component {
 
   render() {
     return (
-        <View style={styles.userHeaderRight}></View>
+        <View style={styles.userHeaderRight} />
     );
   }
 }
