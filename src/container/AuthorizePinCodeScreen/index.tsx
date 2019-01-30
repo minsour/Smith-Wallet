@@ -23,7 +23,7 @@ export class AuthorizePinCodeScreen extends React.Component<
     );
   }
 
-  navigateToDestination = () => {
+  private navigateToDestination = () => {
     // 핀코드 입력 후에는 params로 받아온 목적지로 이동
     this.props.navigation.navigate(
       this.props.navigation.getParam("destination")

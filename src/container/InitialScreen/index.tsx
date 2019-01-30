@@ -1,16 +1,17 @@
 import React from "react";
 import { View, Image } from "react-native";
 import { route } from "../../constants/route";
-import { Button, Text } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
-import styles from "./Styles";
+import { styles } from "./Styles";
+import { Layout } from '../../layout/Layout';
 
 const logoPath = require("../../../assets/logo.png");
 
-export default class InitialScreen extends React.Component<NavigationScreenProps> {
+export class InitialScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
+      <Layout header={false}>
         <View style={styles.logo}>
           <Image
             source={logoPath}
@@ -32,17 +33,17 @@ export default class InitialScreen extends React.Component<NavigationScreenProps
             니모닉 가져오기
           </Button>
         </View>
-      </View>
+      </Layout>
     );
   }
 
-  navigateToCreateWallet = () => {
+  private navigateToCreateWallet = () => {
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.BACKUP_MNEMONIC_SCREEN
     });
   };
 
-  navigateToImportMnemonic = () => {
+  private navigateToImportMnemonic = () => {
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.ENTER_MNEMONIC_SCREEN
     });

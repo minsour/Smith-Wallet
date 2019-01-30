@@ -2,13 +2,14 @@ import React from "react";
 import { View } from "react-native";
 import { Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
-import styles from "./Styles";
+import { styles } from "./Styles";
 import { route } from "../../constants/route";
+import { Layout } from '../../layout/Layout';
 
 export class SummaryScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
+      <Layout header={false}>
         <View style={styles.summaryHeader}>
           <Button
             style={styles.leftbutton}
@@ -69,41 +70,41 @@ export class SummaryScreen extends React.Component<NavigationScreenProps> {
             마이페이지
           </Button>
         </View>
-      </View>
+      </Layout>
     );
   }
 
-  navigateToEthereum = () => {
+  private navigateToEthereum = () => {
     this.props.navigation.navigate(route.ETHEREUM_ROUTE);
   };
 
-  navigateToBitcoin = () => {
+  private navigateToBitcoin = () => {
     this.props.navigation.navigate(route.BITCOIN_ROUTE);
   };
 
-  navigateToSummaryTx = () => {
+  private navigateToSummaryTx = () => {
     this.props.navigation.navigate(route.SUMMARY_TX_ROUTE);
   };
 
-  navigateToSummarySend = () => {
+  private navigateToSummarySend = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.SELECT_ADDRESS_SCREEN
     });
   };
 
-  navigateToTokenDetail = () => {
+  private navigateToTokenDetail = () => {
     this.props.navigation.navigate(route.TOKEN_DETAIL_SCREEN);
   };
 
-  navigateToAddToken = () => {
+  private navigateToAddToken = () => {
     this.props.navigation.navigate(route.ADD_TOKEN_SCREEN);
   };
 
-  navigateToAddressList = () => {
+  private navigateToAddressList = () => {
     this.props.navigation.navigate(route.ADDRESS_LIST_SCREEN);
   };
 
-  navigateToManageApp = () => {
+  private navigateToManageApp = () => {
     this.props.navigation.navigate(route.MANAGING_SCREEN);
   };
 }

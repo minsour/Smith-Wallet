@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { IconButton } from "react-native-paper";
-import styles from "./Styles";
+import { styles } from "./Styles";
 
 interface UserHeaderLeftProps {
     navigation?: NavigationScreenProp<any, any>;

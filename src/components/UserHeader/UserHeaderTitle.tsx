@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import styles from "./Styles";
+import { styles } from "./Styles";
 
 export class UserHeaderTitle extends React.Component {
 

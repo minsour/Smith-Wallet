@@ -1,20 +1,14 @@
 import React from "react";
-import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
-import styles from "./Styles";
-import { UserHeader } from "../../components/UserHeader";
-import UserStyle from "../../components/UserHeader/Styles";
+import { Layout } from '../../layout/Layout';
 
 export class AddTokenScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
-        <UserHeader title="토큰 추가" />
-        <View style={UserStyle.userBody}>
+      <Layout header={true} headerTitle="토 큰">
           <Text>토큰 추가 스크린</Text>
-        </View>
-      </View>
+      </Layout>
     );
   }
 }

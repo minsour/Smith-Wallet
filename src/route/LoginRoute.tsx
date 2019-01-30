@@ -1,7 +1,7 @@
 // src/route
 import { createStackNavigator } from "react-navigation";
 import { CreateOrImportRoute } from "./CreateOrImportRoute";
-import InitialScreen from '../container/InitialScreen';
+import { InitialScreen } from '../container/InitialScreen';
 
 export const LoginRoute = createStackNavigator({
     Initial: InitialScreen,
