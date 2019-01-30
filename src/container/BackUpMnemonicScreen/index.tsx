@@ -7,6 +7,7 @@ import styles from "./Styles";
 import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';
+import 'ethers/dist/shims.js';  // 안드로이드 니모닉 생성 시 발생하는 오류 해결(String.prototype.normalize 사용)
 
 const ethers = require("ethers");
 
