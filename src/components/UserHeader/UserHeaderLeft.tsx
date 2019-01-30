@@ -14,7 +14,7 @@ export class UserHeaderLeft extends React.Component<UserHeaderLeftProps> {
     const leftButton = () => this.props.navigation!.pop()
     
     // UserHeader에 navigation을 넘겨줬으면 버튼 표시
-    if(this.props.children) {
+    if(this.props.navigation) {
         return (
             <IconButton
             icon="arrow-back"
