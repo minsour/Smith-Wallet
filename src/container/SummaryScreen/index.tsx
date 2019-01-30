@@ -4,11 +4,12 @@ import { Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
+import { Layout } from '../../layout/Layout';
 
 export class SummaryScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
+      <Layout header={false}>
         <View style={styles.summaryHeader}>
           <Button
             style={styles.leftbutton}
@@ -69,7 +70,7 @@ export class SummaryScreen extends React.Component<NavigationScreenProps> {
             마이페이지
           </Button>
         </View>
-      </View>
+      </Layout>
     );
   }
 

@@ -1,16 +1,17 @@
 import React from "react";
 import { View, Image } from "react-native";
 import { route } from "../../constants/route";
-import { Button, Text } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
+import { Layout } from '../../layout/Layout';
 
 const logoPath = require("../../../assets/logo.png");
 
 export default class InitialScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
+      <Layout header={false}>
         <View style={styles.logo}>
           <Image
             source={logoPath}
@@ -32,7 +33,7 @@ export default class InitialScreen extends React.Component<NavigationScreenProps
             니모닉 가져오기
           </Button>
         </View>
-      </View>
+      </Layout>
     );
   }
 

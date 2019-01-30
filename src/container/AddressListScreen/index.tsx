@@ -1,16 +1,14 @@
 import React from "react";
-import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
-import { UserHeader } from "../../components/UserHeader";
+import { Layout } from '../../layout/Layout';
 
 export class AddressListScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
-        <UserHeader title="친구 목록" navigation={this.props.navigation}>
+        <Layout header={true} headerTitle="친 구" headerNavigation={this.props.navigation}>
           <Text>주소록 스크린</Text>
           <Button
             style={styles.Button}
@@ -19,8 +17,7 @@ export class AddressListScreen extends React.Component<NavigationScreenProps> {
           >
             친구 추가
           </Button>
-        </UserHeader>
-      </View>
+        </Layout>
     );
   }
 

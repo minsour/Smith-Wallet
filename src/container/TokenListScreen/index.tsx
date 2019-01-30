@@ -1,14 +1,14 @@
 import React from "react";
-import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
+import { Layout } from '../../layout/Layout';
 
 export class TokenListScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
+      <Layout header={false}>
         <Text>
           토큰 리스트 스크린
         </Text>
@@ -26,7 +26,7 @@ export class TokenListScreen extends React.Component<NavigationScreenProps> {
         >
           송금
         </Button>
-      </View>
+      </Layout>
     );
   }
 
