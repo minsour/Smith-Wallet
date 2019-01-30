@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
-import userStyles from "../UserInterfaceStyle/Styles";
 import { route } from "../../constants/route";
 
 export class SummaryScreen extends React.Component<NavigationScreenProps> {
@@ -26,7 +25,7 @@ export class SummaryScreen extends React.Component<NavigationScreenProps> {
             BTC
           </Button>
         </View>
-        <View style={userStyles.userBody}>
+        <View style={styles.summaryBody}>
         <Button
             icon="add-a-photo"
             mode="contained"
