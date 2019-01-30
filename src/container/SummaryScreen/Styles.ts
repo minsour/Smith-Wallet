@@ -29,4 +29,11 @@ export default StyleSheet.create({
     //justifyContent: "center",
     width: Dimensions.get("window").width
   },
+  summaryBody: {
+    flex: 20,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    width: Dimensions.get("window").width
+  }
 });

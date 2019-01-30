@@ -7,6 +7,7 @@ import styles from "./Styles";
 import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 import { observer } from "mobx-react/native";
 import { observable } from "mobx";
+import { UserHeader } from "../../components/UserHeader";
 
 @observer
 export class EnterMnemonicScreen extends React.Component<
@@ -17,6 +18,7 @@ export class EnterMnemonicScreen extends React.Component<
   render() {
     return (
       <View style={styles.container}>
+        <UserHeader title="니모닉 입력" />
         <Title>Mnemonic Recovery</Title>
         <Text>Please enter ther correct Mnemonic of your wallet</Text>
         <TextInput
@@ -39,11 +41,11 @@ export class EnterMnemonicScreen extends React.Component<
     );
   }
 
-  enteredMnemonic = (newMnemonic: string) => {
+  private enteredMnemonic = (newMnemonic: string) => {
     this.myMnemonic = newMnemonic;
   };
 
-  navigateToNextPage = () => {
+  private navigateToNextPage = () => {
     this.props.navigation.navigate(route.SUMMARY_SCREEN);
   };
 }
