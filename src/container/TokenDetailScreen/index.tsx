@@ -1,18 +1,14 @@
 import React from "react";
-import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import { styles } from "./Styles";
 import { route } from "../../constants/route";
-import { UserHeader } from "../../components/UserHeader";
-import UserStyle from "../../components/UserHeader/Styles";
+import { Layout } from '../../layout/Layout';
 
 export class TokenDetailScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <View style={styles.container}>
-        <UserHeader title="토큰" />
-        <View style={UserStyle.userBody}>
+        <Layout header={true} headerTitle="토 큰">
           <Text>토큰 디테일 스크린</Text>
           <Button
             style={styles.Button}
@@ -28,8 +24,7 @@ export class TokenDetailScreen extends React.Component<NavigationScreenProps> {
           >
             Send 스크린
           </Button>
-        </View>
-      </View>
+        </Layout>
     );
   }
 
