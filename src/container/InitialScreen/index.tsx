@@ -8,7 +8,7 @@ import { Layout } from '../../layout/Layout';
 
 const logoPath = require("../../../assets/logo.png");
 
-export default class InitialScreen extends React.Component<NavigationScreenProps> {
+export class InitialScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <Layout header={false}>
