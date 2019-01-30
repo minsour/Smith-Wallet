@@ -1,9 +1,8 @@
 import React from "react";
 import { View } from "react-native";
-import { Text, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
-import userStyles from "../UserInterfaceStyle/Styles";
 import { route } from "../../constants/route";
 
 export class SummaryScreen extends React.Component<NavigationScreenProps> {
@@ -26,8 +25,8 @@ export class SummaryScreen extends React.Component<NavigationScreenProps> {
             BTC
           </Button>
         </View>
-        <View style={userStyles.userBody}>
-        <Button
+        <View style={styles.summaryBody}>
+          <Button
             icon="add-a-photo"
             mode="contained"
             onPress={this.navigateToSummaryTx}
@@ -68,43 +67,43 @@ export class SummaryScreen extends React.Component<NavigationScreenProps> {
             onPress={this.navigateToManageApp}
           >
             마이페이지
-          </Button>  
+          </Button>
         </View>
       </View>
     );
   }
 
   navigateToEthereum = () => {
-    this.props.navigation.navigate(route.ETHEREUM_ROUTE)
+    this.props.navigation.navigate(route.ETHEREUM_ROUTE);
   };
 
   navigateToBitcoin = () => {
-    this.props.navigation.navigate(route.BITCOIN_ROUTE)
-  }
+    this.props.navigation.navigate(route.BITCOIN_ROUTE);
+  };
 
   navigateToSummaryTx = () => {
-    this.props.navigation.navigate(route.SUMMARY_TX_ROUTE)
-  }
+    this.props.navigation.navigate(route.SUMMARY_TX_ROUTE);
+  };
 
   navigateToSummarySend = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.SELECT_ADDRESS_SCREEN
-    })
-  }
+    });
+  };
 
   navigateToTokenDetail = () => {
-    this.props.navigation.navigate(route.TOKEN_DETAIL_SCREEN)
-  }
+    this.props.navigation.navigate(route.TOKEN_DETAIL_SCREEN);
+  };
 
   navigateToAddToken = () => {
-    this.props.navigation.navigate(route.ADD_TOKEN_SCREEN)
-  }
+    this.props.navigation.navigate(route.ADD_TOKEN_SCREEN);
+  };
 
   navigateToAddressList = () => {
-    this.props.navigation.navigate(route.ADDRESS_LIST_SCREEN)
-  }
+    this.props.navigation.navigate(route.ADDRESS_LIST_SCREEN);
+  };
 
   navigateToManageApp = () => {
-    this.props.navigation.navigate(route.MANAGING_SCREEN)
-  }
+    this.props.navigation.navigate(route.MANAGING_SCREEN);
+  };
 }

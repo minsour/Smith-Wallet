@@ -6,12 +6,9 @@ import styles from "./Styles";
 
 const SPLASH_VISIABLE_TIME: number = 3 * 1000;
 
-export default class SplashScreen extends React.Component<
-  NavigationScreenProps
-> {
-  visiableTime = 3 * 1000;
+export class SplashScreen extends React.Component<NavigationScreenProps> {
   componentDidMount() {
-    setTimeout(this.navigateToCreatePincodePage, SPLASH_VISIABLE_TIME);
+    setTimeout(this.navigateToAuthorizePin, SPLASH_VISIABLE_TIME);
   }
 
   render() {
@@ -25,7 +22,9 @@ export default class SplashScreen extends React.Component<
     );
   }
 
-  navigateToCreatePincodePage = () => {
-    this.props.navigation.navigate(route.INITIAL_SCREEN);
+  private navigateToAuthorizePin = () => {
+    this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
+      destination: route.INITIAL_SCREEN
+    });
   };
 }
