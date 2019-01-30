@@ -4,12 +4,12 @@ import { route } from "../../constants/route";
 import { Button, Text, Title, TextInput } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
-import AsyncStorageUtils from "../BackUpMnemonicScreen/asyncStorageUtils";
+import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 import { observer } from "mobx-react/native";
 import { observable } from "mobx";
 
 @observer
-export default class EnterMnemonicScreen extends React.Component<
+export class EnterMnemonicScreen extends React.Component<
   NavigationScreenProps
 > {
   @observable myMnemonic: string = "";

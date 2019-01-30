@@ -6,11 +6,11 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { observer } from "mobx-react/native";
 import { observable } from "mobx";
-import AsyncStorageUtils from "./asyncStorageUtils";
+import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 const ethers = require("ethers");
 
 @observer
-export default class BackUpMnemonicScreen extends React.Component<
+export class BackUpMnemonicScreen extends React.Component<
   NavigationScreenProps
 > {
   @observable myMnemonic: string = "";

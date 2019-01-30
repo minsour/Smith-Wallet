@@ -1,6 +1,6 @@
 import { AsyncStorage } from "react-native";
 
-export default class AsyncStorageUtils {
+export class AsyncStorageUtils {
   static storeMnemonic = async (newMnemonic: string) => {
     try {
       await AsyncStorage.setItem("@MyStore:key", newMnemonic);
