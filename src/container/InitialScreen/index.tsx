@@ -3,7 +3,7 @@ import { View, Image } from "react-native";
 import { route } from "../../constants/route";
 import { Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
-import styles from "./Styles";
+import { styles } from "./Styles";
 import { Layout } from '../../layout/Layout';
 
 const logoPath = require("../../../assets/logo.png");

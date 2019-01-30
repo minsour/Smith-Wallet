@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { UserHeader } from "../components/UserHeader";
-import styles from "./Styles";
+import { styles } from "./Styles";
 
 interface LayoutProps {
     header: boolean  // false면, 헤더가 없는 레이아웃

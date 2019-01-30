@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "react-native";
 import { NavigationScreenProps } from "react-navigation";
 import { route } from "../../constants/route";
-import styles from "./Styles";
+import { styles } from "./Styles";
 import { Layout } from '../../layout/Layout';
 
 const SPLASH_VISIABLE_TIME: number = 3 * 1000;

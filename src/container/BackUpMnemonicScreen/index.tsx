@@ -3,7 +3,7 @@ import { Button, Text, Title, TextInput } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import { observer } from "mobx-react/native";
 import { observable } from "mobx";
-import styles from "./Styles";
+import { styles } from "./Styles";
 import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';

@@ -4,7 +4,7 @@ import { NavigationScreenProp } from "react-navigation";
 import { UserHeaderLeft } from "./UserHeaderLeft";
 import { UserHeaderTitle } from "./UserHeaderTitle";
 import { UserHeaderRight } from "./UserHeaderRight";
-import styles from "./Styles";
+import { styles } from "./Styles";
 
 interface UserHeaderProps {
     title?: string;

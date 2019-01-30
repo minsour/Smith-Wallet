@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-export default StyleSheet.create({
+export const styles = StyleSheet.create({
   userHeader: {
     flex: 3,
     flexDirection: "row",

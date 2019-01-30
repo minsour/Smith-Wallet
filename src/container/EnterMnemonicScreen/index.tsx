@@ -2,7 +2,7 @@ import React from "react";
 import { route } from "../../constants/route";
 import { Button, Text, Title, TextInput } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
-import styles from "./Styles";
+import { styles } from "./Styles";
 import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 import { observer } from "mobx-react/native";
 import { observable } from "mobx";
