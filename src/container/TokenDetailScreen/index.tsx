@@ -9,9 +9,7 @@ export class TokenDetailScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          토큰 디테일 스크린
-        </Text>
+        <Text>토큰 디테일 스크린</Text>
         <Button
           style={styles.Button}
           mode="contained"
@@ -31,12 +29,12 @@ export class TokenDetailScreen extends React.Component<NavigationScreenProps> {
   }
 
   navigateToDetailTx = () => {
-    this.props.navigation.navigate(route.DETAIL_TX_ROUTE)
-  }
+    this.props.navigation.navigate(route.DETAIL_TX_ROUTE);
+  };
 
   navigateToSend = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
-        destination: route.SELECT_ADDRESS_SCREEN
-    })
-  }
+      destination: route.SELECT_ADDRESS_SCREEN
+    });
+  };
 }

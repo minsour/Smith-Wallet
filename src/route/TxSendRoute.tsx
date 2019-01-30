@@ -1,10 +1,11 @@
 // src/route
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
-import { SelectAddressScreen } from '../container/SeletAddressScreen';
-import { TokenSendScreen } from '../container/TokenSendScreen';
-import AuthorizePinCodeScreen from '../container/AuthorizePinCodeScreen';
+import { SelectAddressScreen } from "../container/SeletAddressScreen";
+import { TokenSendScreen } from "../container/TokenSendScreen";
+import { AuthorizePinCodeScreen } from "../container/AuthorizePinCodeScreen";
 
-const SendRoute = createStackNavigator ({
+const SendRoute = createStackNavigator(
+  {
     SelectAddress: SelectAddressScreen,
     TokenSend: TokenSendScreen
   },
@@ -13,8 +14,7 @@ const SendRoute = createStackNavigator ({
   }
 );
 
-export const TxSendRoute = createSwitchNavigator ({
-    AuthorizePinCode: AuthorizePinCodeScreen,
-    Send: SendRoute
-  }
-)
+export const TxSendRoute = createSwitchNavigator({
+  AuthorizePinCode: AuthorizePinCodeScreen,
+  Send: SendRoute
+});

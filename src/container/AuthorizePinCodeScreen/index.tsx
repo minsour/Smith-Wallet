@@ -4,8 +4,9 @@ import { Button, Text } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 
-
-export default class AuthorizePinCodeScreen extends React.Component<NavigationScreenProps> {
+export class AuthorizePinCodeScreen extends React.Component<
+  NavigationScreenProps
+> {
   render() {
     return (
       <View style={styles.container}>
@@ -23,6 +24,8 @@ export default class AuthorizePinCodeScreen extends React.Component<NavigationSc
 
   navigateToDestination = () => {
     // 핀코드 입력 후에는 params로 받아온 목적지로 이동
-    this.props.navigation.navigate(this.props.navigation.getParam("destination"));
+    this.props.navigation.navigate(
+      this.props.navigation.getParam("destination")
+    );
   };
 }

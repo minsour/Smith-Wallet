@@ -4,7 +4,9 @@ import { Button, Text } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 
-export default class CreatePinCodeScreen extends React.Component<NavigationScreenProps> {
+export class CreatePinCodeScreen extends React.Component<
+  NavigationScreenProps
+> {
   render() {
     return (
       <View style={styles.container}>
@@ -21,6 +23,8 @@ export default class CreatePinCodeScreen extends React.Component<NavigationScree
   }
 
   navigateToDestination = () => {
-    this.props.navigation.navigate(this.props.navigation.getParam("destination"));
+    this.props.navigation.navigate(
+      this.props.navigation.getParam("destination")
+    );
   };
 }
