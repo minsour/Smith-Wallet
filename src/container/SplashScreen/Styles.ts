@@ -7,10 +7,10 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  Button: {
-    width:250,
-    height:40,
-    backgroundColor:"#030066",
-    margin:15
+  splashImage: {
+    resizeMode: "cover",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#ffffff"
   }
 });

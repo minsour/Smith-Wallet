@@ -1,27 +1,28 @@
 import React from "react";
-import { View } from "react-native";
-import { Text, Button } from "react-native-paper";
+import { View, Image } from "react-native";
 import { NavigationScreenProps } from "react-navigation";
-import styles from "./Styles";
 import { route } from "../../constants/route";
+import styles from "./Styles";
+
+const SPLASH_VISIABLE_TIME: number = 3 * 1000;
 
 export class SplashScreen extends React.Component<NavigationScreenProps> {
+  componentDidMount() {
+    setTimeout(this.navigateToAuthorizePin, SPLASH_VISIABLE_TIME);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>스플래시 스크린</Text>
-        <Button
-          style={styles.Button}
-          mode="contained"
-          onPress={this.navigateToAuthorizePin}
-        >
-          로딩 끝
-        </Button>
+        <Image
+          style={styles.splashImage}
+          source={require("../../../assets/newbieWalletSplash.png")}
+        />
       </View>
     );
   }
 
-  navigateToAuthorizePin = () => {
+  private navigateToAuthorizePin = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.INITIAL_SCREEN
     });
