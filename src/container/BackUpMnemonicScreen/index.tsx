@@ -1,30 +1,65 @@
 import React from "react";
 import { View } from "react-native";
-import { route } from "../../constants/route";
-import { Button, Text } from "react-native-paper";
+
+import { Button, Text, Title, TextInput } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
+
+import { observer } from "mobx-react/native";
+import { observable } from "mobx";
+
 import styles from "./Styles";
+import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 import { UserHeader } from "../../components/UserHeader";
 import UserStyle from "../../components/UserHeader/Styles";
+import { route } from "../../constants/route";
 
-export default class BackUpMnemScreen extends React.Component<NavigationScreenProps> {
+const ethers = require("ethers");
+
+@observer
+export class BackUpMnemonicScreen extends React.Component<
+  NavigationScreenProps
+> {
+  @observable myMnemonic: string = "";
+
+  componentDidMount() {
+    this.createMnemonic();
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <UserHeader title="Mnemonic" leftMode="back" navigationProps={this.props.navigation}/>
+        <UserHeader title="Mnemonic" />
         <View style={UserStyle.userBody}>
-          <Text>This is BackUp Mnem Screen</Text>
+          <Title>Mnemonic Backup</Title>
+          <Text>Please backup your Mnemonic before using the wallet</Text>
+          <TextInput
+            style={styles.mnemonicContainer}
+            mode={"outlined"}
+            multiline={true}
+            value={this.myMnemonic}
+          />
           <Button
-            icon="add-a-photo"
+            style={styles.createButton}
             mode="contained"
-            onPress={this.navigateToWallet}
+            onPress={() => {
+              this.saveMnemonic(this.myMnemonic);
+              this.navigateToWallet();
+            }}
           >
-            월렛으로
+            Done
           </Button>
         </View>
       </View>
     );
   }
+
+  private createMnemonic = () => {
+    this.myMnemonic = ethers.Wallet.createRandom().mnemonic;
+  };
+
+  private saveMnemonic = (newMnemonic: string) => {
+    AsyncStorageUtils.storeMnemonic(newMnemonic);
+  };
 
   private navigateToWallet = () => {
     this.props.navigation.navigate(route.SUMMARY_SCREEN);

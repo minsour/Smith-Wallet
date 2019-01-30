@@ -5,13 +5,11 @@ import { NavigationScreenProps } from "react-navigation";
 import styles from "./Styles";
 import { route } from "../../constants/route";
 
-export default class SplashScreen extends React.Component<NavigationScreenProps> {
+export class SplashScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          스플래시 스크린
-        </Text>
+        <Text>스플래시 스크린</Text>
         <Button
           style={styles.Button}
           mode="contained"
@@ -26,6 +24,6 @@ export default class SplashScreen extends React.Component<NavigationScreenProps>
   navigateToAuthorizePin = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.INITIAL_SCREEN
-    })
-  }
+    });
+  };
 }

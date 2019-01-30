@@ -6,11 +6,13 @@ import styles from "./Styles";
 import { UserHeader } from "../../components/UserHeader";
 import UserStyle from "../../components/UserHeader/Styles";
 
-export default class CreatePinCodeScreen extends React.Component<NavigationScreenProps> {
+export class CreatePinCodeScreen extends React.Component<
+  NavigationScreenProps
+> {
   render() {
     return (
       <View style={styles.container}>
-      <UserHeader title="비밀번호 생성" leftMode="back" navigationProps={this.props.navigation}/>
+        <UserHeader title="비밀번호 생성" />
         <View style={UserStyle.userBody}>
           <Text>This is Create PinCode Screen Page</Text>
           <Button
@@ -26,6 +28,8 @@ export default class CreatePinCodeScreen extends React.Component<NavigationScree
   }
 
   navigateToDestination = () => {
-    this.props.navigation.navigate(this.props.navigation.getParam("destination"));
+    this.props.navigation.navigate(
+      this.props.navigation.getParam("destination")
+    );
   };
 }
