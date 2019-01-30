@@ -21,7 +21,7 @@ export class AddressListScreen extends React.Component<NavigationScreenProps> {
     );
   }
 
-  navigateToAuthorizePin = () => {
+  private navigateToAuthorizePin = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.INITIAL_SCREEN
     });

@@ -30,11 +30,11 @@ export class TokenListScreen extends React.Component<NavigationScreenProps> {
     );
   }
 
-  navigateToDetailTx = () => {
+  private navigateToDetailTx = () => {
     this.props.navigation.navigate(route.DETAIL_TX_ROUTE)
   }
 
-  navigateToSend = () => {
+  private navigateToSend = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
         destination: route.SELECT_ADDRESS_SCREEN
     })

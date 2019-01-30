@@ -42,25 +42,25 @@ export class ManagingScreen extends React.Component<NavigationScreenProps> {
     );
   }
 
-  navigateToBackUpMnem = () => {
+  private navigateToBackUpMnem = () => {
     this.props.navigation.navigate(route.MANAGE_WALLET_ROUTE, {
         destination : route.BACKUP_MNEMONIC_SCREEN
     })
   }
   
-  navigateToBackUpQR = () => {
+  private navigateToBackUpQR = () => {
     this.props.navigation.navigate(route.MANAGE_WALLET_ROUTE, {
         destination : route.BACKUP_QR_SCREEN
     })
   }
 
-  navigateToDeleteWallet = () => {
+  private navigateToDeleteWallet = () => {
     this.props.navigation.navigate(route.MANAGE_WALLET_ROUTE, {
         destination : route.DELETE_WALLET_SCREEN
     })
   }
 
-  navigateToSetting = () => {
+  private navigateToSetting = () => {
     this.props.navigation.navigate(route.MANAGE_WALLET_ROUTE, {
         destination : route.SETTING_SCREEN
     })

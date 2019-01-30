@@ -23,7 +23,7 @@ export class DeleteWalletScreen extends React.Component<NavigationScreenProps> {
     );
   }
 
-  navigateToSplash = () => {
+  private navigateToSplash = () => {
     this.props.navigation.navigate(route.SPLASH_SCREEN)
   }
 }

@@ -23,7 +23,7 @@ export class SelectAddressScreen extends React.Component<NavigationScreenProps> 
     );
   }
 
-  navigateToSend = () => {
+  private navigateToSend = () => {
     this.props.navigation.navigate(route.TOKEN_SEND_SCREEN)
   }
 }

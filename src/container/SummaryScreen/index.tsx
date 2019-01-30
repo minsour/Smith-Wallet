@@ -74,37 +74,37 @@ export class SummaryScreen extends React.Component<NavigationScreenProps> {
     );
   }
 
-  navigateToEthereum = () => {
+  private navigateToEthereum = () => {
     this.props.navigation.navigate(route.ETHEREUM_ROUTE);
   };
 
-  navigateToBitcoin = () => {
+  private navigateToBitcoin = () => {
     this.props.navigation.navigate(route.BITCOIN_ROUTE);
   };
 
-  navigateToSummaryTx = () => {
+  private navigateToSummaryTx = () => {
     this.props.navigation.navigate(route.SUMMARY_TX_ROUTE);
   };
 
-  navigateToSummarySend = () => {
+  private navigateToSummarySend = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.SELECT_ADDRESS_SCREEN
     });
   };
 
-  navigateToTokenDetail = () => {
+  private navigateToTokenDetail = () => {
     this.props.navigation.navigate(route.TOKEN_DETAIL_SCREEN);
   };
 
-  navigateToAddToken = () => {
+  private navigateToAddToken = () => {
     this.props.navigation.navigate(route.ADD_TOKEN_SCREEN);
   };
 
-  navigateToAddressList = () => {
+  private navigateToAddressList = () => {
     this.props.navigation.navigate(route.ADDRESS_LIST_SCREEN);
   };
 
-  navigateToManageApp = () => {
+  private navigateToManageApp = () => {
     this.props.navigation.navigate(route.MANAGING_SCREEN);
   };
 }

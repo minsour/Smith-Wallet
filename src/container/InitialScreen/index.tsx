@@ -37,13 +37,13 @@ export default class InitialScreen extends React.Component<NavigationScreenProps
     );
   }
 
-  navigateToCreateWallet = () => {
+  private navigateToCreateWallet = () => {
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.BACKUP_MNEMONIC_SCREEN
     });
   };
 
-  navigateToImportMnemonic = () => {
+  private navigateToImportMnemonic = () => {
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.ENTER_MNEMONIC_SCREEN
     });
