@@ -5,7 +5,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height
   },
   userBody: {
     flex: 20,
