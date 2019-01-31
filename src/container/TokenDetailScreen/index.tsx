@@ -8,7 +8,7 @@ import { Layout } from '../../layout/Layout';
 export class TokenDetailScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-        <Layout header={true} headerTitle="토 큰">
+        <Layout header={true} headerTitle="토 큰" headerNavigation={this.props.navigation}>
           <Text>토큰 디테일 스크린</Text>
           <Button
             style={styles.Button}
