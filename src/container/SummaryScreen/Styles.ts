@@ -20,7 +20,9 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     alignItems: "center",
-    width: Dimensions.get("window").width
+    width: Dimensions.get("window").width,
+    borderBottomWidth: 1,
+    paddingLeft:15
   },
   listBody: {
     flex: 20,
@@ -30,10 +32,20 @@ export const styles = StyleSheet.create({
     width: Dimensions.get("window").width
   },
   tabButton: {
-    backgroundColor: "#fff",
-    elevation:0
+    marginLeft:10,
+    paddingRight:14,
+    paddingLeft:14,
+    paddingTop:8,
+    paddingBottom:8,
+    marginBottom:-23
   },
-  buttonFont: {
-    color: "#000000"
+  selectedFont: {
+    fontSize: 14,
+    fontWeight: "900"
+  },
+  unselectedFont: {
+    fontSize: 13.5,
+    fontWeight: "100",
+    color: "#4c4c4c"
   }
 });
