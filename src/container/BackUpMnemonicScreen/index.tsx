@@ -55,6 +55,6 @@ export class BackUpMnemonicScreen extends React.Component<
   };
 
   private navigateToWallet = () => {
-    this.props.navigation.navigate(route.SUMMARY_SCREEN);
+    this.props.navigation.navigate(route.MAIN_SCREEN);
   };
 }

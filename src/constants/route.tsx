@@ -5,7 +5,7 @@ export const route = {
   AUTHORIZE_PINCODE_SCREEN: "AuthorizePinCode",
   CREATE_PINCODE_SCREEN: "CreatePinCode",
   INITIAL_SCREEN: "Initial",
-  SUMMARY_SCREEN: "Summary",
+  MAIN_SCREEN: "Main",
   ETHEREUM_ROUTE: "ETH",
   BITCOIN_ROUTE: "BTC",
   SELECT_ADDRESS_SCREEN: "SelectAddress",
