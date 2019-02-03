@@ -10,6 +10,7 @@ export const WalletSummaryRoute = createMaterialTopTabNavigator (
         BTC: BitcoinRoute
     },
     {
+        initialRouteName: "ETH",
         tabBarOptions: {
             tabStyle: {
                 backgroundColor: "#030066",

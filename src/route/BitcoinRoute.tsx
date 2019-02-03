@@ -1,9 +1,12 @@
 // src/route
 import { createSwitchNavigator } from "react-navigation";
-import { SummaryScreen } from "../container/SummaryScreen";
+import { SummaryScreen } from '../container/SummaryScreen';
 
 export const BitcoinRoute = createSwitchNavigator(
     {
         Summary: SummaryScreen,
+    },
+    {
+        initialRouteName: "Summary"
     }
 );

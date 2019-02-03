@@ -9,6 +9,7 @@ export const WalletRoute = createStackNavigator(
         DetailOrMenu: DetailOrMenuRoute
     },
     {
+        initialRouteName: "WalletSummary",
         headerMode: "none"
     }
 );
