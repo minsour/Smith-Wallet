@@ -2,9 +2,9 @@ import React from "react";
 import { FAB, Provider as PaperProvider  } from "react-native-paper";
 import { NavigationScreenProps, createAppContainer } from "react-navigation";
 import { route } from "../../constants/route";
-import { WalletRoute } from "../../route/WalletRoute";
+import { WalletSummaryRoute } from "../../route/WalletSummaryRoute";
 
-const WalletContainer = createAppContainer(WalletRoute);
+const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
 export class MainScreen extends React.Component<NavigationScreenProps> {
   state = {
@@ -14,7 +14,7 @@ export class MainScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <PaperProvider>
-        <WalletContainer/>
+        <WalletSummaryContainer/>
         <FAB.Group
           open={this.state.open}
           icon={this.state.open ? 'close' : 'add'}

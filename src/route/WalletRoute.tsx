@@ -1,15 +1,15 @@
 // src/route
 import { createStackNavigator } from "react-navigation";
-import { WalletSummaryRoute } from "./WalletSummaryRoute";
 import { DetailOrMenuRoute } from "./DetailOrMenuRoute";
+import { MainScreen } from '../container/MainScreen';
 
 export const WalletRoute = createStackNavigator(
     {
-        WalletSummary: WalletSummaryRoute,
+        Main: MainScreen,
         DetailOrMenu: DetailOrMenuRoute
     },
     {
-        initialRouteName: "WalletSummary",
+        initialRouteName: "Main",
         headerMode: "none"
     }
 );
