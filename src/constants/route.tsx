@@ -13,7 +13,7 @@ export const route = {
   SUMMARY_TX_ROUTE: "SummaryTx",
   TOKEN_DETAIL_SCREEN: "TokenDetail",
   DETAIL_TX_ROUTE: "DetailTx",
-  ADD_TOKEN_SCREEN: "AddToken",
+  ADD_SOMETHING_SCREEN: "AddSomething",
   ADDRESS_LIST_SCREEN: "AddressList",
   MANAGING_SCREEN: "Managing",
   MANAGE_WALLET_ROUTE: "ManageWallet",
