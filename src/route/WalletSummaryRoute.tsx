@@ -1,5 +1,5 @@
 // src/route
-import { createMaterialTopTabNavigator } from "react-navigation";
+import { createMaterialTopTabNavigator, NavigationActions } from "react-navigation";
 import { EthereumRoute } from "./EthereumRoute";
 import { BitcoinRoute } from "./BitcoinRoute";
 import { Dimensions } from 'react-native';
@@ -13,7 +13,7 @@ export const WalletSummaryRoute = createMaterialTopTabNavigator (
         initialRouteName: "ETH",
         tabBarOptions: {
             tabStyle: {
-                backgroundColor: "#030066",
+                backgroundColor: "#1E2D5F",
                 width: 60,
                 height: 30,
                 marginLeft: 5,
@@ -29,12 +29,11 @@ export const WalletSummaryRoute = createMaterialTopTabNavigator (
             },
             style:{
               width: Dimensions.get("window").width,
-              height: 60,
-              backgroundColor: "#fff",
+              height: 80,
+              backgroundColor: "#F8F9FF",
               elevation: 0,
-              //margin: 20
-              marginTop: 20,
-              marginLeft: 20
+              paddingTop: 20,
+              paddingLeft: 20
             }
         }
     }

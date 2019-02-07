@@ -4,14 +4,13 @@ import { route } from "../../constants/route";
 import { Button } from "react-native-paper";
 import { NavigationScreenProps } from "react-navigation";
 import { styles } from "./Styles";
-import { Layout } from '../../layout/Layout';
 
 const logoPath = require("../../../assets/logo.png");
 
 export class InitialScreen extends React.Component<NavigationScreenProps> {
   render() {
     return (
-      <Layout header={false}>
+      <View style={styles.logo}>
         <View style={styles.logo}>
           <Image
             source={logoPath}
@@ -33,7 +32,7 @@ export class InitialScreen extends React.Component<NavigationScreenProps> {
             니모닉 가져오기
           </Button>
         </View>
-      </Layout>
+      </View>
     );
   }
 

@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   userHeader: {
     flex: 3,
     flexDirection: "row",
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f9ff",
     alignItems: "center",
     justifyContent: "center",
     width: Dimensions.get("window").width
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
   userBody: {
     flex: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f9ff",
     alignItems: "center",
     justifyContent: "center",
     width: Dimensions.get("window").width

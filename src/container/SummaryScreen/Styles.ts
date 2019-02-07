@@ -26,7 +26,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: Dimensions.get("window").width,
     borderBottomWidth: 1,
-    borderColor: "#858585"
+    borderColor: "#858585",
+    paddingLeft: 12
   },
   listBody: {
     flex: 20,
@@ -53,7 +54,7 @@ export const styles = StyleSheet.create({
     color: "#4c4c4c"
   },
   summaryFont: {
-    fontSize: 22,
+    fontSize: 20,
     marginBottom: 14
   },
   balance: {
@@ -61,7 +62,7 @@ export const styles = StyleSheet.create({
     marginBottom: 12
   },
   balanceFont: {
-    fontSize: 28,
+    fontSize: 26,
     marginRight: 2
   },
   krwFont: {
