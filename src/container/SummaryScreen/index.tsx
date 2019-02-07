@@ -20,8 +20,8 @@ interface SummaryScreenProps {
 export class SummaryScreen extends React.Component<SummaryScreenProps> {
   @observable token = true;
 
-  @action renderToken = () => { this.token = true }
-  @action renderEOA = () => { this.token = false }
+  @action private renderToken = () => { this.token = true }
+  @action private renderEOA = () => { this.token = false }
 
   render() {
     return (
