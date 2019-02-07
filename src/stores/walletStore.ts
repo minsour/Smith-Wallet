@@ -27,7 +27,7 @@ export class WalletStore {
     }
 
     @action public setWallet = ( newWallet: any ) => {
-        this.wallet = newWallet;
+        this.wallet.ethersWallet = newWallet;
     }
     @action public setMnemonic = ( newMnemonic: string) => {
         this.wallet.Mnemonic = newMnemonic;
@@ -45,7 +45,7 @@ export class WalletStore {
     }
 
     @computed public get getWallet(): any {
-        return this.wallet;
+        return this.wallet.ethersWallet;
     }
     @computed public get getMnemonic(): string {
         return this.wallet.Mnemonic;
