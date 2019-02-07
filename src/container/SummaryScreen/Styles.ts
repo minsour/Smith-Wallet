@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { BG_COLOR } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   summary: {
     flex: 2,
-    backgroundColor: "#f8f9ff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
     width: Dimensions.get("window").width,
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
   listTab: {
     flex: 3,
     flexDirection: "row",
-    backgroundColor: "#f8f9ff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
     width: Dimensions.get("window").width,
     borderBottomWidth: 1,
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
   },
   listBody: {
     flex: 20,
-    backgroundColor: "#f8f9ff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
     width: Dimensions.get("window").width

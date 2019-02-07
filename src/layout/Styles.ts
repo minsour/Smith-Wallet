@@ -1,9 +1,10 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { BG_COLOR } from "../constants/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f9ff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
     width: Dimensions.get("window").width,
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
   },
   userBody: {
     flex: 20,
-    backgroundColor: "#f8f9ff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
     width: Dimensions.get("window").width

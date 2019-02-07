@@ -3,6 +3,7 @@ import { createMaterialTopTabNavigator } from "react-navigation";
 import { Dimensions } from 'react-native';
 import { AddTokenScreen } from '../container/AddTokenScreen';
 import { AddEOAScreen } from '../container/AddEOAScreen';
+import { BG_COLOR } from "../constants/colors";
 
 export const AddSomethingRoute = createMaterialTopTabNavigator (
     {
@@ -24,7 +25,7 @@ export const AddSomethingRoute = createMaterialTopTabNavigator (
             style:{
               width: Dimensions.get("window").width,
               height: 50,
-              backgroundColor: "#fff",
+              backgroundColor: BG_COLOR,
               marginTop: -20
             }
         }
