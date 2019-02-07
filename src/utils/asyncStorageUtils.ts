@@ -27,7 +27,7 @@ export class AsyncStorageUtils {
       return Mnemonic;
     } catch (error) {
       console.error (
-        "Error occurs during loading data in @MyStore:Key :::" + error
+        "Error occurs during loading data in @MyStore:key :::" + error
       );
     }
     return "";
