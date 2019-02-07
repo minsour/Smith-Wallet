@@ -6,6 +6,7 @@ import { WalletSummaryRoute } from "../../route/WalletSummaryRoute";
 import { inject, observer } from 'mobx-react';
 import { WalletStore } from '../../stores/walletStore';
 import { Loading } from '../../layout/Loading';
+import { styles } from './Styles';
 
 const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
@@ -27,23 +28,20 @@ export class MainScreen extends React.Component<MainScreenProps> {
       return <Loading>지갑 로딩중</Loading>
     }
     return (
-        <PaperProvider>
-          <WalletSummaryContainer/>
-          <FAB.Group
-            // node_modules/react-native-paper/src/components/FAB/FABGroup.js
-            // 에서 282번째 줄 small 삭제하고, 하단의 스타일시트에서
-            // fab의 marginHorizontal: 24, marginBottom: 24, backgroundColor: "#fff"
-            // label의 height: 35, elevation: 7
-            open={this.state.open}
-            icon={this.state.open ? 'close' : 'add'}
-            actions={[
-                { icon: 'settings', label: '설정', onPress: this.navigateToManageApp },
-                { icon: 'people', label: '친구', onPress: this.navigateToAddressList },
-                { icon: 'playlist-add', label: '추가', onPress: this.navigateToAddSomething },
-            ]}
-            onStateChange={({ open }) => this.setState({ open })}
-          />
-        </PaperProvider> 
+      <PaperProvider>
+        <WalletSummaryContainer/>
+        <FAB.Group
+          open={this.state.open}
+          icon={this.state.open ? 'close' : 'add'}
+          actions={[
+            { style: styles.actionsStyle, icon: 'settings', label: '설정', onPress: this.navigateToManageApp },
+            { style: styles.actionsStyle, icon: 'people', label: '친구', onPress: this.navigateToAddressList },
+            { style: styles.actionsStyle, icon: 'playlist-add', label: '추가', onPress: this.navigateToAddSomething },
+          ]}
+          onStateChange={({ open }) => this.setState({ open })}
+          fabStyle={styles.fabStyle}
+        />
+      </PaperProvider> 
     );
   }
 
