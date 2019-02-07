@@ -14,37 +14,37 @@ export class WalletStore {
     @observable selectedAccount: Account = { address: "", balance: 0 };
     @observable totalBalance: number = 0;
 
-    @action setWallet = ( newWallet: any ) => {
+    @action public setWallet = ( newWallet: any ) => {
         this.wallet = newWallet;
     }
-    @action setMnemonic = ( newMnemonic: string) => {
+    @action public setMnemonic = ( newMnemonic: string) => {
         this.Mnemonic = newMnemonic;
     }
-    @action createAccount = ( newAccount: Account ) => {
+    @action public createAccount = ( newAccount: Account ) => {
         this.accounts[this.accountsCount].index = this.accountsCount;
         this.accounts[this.accountsCount++] = newAccount;
         this.totalBalance += newAccount.balance;
     }
-    @action setAccount = ( index: number ) => {
+    @action public setAccount = ( index: number ) => {
         if(this.selectedAccount.index === index) {
             // err: 이미 되어있습니다.
         }
         this.selectedAccount = this.accounts[index];
     }
 
-    @computed get getWallet(): any {
+    @computed public get getWallet(): any {
         return this.wallet;
     }
-    @computed get getMnemonic(): string {
+    @computed public get getMnemonic(): string {
         return this.Mnemonic;
     }
-    @computed get getBalance(): number {
+    @computed public get getBalance(): number {
         return this.selectedAccount.balance;
     }
-    @computed get getAddress(): string {
+    @computed public get getAddress(): string {
         return this.selectedAccount.address;
     }
-    @computed get getTotalBalance(): number {
+    @computed public get getTotalBalance(): number {
         return this.totalBalance;
     }
 }
