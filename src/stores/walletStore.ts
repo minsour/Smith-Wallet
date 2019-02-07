@@ -1,17 +1,17 @@
 import { observable, action, computed } from 'mobx';
 
-class account {
-    @observable address: string = "";
-    @observable balance: number = 0;
-    @observable index?: number = 0;
+interface Account {
+    address: string;
+    balance: number;
+    index?: number;
 }
 
 export class WalletStore {
     @observable wallet: any;
     @observable Mnemonic: string = "";
-    @observable accounts: account[] = [];
+    @observable accounts: Account[] = [];
     @observable accountsCount: number = 0;
-    @observable selectedAccount: account = { address: "", balance: 0 };
+    @observable selectedAccount: Account = { address: "", balance: 0 };
     @observable totalBalance: number = 0;
 
     @action setWallet = ( newWallet: any ) => {
@@ -20,7 +20,7 @@ export class WalletStore {
     @action setMnemonic = ( newMnemonic: string) => {
         this.Mnemonic = newMnemonic;
     }
-    @action createAccount = ( newAccount: account ) => {
+    @action createAccount = ( newAccount: Account ) => {
         this.accounts[this.accountsCount].index = this.accountsCount;
         this.accounts[this.accountsCount++] = newAccount;
         this.totalBalance += newAccount.balance;
