@@ -1,19 +1,15 @@
 // src/route
-import { createMaterialTopTabNavigator } from "react-navigation";
-import { EthereumRoute } from "./EthereumRoute";
-import { BitcoinRoute } from "./BitcoinRoute";
+import { createStackNavigator } from "react-navigation";
+import { DetailOrMenuRoute } from "./DetailOrMenuRoute";
+import { MainScreen } from '../container/MainScreen';
 
-export const WalletRoute = createMaterialTopTabNavigator (
+export const WalletRoute = createStackNavigator(
     {
-        Ethereum: EthereumRoute,
-        Bitcoin: BitcoinRoute
+        Main: MainScreen,
+        DetailOrMenu: DetailOrMenuRoute
     },
     {
-        tabBarOptions: {
-            //showLabel: false,
-            style:{
-              height:0
-            }
-        }
+        initialRouteName: "Main",
+        headerMode: "none"
     }
 );

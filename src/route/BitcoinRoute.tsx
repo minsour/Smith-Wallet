@@ -1,14 +1,12 @@
 // src/route
-import { createStackNavigator } from "react-navigation";
-import { WalletSummaryRoute } from "./WalletSummaryRoute";
-import { DetailOrMenuRoute } from "./DetailOrMenuRoute";
+import { createSwitchNavigator } from "react-navigation";
+import { SummaryScreen } from '../container/SummaryScreen';
 
-export const BitcoinRoute = createStackNavigator(
+export const BitcoinRoute = createSwitchNavigator(
     {
-        WalletSummary: WalletSummaryRoute,
-        DetailOrMenu: DetailOrMenuRoute
+        Summary: SummaryScreen,
     },
     {
-        headerMode: "none"
+        initialRouteName: "Summary"
     }
 );

@@ -20,4 +20,16 @@ export class AsyncStorageUtils {
       );
     }
   };
+
+  static loadMnemonic = async () => {
+    try {
+      const Mnemonic = await AsyncStorage.getItem("@MyStore:key");
+      return Mnemonic;
+    } catch (error) {
+      console.error (
+        "Error occurs during loading data in @MyStore:key :::" + error
+      );
+    }
+    return "";
+  };
 }

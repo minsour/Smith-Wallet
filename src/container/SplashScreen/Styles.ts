@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
     resizeMode: "cover",
     width: "100%",
     height: "100%",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#f8f9ff"
   }
 });

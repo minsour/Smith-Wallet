@@ -44,6 +44,6 @@ export class EnterMnemonicScreen extends React.Component<
   };
 
   private navigateToNextPage = () => {
-    this.props.navigation.navigate(route.SUMMARY_SCREEN);
+    this.props.navigation.navigate(route.MAIN_SCREEN);
   };
 }

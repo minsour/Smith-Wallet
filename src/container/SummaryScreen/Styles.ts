@@ -1,4 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
+import { BG_COLOR } from "../../constants/colors";
+import { DIMENSIONS_WIDTH } from '../../constants/dementions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,33 +9,71 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  leftbutton: {
-    width:25,
-    height:27,
-    backgroundColor:"#030066",
+  summary: {
+    flex: 2,
+    backgroundColor: BG_COLOR,
+    alignItems: "center",
     justifyContent: "center",
-    margin: 15
+    width: DIMENSIONS_WIDTH,
+    paddingTop: 10
   },
-  rightbutton: {
-    width:25,
-    height:27,
-    backgroundColor:"#030066",
-    justifyContent: "center",
-    margin: 0
+  list: {
+    flex: 7,
+    width: DIMENSIONS_WIDTH
   },
-  summaryHeader: {
+  listTab: {
     flex: 3,
     flexDirection: "row",
-    backgroundColor: "#fff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
-    //justifyContent: "center",
-    width: Dimensions.get("window").width
+    width: DIMENSIONS_WIDTH,
+    borderBottomWidth: 1,
+    borderColor: "#858585",
+    paddingLeft: 12
   },
-  summaryBody: {
+  listBody: {
     flex: 20,
-    backgroundColor: "#fff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
-    width: Dimensions.get("window").width
+    width: DIMENSIONS_WIDTH
+  },
+  tabButton: {
+    marginLeft:10,
+    paddingRight:14,
+    paddingLeft:14,
+    paddingTop:8,
+    paddingBottom:8,
+    marginBottom:-23
+  },
+  selectedFont: {
+    fontSize: 14,
+    fontWeight: "900"
+  },
+  unselectedFont: {
+    fontSize: 13.5,
+    fontWeight: "100",
+    color: "#4c4c4c"
+  },
+  summaryFont: {
+    fontSize: 20,
+    marginBottom: 14
+  },
+  balance: {
+    flexDirection: "row",
+    marginBottom: 12
+  },
+  balanceFont: {
+    fontSize: 26,
+    marginRight: 2
+  },
+  krwFont: {
+    fontSize: 14,
+    alignSelf: "flex-end",
+    marginLeft: 3,
+    marginBottom: 3
+  },
+  addressFont: {
+    fontSize: 13
   }
 });

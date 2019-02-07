@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { BG_COLOR } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,6 +20,6 @@ export const styles = StyleSheet.create({
     width: "90%",
     height: "30%",
     margin: 10,
-    backgroundColor: "#fff"
+    backgroundColor: BG_COLOR
   }
 });

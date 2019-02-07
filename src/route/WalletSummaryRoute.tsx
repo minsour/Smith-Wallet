@@ -1,14 +1,43 @@
 // src/route
-import { createStackNavigator } from "react-navigation";
-import { SummaryScreen } from "../container/SummaryScreen";
-import { ListRoute } from './ListRoute';
+import { createMaterialTopTabNavigator } from "react-navigation";
+import { EthereumRoute } from "./EthereumRoute";
+import { BitcoinRoute } from "./BitcoinRoute";
+import { Dimensions } from 'react-native';
+import { BG_COLOR } from "../constants/colors";
+import { DIMENSIONS_WIDTH } from '../constants/dementions';
 
-export const WalletSummaryRoute = createStackNavigator(
+export const WalletSummaryRoute = createMaterialTopTabNavigator (
     {
-        Summary: SummaryScreen,
-        List: ListRoute
+        ETH: EthereumRoute,
+        BTC: BitcoinRoute
     },
     {
-        headerMode: "none"
+        initialRouteName: "ETH",
+        tabBarOptions: {
+            tabStyle: {
+                backgroundColor: "#1E2D5F",
+                width: 60,
+                height: 30,
+                marginLeft: 5,
+                marginRight: 7,
+                marginTop: 17,
+                borderRadius: 7
+            },
+            labelStyle: {
+                //
+            },
+            indicatorStyle: {
+                height: 0
+            },
+            style:{
+              width: DIMENSIONS_WIDTH,
+              height: 80,
+              backgroundColor: BG_COLOR,
+              elevation: 0,
+              paddingTop: 20,
+              paddingLeft: 20
+            }
+        }
     }
 );
+

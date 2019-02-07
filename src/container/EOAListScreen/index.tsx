@@ -1,11 +1,15 @@
 import React from "react";
 import { Text, Button } from "react-native-paper";
-import { NavigationScreenProps } from "react-navigation";
+import { NavigationScreenProp } from "react-navigation";
 import { styles } from "./Styles";
 import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';
 
-export class EOAListScreen extends React.Component<NavigationScreenProps> {
+interface EOAListScreenProps {
+    navigation: NavigationScreenProp<any,any>
+}
+
+export class EOAListScreen extends React.Component<EOAListScreenProps> {
   render() {
     return (
       <Layout header={false}>
