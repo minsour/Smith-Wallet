@@ -1,5 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { BG_COLOR } from "../../constants/colors";
+import { DIMENSIONS_WIDTH } from '../../constants/dementions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,19 +14,19 @@ export const styles = StyleSheet.create({
     backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
-    width: Dimensions.get("window").width,
+    width: DIMENSIONS_WIDTH,
     paddingTop: 10
   },
   list: {
     flex: 7,
-    width: Dimensions.get("window").width
+    width: DIMENSIONS_WIDTH
   },
   listTab: {
     flex: 3,
     flexDirection: "row",
     backgroundColor: BG_COLOR,
     alignItems: "center",
-    width: Dimensions.get("window").width,
+    width: DIMENSIONS_WIDTH,
     borderBottomWidth: 1,
     borderColor: "#858585",
     paddingLeft: 12
@@ -35,7 +36,7 @@ export const styles = StyleSheet.create({
     backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
-    width: Dimensions.get("window").width
+    width: DIMENSIONS_WIDTH
   },
   tabButton: {
     marginLeft:10,

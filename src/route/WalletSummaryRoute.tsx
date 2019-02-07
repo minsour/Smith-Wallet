@@ -4,6 +4,7 @@ import { EthereumRoute } from "./EthereumRoute";
 import { BitcoinRoute } from "./BitcoinRoute";
 import { Dimensions } from 'react-native';
 import { BG_COLOR } from "../constants/colors";
+import { DIMENSIONS_WIDTH } from '../constants/dementions';
 
 export const WalletSummaryRoute = createMaterialTopTabNavigator (
     {
@@ -29,7 +30,7 @@ export const WalletSummaryRoute = createMaterialTopTabNavigator (
                 height: 0
             },
             style:{
-              width: Dimensions.get("window").width,
+              width: DIMENSIONS_WIDTH,
               height: 80,
               backgroundColor: BG_COLOR,
               elevation: 0,

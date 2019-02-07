@@ -1,5 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { BG_COLOR } from "../../constants/colors";
+import { DIMENSIONS_WIDTH } from '../../constants/dementions';
 
 export const styles = StyleSheet.create({
   userHeader: {
@@ -8,7 +9,7 @@ export const styles = StyleSheet.create({
     backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
-    width: Dimensions.get("window").width
+    width: DIMENSIONS_WIDTH
   },
   userHeaderLeft: {
     flex: 1
@@ -27,7 +28,7 @@ export const styles = StyleSheet.create({
     backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
-    width: Dimensions.get("window").width
+    width: DIMENSIONS_WIDTH
   },
   titleFont: {
     fontSize:18, 
