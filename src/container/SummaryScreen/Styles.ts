@@ -9,7 +9,11 @@ export const styles = StyleSheet.create({
   },
   summary: {
     flex: 2,
-    width: Dimensions.get("window").width
+    backgroundColor: "#f8f9ff",
+    alignItems: "center",
+    justifyContent: "center",
+    width: Dimensions.get("window").width,
+    paddingTop: 10
   },
   list: {
     flex: 7,
@@ -18,15 +22,15 @@ export const styles = StyleSheet.create({
   listTab: {
     flex: 3,
     flexDirection: "row",
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f9ff",
     alignItems: "center",
     width: Dimensions.get("window").width,
     borderBottomWidth: 1,
-    paddingLeft:15
+    borderColor: "#858585"
   },
   listBody: {
     flex: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f9ff",
     alignItems: "center",
     justifyContent: "center",
     width: Dimensions.get("window").width
@@ -47,5 +51,26 @@ export const styles = StyleSheet.create({
     fontSize: 13.5,
     fontWeight: "100",
     color: "#4c4c4c"
+  },
+  summaryFont: {
+    fontSize: 22,
+    marginBottom: 14
+  },
+  balance: {
+    flexDirection: "row",
+    marginBottom: 12
+  },
+  balanceFont: {
+    fontSize: 28,
+    marginRight: 2
+  },
+  krwFont: {
+    fontSize: 14,
+    alignSelf: "flex-end",
+    marginLeft: 3,
+    marginBottom: 3
+  },
+  addressFont: {
+    fontSize: 13
   }
 });

@@ -1,13 +1,22 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { TouchableRipple } from "react-native-paper";
-import { NavigationScreenProps } from "react-navigation";
+import { NavigationScreenProp } from "react-navigation";
 import { Layout } from '../../layout/Layout';
 import { styles } from "./Styles";
 import { TokenListScreen } from '../TokenListScreen';
 import { EOAListScreen } from '../EOAListScreen';
+import { WalletStore } from '../../stores/walletStore';
+import { inject, observer } from "mobx-react";
 
-export class SummaryScreen extends React.Component<NavigationScreenProps> {
+interface SummaryScreenProps {
+  navigation: NavigationScreenProp<any,any>
+  walletStore: WalletStore
+}
+
+@inject("walletStore")
+@observer
+export class SummaryScreen extends React.Component<SummaryScreenProps> {
   state = {
     token: true
   }
@@ -19,7 +28,13 @@ export class SummaryScreen extends React.Component<NavigationScreenProps> {
     return (
       <Layout header={false}>
         <View style={styles.summary}>
-        </View>
+          <Text style={styles.summaryFont}>이더리움</Text>
+          <View style={styles.balance}>
+            <Text style={styles.balanceFont}>789,000</Text>
+            <Text style={styles.krwFont}>KRW</Text>
+          </View>
+          <Text style={styles.addressFont}>{this.props.walletStore.getWallet.address}</Text>
+        </View> 
         <View style={styles.list}>
           <View style={styles.listTab}>
             <TouchableRipple
