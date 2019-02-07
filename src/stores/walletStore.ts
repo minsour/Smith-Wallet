@@ -16,7 +16,8 @@ interface Wallet {
 }
 
 export class WalletStore {
-    @observable wallet: Wallet = {
+    // interface 에는 modifier 가 안 붙여짐. 아래처럼 선언 할 때 붙이면 될 듯.
+    @observable private wallet: Wallet = {
         ethersWallet: {},
         Mnemonic: "",
         accounts: [],
