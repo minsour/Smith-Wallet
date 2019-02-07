@@ -8,6 +8,7 @@ import { TokenListScreen } from '../TokenListScreen';
 import { EOAListScreen } from '../EOAListScreen';
 import { WalletStore } from '../../stores/walletStore';
 import { inject, observer } from "mobx-react";
+import { observable, action } from 'mobx';
 
 interface SummaryScreenProps {
   navigation: NavigationScreenProp<any,any>
@@ -17,12 +18,10 @@ interface SummaryScreenProps {
 @inject("walletStore")
 @observer
 export class SummaryScreen extends React.Component<SummaryScreenProps> {
-  state = {
-    token: true
-  }
+  @observable token = true;
 
-  renderToken = () => this.setState({ token: true })
-  renderEOA = () => this.setState({ token: false })
+  @action renderToken = () => { this.token = true }
+  @action renderEOA = () => { this.token = false }
 
   render() {
     return (
@@ -41,7 +40,7 @@ export class SummaryScreen extends React.Component<SummaryScreenProps> {
               style={styles.tabButton}
               onPress={this.renderToken}
             >
-              <Text style={this.state.token ? styles.selectedFont : styles.unselectedFont}>
+              <Text style={this.token ? styles.selectedFont : styles.unselectedFont}>
               토 큰
               </Text>
             </TouchableRipple>
@@ -49,13 +48,13 @@ export class SummaryScreen extends React.Component<SummaryScreenProps> {
               style={styles.tabButton}
               onPress={this.renderEOA}
             >
-              <Text style={this.state.token ? styles.unselectedFont : styles.selectedFont}>
+              <Text style={this.token ? styles.unselectedFont : styles.selectedFont}>
               계 좌
               </Text>
             </TouchableRipple>
           </View>
           <View style={styles.listBody}>
-            { this.state.token ?
+            { this.token ?
               <TokenListScreen navigation={this.props.navigation} /> :
               <EOAListScreen navigation={this.props.navigation} />
             }
