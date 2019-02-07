@@ -6,45 +6,56 @@ interface Account {
     index?: number;
 }
 
+interface Wallet {
+    ethersWallet: any;
+    Mnemonic: string;
+    accounts: Account[];
+    accountsCount: number;
+    selectedAccount: Account;
+    totalBalance: number;
+}
+
 export class WalletStore {
-    @observable wallet: any;
-    @observable Mnemonic: string = "";
-    @observable accounts: Account[] = [];
-    @observable accountsCount: number = 0;
-    @observable selectedAccount: Account = { address: "", balance: 0 };
-    @observable totalBalance: number = 0;
+    @observable wallet: Wallet = {
+        ethersWallet: {},
+        Mnemonic: "",
+        accounts: [],
+        accountsCount: 0,
+        selectedAccount: { address: "", balance: 0 },
+        totalBalance: 0
+    }
 
     @action public setWallet = ( newWallet: any ) => {
         this.wallet = newWallet;
     }
     @action public setMnemonic = ( newMnemonic: string) => {
-        this.Mnemonic = newMnemonic;
+        this.wallet.Mnemonic = newMnemonic;
     }
     @action public createAccount = ( newAccount: Account ) => {
-        this.accounts[this.accountsCount].index = this.accountsCount;
-        this.accounts[this.accountsCount++] = newAccount;
-        this.totalBalance += newAccount.balance;
+        this.wallet.accounts[this.wallet.accountsCount].index = this.wallet.accountsCount;
+        this.wallet.accounts[this.wallet.accountsCount++] = newAccount;
+        this.wallet.totalBalance += newAccount.balance;
     }
     @action public setAccount = ( index: number ) => {
-        if(this.selectedAccount.index === index) {
+        if(this.wallet.selectedAccount.index === index) {
             // err: 이미 되어있습니다.
         }
-        this.selectedAccount = this.accounts[index];
+        this.wallet.selectedAccount = this.wallet.accounts[index];
     }
 
     @computed public get getWallet(): any {
         return this.wallet;
     }
     @computed public get getMnemonic(): string {
-        return this.Mnemonic;
+        return this.wallet.Mnemonic;
     }
     @computed public get getBalance(): number {
-        return this.selectedAccount.balance;
+        return this.wallet.selectedAccount.balance;
     }
     @computed public get getAddress(): string {
-        return this.selectedAccount.address;
+        return this.wallet.selectedAccount.address;
     }
     @computed public get getTotalBalance(): number {
-        return this.totalBalance;
+        return this.wallet.totalBalance;
     }
 }
