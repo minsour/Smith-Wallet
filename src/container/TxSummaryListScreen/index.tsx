@@ -1,13 +1,11 @@
 import React from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { Text } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { Layout } from '../../layout/Layout';
 import { List } from 'react-native-paper';
 import { WalletStore } from '../../stores/walletStore';
 import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
 import { inject, observer } from 'mobx-react';
-
-const ethers = require('ethers');
 
 interface TxSummaryListScreenProps {
   navigation: NavigationScreenProp<any, any>;
