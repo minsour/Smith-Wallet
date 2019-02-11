@@ -23,10 +23,10 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     return (
       <Layout header={false}>
         <View style={styles.summary}>
-          <Text style={styles.summaryFont}>룸네트워크</Text>
-          <Text style={styles.summaryFont}>2,500 LOOM</Text>
+          <Text style={styles.summaryFont}>이더리움</Text>
+          <Text style={styles.summaryFont}>2,500 ETH</Text>
           <View style={styles.balance}>
-            <Text style={styles.balanceFont}>165,000</Text>
+            <Text style={styles.balanceFont}>165,000,000</Text>
             <Text style={styles.krwFont}>KRW</Text>
           </View>
           <Text style={styles.addressFont}>
