@@ -5,7 +5,7 @@ import { DIMENSIONS_WIDTH } from '../../constants/dementions';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -75,5 +75,15 @@ export const styles = StyleSheet.create({
   },
   addressFont: {
     fontSize: 13,
+  },
+  bottomButton: {
+    backgroundColor: '#030066',
+    margin: 15,
+    display: 'flex',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

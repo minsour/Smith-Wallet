@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text, Provider } from 'react-native-paper';
+import { Text, Provider, Button } from 'react-native-paper';
 import { NavigationScreenProp, createAppContainer } from 'react-navigation';
 import { styles } from './Styles';
 import { route } from '../../constants/route';
@@ -36,17 +36,37 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
         <Provider>
           <TxSummaryListContainer />
         </Provider>
+        <View style={styles.container}>
+          <View style={styles.buttonContainer}>
+            <Button
+              style={styles.bottomButton}
+              mode="contained"
+              onPress={this.navigateToDetailTx} // 테스트용
+            >
+              Receive
+            </Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              style={styles.bottomButton}
+              mode="contained"
+              onPress={this.navigateToSend} // 테스트용
+            >
+              Send
+            </Button>
+          </View>
+        </View>
       </Layout>
     );
   }
 
-  // private navigateToDetailTx = () => {
-  //   this.props.navigation.navigate(route.DETAIL_TX_ROUTE);
-  // };
+  private navigateToDetailTx = () => {
+    this.props.navigation.navigate(route.DETAIL_TX_ROUTE);
+  };
 
-  // private navigateToSend = () => {
-  //   this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
-  //     destination: route.SELECT_ADDRESS_SCREEN,
-  //   });
-  // };
+  private navigateToSend = () => {
+    this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
+      destination: route.SELECT_ADDRESS_SCREEN,
+    });
+  };
 }
