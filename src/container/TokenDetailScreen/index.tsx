@@ -16,6 +16,14 @@ interface TokenDetailScreenProps {
   walletStore: WalletStore;
 }
 
+const tokenData = {
+  name: '이더리움',
+  symbol: 'ETH',
+  balance: '2,500',
+  symbolKor: 'KRW',
+  balanceKor: '165,000,000',
+};
+
 @inject('walletStore')
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
@@ -23,11 +31,13 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     return (
       <Layout header={false}>
         <View style={styles.summary}>
-          <Text style={styles.summaryFont}>이더리움</Text>
-          <Text style={styles.summaryFont}>2,500 ETH</Text>
+          <Text style={styles.summaryFont}>{tokenData.name}</Text>
+          <Text style={styles.summaryFont}>
+            {tokenData.balance} {tokenData.symbol}
+          </Text>
           <View style={styles.balance}>
-            <Text style={styles.balanceFont}>165,000,000</Text>
-            <Text style={styles.krwFont}>KRW</Text>
+            <Text style={styles.balanceFont}>{tokenData.balanceKor}</Text>
+            <Text style={styles.krwFont}>{tokenData.symbolKor}</Text>
           </View>
           <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
             {this.props.walletStore.getWallet.address}
@@ -61,7 +71,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   }
 
   private navigateToDetailTx = () => {
-    this.props.navigation.navigate(route.DETAIL_TX_ROUTE);
+    this.props.navigation.navigate(route.TOKEN_RECEIVE_SCREEN);
   };
 
   private navigateToSend = () => {
