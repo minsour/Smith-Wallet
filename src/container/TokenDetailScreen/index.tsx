@@ -29,7 +29,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
             <Text style={styles.balanceFont}>165,000,000</Text>
             <Text style={styles.krwFont}>KRW</Text>
           </View>
-          <Text style={styles.addressFont}>
+          <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
             {this.props.walletStore.getWallet.address}
           </Text>
         </View>
