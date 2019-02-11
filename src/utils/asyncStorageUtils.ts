@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
-const ethers = require('ethers');
+import { etherscanProvider } from '../api/ethers';
+// const ethers = require('ethers');
 
 export class AsyncStorageUtils {
   static storeMnemonic = async (newMnemonic: string) => {
@@ -36,7 +37,6 @@ export class AsyncStorageUtils {
 
   static getTxHistoryByAddress = async (address: string) => {
     try {
-      const etherscanProvider = new ethers.providers.EtherscanProvider();
       await etherscanProvider
         .getHistory(address)
         .then(function(history: string) {
