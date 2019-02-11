@@ -10,11 +10,7 @@ export class TxSummaryListHeaderScreen extends React.Component<
 > {
   render() {
     return (
-      <Layout
-        header={true}
-        headerTitle="TxSummaryListHeaderScreen"
-        headerNavigation={this.props.navigation}
-      >
+      <Layout header={false} headerNavigation={this.props.navigation}>
         <TxSummaryListContainer />
       </Layout>
     );

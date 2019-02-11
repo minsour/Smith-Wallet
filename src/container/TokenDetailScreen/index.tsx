@@ -24,7 +24,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
       <Layout header={false}>
         <View style={styles.summary}>
           <Text style={styles.summaryFont}>룸네트워크</Text>
-          <Text style={styles.summaryFont}>2,500LOOM</Text>
+          <Text style={styles.summaryFont}>2,500 LOOM</Text>
           <View style={styles.balance}>
             <Text style={styles.balanceFont}>165,000</Text>
             <Text style={styles.krwFont}>KRW</Text>
