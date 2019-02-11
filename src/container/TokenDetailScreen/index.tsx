@@ -6,25 +6,32 @@ import { styles } from './Styles';
 import { route } from '../../constants/route';
 import { Layout } from '../../layout/Layout';
 import { TxSummaryListHeader } from '../../route/TxSummaryListHeader';
+import { WalletStore } from '../../stores/walletStore';
+import { inject, observer } from 'mobx-react';
 
 const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
 
 interface TokenDetailScreenProps {
   navigation: NavigationScreenProp<any, any>;
+  walletStore: WalletStore;
 }
 
+@inject('walletStore')
+@observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   render() {
     return (
       <Layout header={false}>
         <View style={styles.summary}>
-          <Text style={styles.summaryFont}>이더리움</Text>
+          <Text style={styles.summaryFont}>룸네트워크</Text>
+          <Text style={styles.summaryFont}>2,500LOOM</Text>
           <View style={styles.balance}>
-            <Text style={styles.balanceFont}>789,000</Text>
+            <Text style={styles.balanceFont}>165,000</Text>
             <Text style={styles.krwFont}>KRW</Text>
           </View>
-          {/* <Text style={styles.addressFont}>{this.props.walletStore.getWallet.address}</Text> */}
-          <Text style={styles.addressFont}>address...</Text>
+          <Text style={styles.addressFont}>
+            {this.props.walletStore.getWallet.address}
+          </Text>
         </View>
         <Provider>
           <TxSummaryListContainer />

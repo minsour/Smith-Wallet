@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   summary: {
-    flex: 2,
+    flex: 1,
     backgroundColor: BG_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
