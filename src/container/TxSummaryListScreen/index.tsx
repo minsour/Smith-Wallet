@@ -4,6 +4,8 @@ import { NavigationScreenProp } from 'react-navigation';
 import { Layout } from '../../layout/Layout';
 import { List } from 'react-native-paper';
 import { WalletStore } from '../../stores/walletStore';
+import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
+import { inject, observer } from 'mobx-react';
 
 const ethers = require('ethers');
 
@@ -12,17 +14,17 @@ interface TxSummaryListScreenProps {
   walletStore: WalletStore;
 }
 
+@inject('walletStore')
+@observer
 export class TxSummaryListScreen extends React.Component<
   TxSummaryListScreenProps
 > {
+  componentDidMount() {
+    AsyncStorageUtils.getTxHistoryByAddress(
+      '0xc858df16fb030c529c8b43469c42f354f98a8d57', //for sample data
+    );
+  }
   render() {
-    // console.log(this.props.walletStore.getAddress);
-    let etherscanProvider = new ethers.providers.EtherscanProvider();
-    let address = '0xc858df16fb030c529c8b43469c42f354f98a8d57';
-    etherscanProvider.getHistory(address).then(function(history: string) {
-      console.log(history);
-    });
-
     return (
       <Layout header={false}>
         <List.Section width="100%">
