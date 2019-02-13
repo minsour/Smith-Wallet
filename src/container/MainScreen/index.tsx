@@ -15,7 +15,7 @@ interface MainScreenProps {
   walletStore: WalletStore
 }
 
-@inject("walletStore")
+@inject('walletStore')
 @observer
 export class MainScreen extends React.Component<MainScreenProps> {
   state = {
@@ -24,8 +24,8 @@ export class MainScreen extends React.Component<MainScreenProps> {
 
   render() {
     const { walletStore } = this.props;
-    if(!walletStore.getWallet) {
-      return <Loading>지갑 로딩중</Loading>
+    if(walletStore.getWallet === "") {
+     return <Loading>지갑 로딩중</Loading>
     }
     return (
       <PaperProvider>
@@ -41,7 +41,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
           onStateChange={({ open }) => this.setState({ open })}
           fabStyle={styles.fabStyle}
         />
-      </PaperProvider> 
+      </PaperProvider>
     );
   }
 
@@ -54,6 +54,6 @@ export class MainScreen extends React.Component<MainScreenProps> {
   };
 
   private navigateToManageApp = () => {
-    this.props.navigation.navigate(route.MANAGING_SCREEN);
+    this.props.navigation.navigate(route.TOKEN_DETAIL_SCREEN);
   };
 }
