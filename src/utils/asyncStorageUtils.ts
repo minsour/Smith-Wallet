@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { etherscanProvider } from '../api/ethers';
+import { etherscanProvider } from '../apis/ethers';
 // const ethers = require('ethers');
 
 export class AsyncStorageUtils {
