@@ -18,7 +18,7 @@ export class CreatePinCodeScreen extends React.Component<
           subtitleChoose="지갑 비밀번호를 생성해 주세요."
           // node_modules/@haskkor/react-native-pincode/dist/index.js
           // 에서 암호 다시 입력하는(2번째) 스크린의 문구 
-          // "지갑 비밀번호를 생성해 주세요." 로 수정
+          // "다시 입력해 주세요." 로 수정
           storePin={AsyncStorageUtils.storePin}
         />
       </Layout>
