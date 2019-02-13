@@ -3,16 +3,16 @@ import { createAppContainer } from "react-navigation"; // Version can be specifi
 import { RootRoute } from "./src/route/index";
 import { Provider as PaperProvider } from "react-native-paper";
 import { Provider } from "mobx-react";
-import { WalletStore } from './src/stores/walletStore';
+import { RootStore } from './src/stores';
 
 const AppContainer = createAppContainer(RootRoute);
-const walletStore = new WalletStore();
+const rootStore = new RootStore()
 
 export default class App extends React.Component {
   render() {
     return (
       <PaperProvider>
-        <Provider walletStore={walletStore}>
+        <Provider rootStore={rootStore} >
         <AppContainer />
         </Provider>
       </PaperProvider>
