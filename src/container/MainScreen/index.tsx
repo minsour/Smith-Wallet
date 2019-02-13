@@ -4,18 +4,18 @@ import { NavigationScreenProp, createAppContainer } from "react-navigation";
 import { route } from "../../constants/route";
 import { WalletSummaryRoute } from "../../route/WalletSummaryRoute";
 import { inject, observer } from 'mobx-react';
-import { WalletStore } from '../../stores/walletStore';
 import { Loading } from '../../layout/Loading';
 import { styles } from './Styles';
+import { RootStore } from '../../stores';
 
 const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
 interface MainScreenProps {
   navigation: NavigationScreenProp<any,any>
-  walletStore: WalletStore
+  rootStore: RootStore
 }
 
-@inject('walletStore')
+@inject('rootStore')
 @observer
 export class MainScreen extends React.Component<MainScreenProps> {
   state = {
@@ -23,7 +23,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
   }
 
   render() {
-    const { walletStore } = this.props;
+    const { walletStore } = this.props.rootStore;
     if(walletStore.getWallet === "") {
      return <Loading>지갑 로딩중</Loading>
     }
