@@ -46,7 +46,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
         />
         {modalStore.visible &&
           <ModalLayout visibleKey={modal.addModal}>
-            <AddSomethingScreen />
+            <AddSomethingScreen navigation={this.props.navigation}/>
           </ModalLayout>
         }
       </PaperProvider>
