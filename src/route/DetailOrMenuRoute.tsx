@@ -3,12 +3,12 @@ import { TxRoute } from './TxRoute';
 import { DetailRoute } from './DetailRoute';
 import { AddressListScreen } from '../container/AddressListScreen';
 import { ManageAppRoute } from './ManageAppRoute';
-import { AddSomethingScreen } from '../container/AddSomethingScreen';
+import { AddSomethingRoute } from './AddSomethingRoute';
 
 export const DetailOrMenuRoute = createSwitchNavigator ({
     SummaryTx: TxRoute,
     Detail: DetailRoute,
-    AddSomething: AddSomethingScreen,
+    AddSomething: AddSomethingRoute,
     AddressList: AddressListScreen,
     ManageApp: ManageAppRoute
   }
