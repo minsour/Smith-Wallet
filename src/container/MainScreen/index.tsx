@@ -7,6 +7,9 @@ import { inject, observer } from 'mobx-react';
 import { Loading } from '../../layout/Loading';
 import { styles } from './Styles';
 import { RootStore } from '../../stores';
+import { ModalLayout } from '../../layout/ModalLayout';
+import { modal } from '../../constants/modal'
+import { AddSomethingScreen } from '../AddSomethingScreen';
 
 const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
@@ -23,7 +26,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
   }
 
   render() {
-    const { walletStore } = this.props.rootStore;
+    const { walletStore, modalStore } = this.props.rootStore;
     if(walletStore.getWallet === "") {
      return <Loading>지갑 로딩중</Loading>
     }
@@ -36,17 +39,23 @@ export class MainScreen extends React.Component<MainScreenProps> {
           actions={[
             { style: styles.actionsStyle, icon: 'settings', label: '설정', onPress: this.navigateToManageApp },
             { style: styles.actionsStyle, icon: 'people', label: '친구', onPress: this.navigateToAddressList },
-            { style: styles.actionsStyle, icon: 'playlist-add', label: '추가', onPress: this.navigateToAddSomething },
+            { style: styles.actionsStyle, icon: 'playlist-add', label: '추가', onPress: this.showAddModal },
           ]}
           onStateChange={({ open }) => this.setState({ open })}
           fabStyle={styles.fabStyle}
         />
+        {modalStore.visible &&
+          <ModalLayout visibleKey={modal.addModal}>
+            <AddSomethingScreen />
+          </ModalLayout>
+        }
       </PaperProvider>
     );
   }
 
-  private navigateToAddSomething = () => {
-    this.props.navigation.navigate(route.ADD_SOMETHING_SCREEN);
+  private showAddModal = () => {
+    const { modalStore } = this.props.rootStore
+    modalStore.showModal(modal.addModal)
   };
 
   private navigateToAddressList = () => {
