@@ -18,9 +18,11 @@ export class TxSummaryListScreen extends React.Component<
   TxSummaryListScreenProps
 > {
   componentDidMount() {
-    AsyncStorageUtils.getTxHistoryByAddress(
-      '0xc858df16fb030c529c8b43469c42f354f98a8d57', //for sample data
-    );
+    // AsyncStorageUtils.getERC20Infos(
+    //   '0xc858df16fb030c529c8b43469c42f354f98a8d57', //for sample data
+    // );
+
+    AsyncStorageUtils.storeErc20Token();
   }
   render() {
     return (
