@@ -4,7 +4,7 @@ import { NavigationScreenProp } from 'react-navigation';
 import { WalletStore } from '../../stores/walletStore';
 import { Layout } from '../../layout/Layout';
 import { inject, observer } from 'mobx-react';
-import QRCode from 'react-native-qrcode';
+// import QRCode from 'react-native-qrcode';
 
 interface TokenReceiveScreenProps {
   navigation: NavigationScreenProp<any, any>;
@@ -23,12 +23,12 @@ export class TokenReceiveScreen extends React.Component<
         headerTitle="입금 주소"
         headerNavigation={this.props.navigation}
       >
-        <QRCode
+        {/* <QRCode
           value={this.props.walletStore.getWallet.address}
           size={200}
           bgColor="black"
           fgColor="white"
-        />
+        /> */}
         <Text>{this.props.walletStore.getWallet.address}</Text>
       </Layout>
     );
