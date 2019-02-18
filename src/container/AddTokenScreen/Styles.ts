@@ -44,5 +44,18 @@ export const styles = StyleSheet.create({
     padding: 3,
     margin: 5,
     borderRadius: 2
+  },
+  addButton: {
+    backgroundColor: "#030066",
+    borderRadius: 0,
+    width: DIMENSIONS_WIDTH,
+    height: 55,
+    marginTop: -27,
+    marginBottom:-1,
+    justifyContent: 'center'
+  },
+  buttonFont: {
+    color: "#fff",
+    fontSize: 16,
   }
 });
