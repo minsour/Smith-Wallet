@@ -1,6 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { getMarketCode } from '../apis/UpitAPI';
 import { getEtherscanTopToken } from '../apis/ERC20API';
+import { modal } from '../constants/modal';
 
 interface Token {
   symbol: string
@@ -18,6 +19,10 @@ interface EtherscanTopToken {
 }
 
 export class TokenStore {
+  private root: any
+  constructor(root: any) {
+    this.root = root
+  }
   // interface 에는 modifier 가 안 붙여짐. 아래처럼 선언 할 때 붙이면 될 
   @observable public upbitTokenList: any[] = []  // Upbit 에서 KRW 시장에 상장된 토큰리스트
   @observable public etherscanTopTokenList: EtherscanTopToken[] = [] // etherscan에서 긁어온 ERC20 리스트
@@ -88,14 +93,26 @@ export class TokenStore {
 
   @action public pickUpToken = (token: Token) => {
     this.willBeAddedTokenList.push(token)
+    if (this.willBeAddedTokenList) {
+      this.root.modalStore.showModal(modal.addToken)
+    }
   }
 
   @action public dropOffToken = (token: Token) => {
     let idx = this.willBeAddedTokenList.indexOf(token)
     this.willBeAddedTokenList.splice(idx, 1)
+    if (this.willBeAddedTokenList.length == 0) {
+      this.root.modalStore.hideModal(modal.addToken)
+    }
   }
 
   @action public initWillBeAddedToken = () => {
     this.willBeAddedTokenList = []
+  }
+
+  @action public selectToken = () => {
+    this.willBeAddedTokenList.forEach(token => {
+      this.selectedTokenList.push(token)
+    })
   }
 }

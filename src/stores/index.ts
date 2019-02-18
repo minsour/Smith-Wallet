@@ -8,7 +8,7 @@ export class RootStore {
   modalStore: ModalStore
     
   constructor() {
-    this.tokenStore = new TokenStore();
+    this.tokenStore = new TokenStore(this);
     this.walletStore = new WalletStore();
     this.modalStore = new ModalStore();
   }

@@ -32,6 +32,8 @@ export class MainScreen extends React.Component<MainScreenProps> {
     }
     return (
       <PaperProvider>
+        {this.props.rootStore.tokenStore.initWillBeAddedToken()}
+        {this.props.rootStore.modalStore.visible[modal.addToken] = false}
         <WalletSummaryContainer/>
         <FAB.Group
           open={this.state.open}
