@@ -23,7 +23,7 @@ export class TokenStore {
   @observable public etherscanTopTokenList: EtherscanTopToken[] = [] // etherscan에서 긁어온 ERC20 리스트
   @observable public ercTokenList: Token[] = []  // upbitTokenList 와 etherscanTopToken 의 교집합
   @observable public willBeAddedTokenList: Token[] = []  // AddTokenScreen에서 사용자가 선택한 토큰들
-  @observable public searchedTokenList: Token[] = []
+  @observable public searchedTokenList: Token[] = []  // 
   @observable public selectedTokenList: Token[] = []  // ercTokenList 중 사용자가 지갑에 추가한 토큰리스트
 
   @action public parseUpbitTokenSymbol = (loadedList: any[]) => {
@@ -84,5 +84,18 @@ export class TokenStore {
       console.log(element)
     })
     console.log(this.ercTokenList.length + "FINISH");
+  }
+
+  @action public pickUpToken = (token: Token) => {
+    this.willBeAddedTokenList.push(token)
+  }
+
+  @action public dropOffToken = (token: Token) => {
+    let idx = this.willBeAddedTokenList.indexOf(token)
+    this.willBeAddedTokenList.splice(idx, 1)
+  }
+
+  @action public initWillBeAddedToken = () => {
+    this.willBeAddedTokenList = []
   }
 }
