@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
     backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
-    width: DIMENSIONS_WIDTH
+    width: DIMENSIONS_WIDTH,
+    paddingTop: 20
   },
   userHeaderLeft: {
     flex: 1
@@ -23,15 +24,7 @@ export const styles = StyleSheet.create({
   userHeaderRight: {
     flex: 1
   },
-  userBody: {
-    flex: 20,
-    backgroundColor: BG_COLOR,
-    alignItems: "center",
-    justifyContent: "center",
-    width: DIMENSIONS_WIDTH
-  },
   titleFont: {
-    fontSize:18, 
-    fontWeight:"bold"
+    fontSize:16
   }
 });

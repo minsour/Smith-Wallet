@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     height: DIMENSIONS_HEIGHT
   },
   userBody: {
-    flex: 20,
+    flex: 28,
     backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center",
@@ -30,5 +30,8 @@ export const styles = StyleSheet.create({
     marginTop: 16,
     color: "#fff",
     fontSize: 16
-  }
+  },modalContainer: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
 });
