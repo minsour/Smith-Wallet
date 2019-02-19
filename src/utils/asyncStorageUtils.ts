@@ -1,9 +1,9 @@
 import { AsyncStorage } from 'react-native';
 import { erc20Abi } from './erc20Abi';
+
 const ethers = require('ethers');
 
 interface Token {
-  //Token
   name: string;
   symbol: string;
   address: string;
@@ -43,75 +43,77 @@ export class AsyncStorageUtils {
     return '';
   };
 
-  static getTxHistoryByAddress = async (address: string) => {
-    try {
-      const etherscanProvider = new ethers.providers.EtherscanProvider();
-      await etherscanProvider
-        .getHistory(address)
-        .then(function(history: string) {
-          console.log(history);
-          //parsing 작업 추가 필요
-        });
-    } catch (error) {
-      console.error(
-        'Error occurs during loading transaction history :::' + error,
-      );
-    }
-  };
+  // static storeErc20TokenForTest = async () => {
+  //   //토큰 정보 가져와지는지 보려고 일단 만들어봄
+  //   let newToken: Token = {
+  //     name: 'Aha Knowledge Token',
+  //     symbol: 'AHT',
+  //     address: '0xCe5559F046d8C01192E15f55063906F8d1c14790',
+  //     totalBalance: 0,
+  //   };
+  //   try {
+  //     await AsyncStorage.setItem('@erc20Tokens', JSON.stringify(newToken));
+  //   } catch (error) {
+  //     console.error('Error occurs during saving token @erc20Tokens');
+  //   }
+  // };
 
-  static storeErc20Token = async () => {
-    //토큰 정보 가져와지는지 보려고 일단 만들어봄
-    const newTokens: Array<Token> = [
-      {
-        name: 'FunkeyCoin',
-        symbol: 'FNK',
-        address: '0x06404399e748CD83F25AB163711F9F4D61cfd0e6',
-        totalBalance: 0,
-      },
-      {
-        name: 'Aha Knowledge Token',
-        symbol: 'AHT',
-        address: '0xCe5559F046d8C01192E15f55063906F8d1c14790',
-        totalBalance: 0,
-      },
-    ];
-    try {
-      //Store Item
-      await AsyncStorage.setItem('@tokens', JSON.stringify(newTokens));
-    } catch (error) {
-      console.error('Error occurs during saving token in @tokens :::' + error);
-    }
-  };
+  // static getErc20Token = async () => {
+  //   try {
+  //     const tokens = await AsyncStorage.getItem('@erc20Tokens');
+  //     console.log('GET ERC20 TOKEN:::' + JSON.stringify(tokens));
+  //   } catch (error) {
+  //     console.error('Error occurs during loading token @erc20Tokens');
+  //   }
+  // };
 
-  static getErc20Token = async () => {
+  static getERC20Infos = async (userAddress: string) => {
     try {
-      const tokens = await AsyncStorage.getItem('@tokens');
-      console.log(JSON.stringify(tokens));
-    } catch (error) {
-      console.error('Error occurs during loading token @tokens');
-    }
-  };
+      const { Contract } = require('ethers');
+      const defaultProvider = new ethers.getDefaultProvider('mainnet');
+      const tokenAddress = '0xCe5559F046d8C01192E15f55063906F8d1c14790'; //AsyncStorage에서 불러와야함
+      const contract = new Contract(tokenAddress, erc20Abi, defaultProvider);
 
-  static getERC20Infos = async (address: string) => {
-    try {
-      // const { Contract } = require('ethers');
-      // //AHA 토큰 address - 테스트 용. 원래는 AsyncStorage를 불러와야함
-      // const defaultProvider = new ethers.getDefaultProvider('mainnet');
-      // const tokenAddress = '0xCe5559F046d8C01192E15f55063906F8d1c14790';
-      // const contract = new Contract(tokenAddress, erc20Abi, defaultProvider);
-      // const erc20Name = await contract.name();
-      // const erc20Symbol = await contract.symbol();
-      // const balance = await contract.balanceOf(address);
-      // console.log(
-      //   erc20Symbol +
-      //     ':::' +
-      //     erc20Name +
-      //     ':::' +
-      //     ethers.utils.formatEther(balance),
-      // );
+      const erc20Name = await contract.name();
+      const erc20Symbol = await contract.symbol();
+      const balance = await contract.balanceOf(userAddress);
+
+      var token: Token = {
+        name: erc20Name,
+        symbol: erc20Symbol,
+        address: tokenAddress,
+        totalBalance: ethers.utils.formatEther(balance),
+      };
+      // tokenStore.setAddress(tokenAddress);
+      // tokenStore.setName(erc20Name);
+      // tokenStore.setSymbol(erc20Symbol);
+      // tokenStore.setTotalBalance(balance);
+
+      // console.log('TokenStore: ' + tokenStore.getToken.name);
+      return JSON.stringify(token);
     } catch (error) {
       console.error(
         'Error occurs during loading balance of erc20 tokens :::' + error,
+      );
+    }
+  };
+  /** 특정 EOA의 모든 거래 내역을 가지고 옴 **/
+  static getTxHistoryByAddress = async (address: string) => {
+    try {
+      const etherscanProvider = new ethers.providers.EtherscanProvider();
+      // etherscanProvider.getHistory(address).then((history: any) => {
+      //   history.forEach((tx: any) => {
+      //     console.log(tx);
+      //   });
+      // });
+
+      etherscanProvider.getHistory(address).then(function(history: string) {
+        console.log(history);
+        //parsing 작업 추가 필요
+      });
+    } catch (error) {
+      console.error(
+        'Error occurs during loading transaction history :::' + error,
       );
     }
   };
