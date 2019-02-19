@@ -11,7 +11,7 @@ import { modal } from '../../constants/modal';
 
 interface AddSomethingScreenProps {
   navigation: NavigationScreenProp<any, any>
-  rootStore: RootStore
+  rootStore?: RootStore
 }
 
 @inject('rootStore')
@@ -35,12 +35,12 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
   }
 
   private navigateToAddToken = () => {
-    const { modalStore } = this.props.rootStore
+    const { modalStore } = this.props.rootStore!
     modalStore.hideModal(modal.addModal)
     this.props.navigation.navigate(route.ADD_TOKEN)
   }
   private navigateToAddEOA = () => {
-    const { modalStore } = this.props.rootStore
+    const { modalStore } = this.props.rootStore!
     modalStore.hideModal(modal.addModal)
     this.props.navigation.navigate(route.ADD_EOA)
   }

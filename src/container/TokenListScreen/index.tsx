@@ -10,14 +10,14 @@ import { Token } from '../../components/Token';
 
 interface TokenListScreenProps {
   navigation: NavigationScreenProp<any, any>
-  rootStore: RootStore
+  rootStore?: RootStore
 }
 
 @inject('rootStore')
 @observer
 export class TokenListScreen extends React.Component<TokenListScreenProps> {
   render() {
-    const { tokenStore } = this.props.rootStore
+    const { tokenStore } = this.props.rootStore!
     let tokenId: number = 0
     return (
       <Layout header={false}>
