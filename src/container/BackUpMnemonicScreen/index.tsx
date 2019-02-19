@@ -9,7 +9,7 @@ import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';
 import 'ethers/dist/shims.js';  // 안드로이드 니모닉 생성 시 발생하는 오류 해결(String.prototype.normalize 사용)
 import { inject } from 'mobx-react';
-import { Loading } from '../../layout/Loading';
+//import { Loading } from '../../layout/Loading';
 import { RootStore } from '../../stores';
 
 const ethers = require("ethers");
@@ -31,10 +31,10 @@ export class BackUpMnemonicScreen extends React.Component<
   }
 
   render() {
-    if(!this.myMnemonic) {
-      // 제대로 작동 안하는 중 !!
-      return <Loading>지갑 생성중</Loading>
-    }
+    // if(!this.myMnemonic) {
+    //   // 제대로 작동 안하는 중 !!
+    //   return <Loading>지갑 생성중</Loading>
+    // }
     return (
       <Layout header={true} headerTitle="Mnemonic 백업">
         <Title>Mnemonic Backup</Title>
