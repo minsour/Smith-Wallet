@@ -21,8 +21,7 @@ interface MainScreenProps {
   modalStore?: ModalStore
 }
 
-@inject(store.walletStore)
-@inject(store.modalStore)
+@inject(store.MODAL_STORE, store.WALLET_STORE)
 @observer
 export class MainScreen extends React.Component<MainScreenProps> {
   state = {

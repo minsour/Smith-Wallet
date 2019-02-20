@@ -19,8 +19,7 @@ interface AddTokenScreenProps {
   navigation: NavigationScreenProp<any,any>
 }
 
-@inject(store.modalStore)
-@inject(store.tokenStore)
+@inject(store.TOKEN_STORE, store.MODAL_STORE)
 @observer
 export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
   render() {

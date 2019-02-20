@@ -27,7 +27,7 @@ interface TokenProps {
   tokenStore?: TokenStore
 }
 
-@inject(store.tokenStore)
+@inject(store.TOKEN_STORE)
 @observer
 export class Token extends React.Component<TokenProps> {
   @observable private isPicked = false
