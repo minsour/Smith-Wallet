@@ -8,14 +8,15 @@ import { TokenListScreen } from '../TokenListScreen';
 import { EOAListScreen } from '../EOAListScreen';
 import { inject, observer } from "mobx-react";
 import { observable, action } from 'mobx';
-import { RootStore } from '../../stores';
+import { WalletStore } from '../../stores/walletStore';
+import { store } from '../../constants/store';
 
 interface SummaryScreenProps {
   navigation: NavigationScreenProp<any,any>
-  rootStore: RootStore
+  walletStore?: WalletStore
 }
 
-@inject("rootStore")
+@inject(store.walletStore)
 @observer
 export class SummaryScreen extends React.Component<SummaryScreenProps> {
   @observable token = true;
@@ -24,7 +25,6 @@ export class SummaryScreen extends React.Component<SummaryScreenProps> {
   @action private renderEOA = () => { this.token = false }
 
   render() {
-    const { walletStore } = this.props.rootStore
     return (
       <Layout header={false}>
         <View style={styles.summary}>
@@ -33,7 +33,7 @@ export class SummaryScreen extends React.Component<SummaryScreenProps> {
             <Text style={styles.balanceFont}>789,000</Text>
             <Text style={styles.krwFont}>KRW</Text>
           </View>
-          <Text style={styles.addressFont}>{walletStore.getWallet.address}</Text>
+          <Text style={styles.addressFont}>{this.props.walletStore!.getWallet.address}</Text>
         </View> 
         <View style={styles.list}>
           <View style={styles.listTab}>

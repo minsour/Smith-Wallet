@@ -6,15 +6,16 @@ import { styles } from './Styles'
 import { route } from '../../constants/route';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react/native';
-import { RootStore } from '../../stores';
 import { modal } from '../../constants/modal';
+import { ModalStore } from '../../stores/modalStore';
+import { store } from '../../constants/store';
 
 interface AddSomethingScreenProps {
   navigation: NavigationScreenProp<any, any>
-  rootStore?: RootStore
+  modalStore?: ModalStore
 }
 
-@inject('rootStore')
+@inject(store.modalStore)
 @observer
 export class AddSomethingScreen extends React.Component<AddSomethingScreenProps> {
   render() {
@@ -35,13 +36,11 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
   }
 
   private navigateToAddToken = () => {
-    const { modalStore } = this.props.rootStore!
-    modalStore.hideModal(modal.addModal)
+    this.props.modalStore!.hideModal(modal.addModal)
     this.props.navigation.navigate(route.ADD_TOKEN)
   }
   private navigateToAddEOA = () => {
-    const { modalStore } = this.props.rootStore!
-    modalStore.hideModal(modal.addModal)
+    this.props.modalStore!.hideModal(modal.addModal)
     this.props.navigation.navigate(route.ADD_EOA)
   }
 }

@@ -6,23 +6,24 @@ import { observer } from 'mobx-react/native';
 import { styles } from "./Styles";
 import { View, ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-import { RootStore } from '../../stores';
 import { Token } from '../../components/Token';
-import { Symbol } from '../../components/Symbol';
-import { ModalLayout } from '../../layout/ModalLayout';
 import { modal } from '../../constants/modal';
 import { route } from '../../constants/route';
+import { TokenStore } from '../../stores/tokenStore';
+import { ModalStore } from '../../stores/modalStore';
+import { store } from '../../constants/store';
 
 interface AddTokenScreenProps {
-  rootStore: RootStore
+  tokenStore?: TokenStore
+  modalStore?: ModalStore
   navigation: NavigationScreenProp<any,any>
 }
 
-@inject('rootStore')
+@inject(store.modalStore)
+@inject(store.tokenStore)
 @observer
 export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
   render() {
-    const { tokenStore, modalStore } = this.props.rootStore
     let tokenId: number = 0
     return (
       <Layout header={true} headerTitle="토큰 추가" headerNavigation={this.props.navigation}>
@@ -36,7 +37,7 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
         </View>
         <View style={styles.list}>
           <ScrollView>
-            {tokenStore.searchedTokenList.map(token =>
+            {this.props.tokenStore!.searchedTokenList.map(token =>
               <Token
                 key={`${tokenId++}`}
                 name={token.koreanName}
@@ -47,7 +48,7 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
             }
           </ScrollView>
         </View>
-        {modalStore.visible[modal.addToken] &&
+        {this.props.modalStore!.visible[modal.addToken] &&
             <Button
               style={styles.addButton}
               onPress={this.setlectToken}
@@ -61,9 +62,8 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
     );
   }
   private setlectToken = () => {
-    const { tokenStore, modalStore } = this.props.rootStore
-    tokenStore.selectToken()
-    modalStore.visible[modal.addToken] = false
+    this.props.tokenStore!.selectToken()
+    this.props.modalStore!.visible[modal.addToken] = false
     this.props.navigation.navigate(route.MAIN_SCREEN)
   }
 }

@@ -6,19 +6,23 @@ import { WalletSummaryRoute } from "../../route/WalletSummaryRoute";
 import { inject, observer } from 'mobx-react';
 import { Loading } from '../../layout/Loading';
 import { styles } from './Styles';
-import { RootStore } from '../../stores';
 import { ModalLayout } from '../../layout/ModalLayout';
 import { modal } from '../../constants/modal'
 import { AddSomethingScreen } from '../AddSomethingScreen';
+import { WalletStore } from '../../stores/walletStore';
+import { ModalStore } from '../../stores/modalStore';
+import { store } from '../../constants/store';
 
 const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
 interface MainScreenProps {
   navigation: NavigationScreenProp<any,any>
-  rootStore: RootStore
+  walletStore?: WalletStore
+  modalStore?: ModalStore
 }
 
-@inject('rootStore')
+@inject(store.walletStore)
+@inject(store.modalStore)
 @observer
 export class MainScreen extends React.Component<MainScreenProps> {
   state = {
@@ -26,14 +30,11 @@ export class MainScreen extends React.Component<MainScreenProps> {
   }
 
   render() {
-    const { walletStore, modalStore } = this.props.rootStore;
-    if(walletStore.getWallet === "") {
+    if(this.props.walletStore!.getWallet === "") {
      return <Loading>지갑 로딩중</Loading>
     }
     return (
       <PaperProvider>
-        {this.props.rootStore.tokenStore.initWillBeAddedToken()}
-        {this.props.rootStore.modalStore.visible[modal.addToken] = false}
         <WalletSummaryContainer/>
         <FAB.Group
           open={this.state.open}
@@ -46,7 +47,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
           onStateChange={({ open }) => this.setState({ open })}
           fabStyle={styles.fabStyle}
         />
-        {modalStore.visible &&
+        {this.props.modalStore!.visible[modal.addModal] &&
           <ModalLayout visibleKey={modal.addModal}>
             <AddSomethingScreen navigation={this.props.navigation}/>
           </ModalLayout>
@@ -56,8 +57,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
   }
 
   private showAddModal = () => {
-    const { modalStore } = this.props.rootStore
-    modalStore.showModal(modal.addModal)
+    this.props.modalStore!.showModal(modal.addModal)
   };
 
   private navigateToAddressList = () => {

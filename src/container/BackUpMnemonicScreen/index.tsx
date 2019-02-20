@@ -10,16 +10,17 @@ import { Layout } from '../../layout/Layout';
 import 'ethers/dist/shims.js';  // 안드로이드 니모닉 생성 시 발생하는 오류 해결(String.prototype.normalize 사용)
 import { inject } from 'mobx-react';
 //import { Loading } from '../../layout/Loading';
-import { RootStore } from '../../stores';
+import { WalletStore } from '../../stores/walletStore';
+import { store } from '../../constants/store';
 
 const ethers = require("ethers");
 
 interface BackUpMnemonicScreenProps {
   navigation: NavigationScreenProp<any,any>
-  rootStore: RootStore
+  walletStore?: WalletStore
 }
 
-@inject("rootStore")
+@inject(store.walletStore)
 @observer
 export class BackUpMnemonicScreen extends React.Component<
   BackUpMnemonicScreenProps
@@ -73,15 +74,15 @@ export class BackUpMnemonicScreen extends React.Component<
   };
   
   private setWallet = async () => {
+    const { walletStore } = this.props
     await this.setMnemonic();
-    const { walletStore } = this.props.rootStore;
     const path = "m/44'/60'/0/0";
-    walletStore.setWallet(ethers.Wallet.fromMnemonic(walletStore.getMnemonic, path));
+    walletStore!.setWallet(ethers.Wallet.fromMnemonic(walletStore!.getMnemonic, path));
   };
 
   private setMnemonic = async () => {
-    const { walletStore } = this.props.rootStore;
+    const { walletStore } = this.props
     await AsyncStorageUtils.loadMnemonic()
-    .then( res => walletStore.setMnemonic(res) );
+    .then( res => walletStore!.setMnemonic(res) );
   };
 }

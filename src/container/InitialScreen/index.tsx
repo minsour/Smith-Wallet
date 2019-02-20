@@ -5,17 +5,18 @@ import { Button } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 import { styles } from "./Styles";
 import { inject, observer } from 'mobx-react/native';
-import { RootStore } from '../../stores';
+import { TokenStore } from '../../stores/tokenStore';
+import { store } from '../../constants/store';
 
 const logoPath = require("../../../assets/logo.png");
 
 interface InitialScreenProps {
   navigation: NavigationScreenProp<any, any>
-  rootStore: RootStore
+  tokenStore?: TokenStore
 }
 
 // 임시로 여기서 tokenStore.loadTokenList() 호출중
-@inject('rootStore')
+@inject(store.tokenStore)
 @observer
 export class InitialScreen extends React.Component<InitialScreenProps> {
   render() {
@@ -47,7 +48,7 @@ export class InitialScreen extends React.Component<InitialScreenProps> {
   }
 
   private navigateToCreateWallet = () => {
-    this.props.rootStore.tokenStore.loadTokenList()
+    this.props.tokenStore!.loadTokenList()
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.BACKUP_MNEMONIC_SCREEN
     });

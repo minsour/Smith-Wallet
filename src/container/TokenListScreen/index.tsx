@@ -4,25 +4,25 @@ import { styles } from "./Styles";
 import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';
 import { ScrollView } from 'react-native';
-import { RootStore } from '../../stores';
 import { inject, observer } from 'mobx-react';
 import { Token } from '../../components/Token';
+import { TokenStore } from '../../stores/tokenStore';
+import { store } from '../../constants/store';
 
 interface TokenListScreenProps {
   navigation: NavigationScreenProp<any, any>
-  rootStore?: RootStore
+  tokenStore?: TokenStore
 }
 
-@inject('rootStore')
+@inject(store.tokenStore)
 @observer
 export class TokenListScreen extends React.Component<TokenListScreenProps> {
   render() {
-    const { tokenStore } = this.props.rootStore!
     let tokenId: number = 0
     return (
       <Layout header={false}>
         <ScrollView>
-            {tokenStore.selectedTokenList.map(token =>
+            {this.props.tokenStore!.selectedTokenList.map(token =>
               <Token
                 key={`${tokenId++}`}
                 balance={12300}

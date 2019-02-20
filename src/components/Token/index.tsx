@@ -3,10 +3,11 @@ import { Text, TouchableRipple } from "react-native-paper";
 import { styles } from "./Styles";
 import { View } from 'react-native';
 import { observable, action } from 'mobx';
-import { RootStore } from '../../stores';
 import { inject, observer } from 'mobx-react/native';
 import { NotBalanceToken } from './NotBalanceToken';
 import { BalanceToken } from './BalanceToken';
+import { TokenStore } from '../../stores/tokenStore';
+import { store } from '../../constants/store';
 
 interface TokenType {
   symbol: string
@@ -23,18 +24,18 @@ interface TokenProps {
   symbol: string
   address: string
   token: TokenType
-  rootStore?: RootStore
+  tokenStore?: TokenStore
 }
 
-@inject('rootStore')
+@inject(store.tokenStore)
 @observer
 export class Token extends React.Component<TokenProps> {
   @observable private isPicked = false
 
   @action private pickOrDropToken = () => {
       this.isPicked ?
-      this.props.rootStore!.tokenStore.dropOffToken(this.props.token) :
-      this.props.rootStore!.tokenStore.pickUpToken(this.props.token)
+      this.props.tokenStore!.dropOffToken(this.props.token) :
+      this.props.tokenStore!.pickUpToken(this.props.token)
     this.isPicked = !this.isPicked
   }
 
