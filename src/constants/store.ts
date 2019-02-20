@@ -1,5 +1,5 @@
 export const store = {
-    walletStore: 'walletStore',
-    tokenStore: 'tokenStore',
-    modalStore: 'modalStore',
+    WALLET_STORE: 'walletStore',
+    TOKEN_STORE: 'tokenStore',
+    MODAL_STORE: 'modalStore',
 }
