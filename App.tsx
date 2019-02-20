@@ -12,7 +12,7 @@ export default class App extends React.Component {
   render() {
     return (
       <PaperProvider>
-        <Provider rootStore={rootStore} >
+        <Provider {...rootStore}>
         <AppContainer />
         </Provider>
       </PaperProvider>
