@@ -34,67 +34,77 @@ var token: Token = {
   totalBalance: 0,
 };
 
+const userAddress = '0xc858df16fb030c529c8b43469c42f354f98a8d57'; //This is dummy data
+
 @inject('walletStore')
 @inject('tokenStore')
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
-    AsyncStorageUtils.getERC20Infos(
-      '0xc858df16fb030c529c8b43469c42f354f98a8d57',
-    ).then((tokenInfo: Token | any) => {
-      // console.log(JSON.parse(tokenInfo)); //object
-
-      var tempObj = JSON.parse(tokenInfo);
-      token.name = tempObj.name;
-      token.symbol = tempObj.symbol;
-      token.address = tempObj.address;
-      token.totalBalance = tempObj.totalBalance;
-
-      this.setToken(token);
-    });
+    this.getDetailInfoOfErc20(userAddress);
   }
   render() {
     const { tokenStore } = this.props;
     return (
       <Layout header={false}>
-        <View style={styles.summary}>
+        {/* Start of Top Summary Container */}
+        <View style={styles.summaryContainer}>
           <Text style={styles.summaryFont}>{tokenStore.getToken.name}</Text>
           <Text style={styles.summaryFont}>
             {tokenStore.getToken.totalBalance}
             {'  '}
             {tokenStore.getToken.symbol}
           </Text>
-          <Text> {'  '}</Text>
           <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
             {this.props.walletStore.getWallet.address}
           </Text>
+          {/* Start of Top Summary Container */}
+
+          {/* Start of Button Container */}
+          <View style={styles.container}>
+            <View style={styles.buttonContainer}>
+              <Button
+                style={styles.bottomButton}
+                mode="contained"
+                onPress={this.navigateToDetailTx} // 테스트용
+              >
+                Receive
+              </Button>
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                style={styles.bottomButton}
+                mode="contained"
+                onPress={this.navigateToSend} // 테스트용
+              >
+                Send
+              </Button>
+            </View>
+          </View>
+          {/* End of Button Container */}
         </View>
+
+        {/* Start of TxList Container */}
         <PaperProvider>
           <TxSummaryListContainer />
         </PaperProvider>
-        <View style={styles.container}>
-          <View style={styles.buttonContainer}>
-            <Button
-              style={styles.bottomButton}
-              mode="contained"
-              onPress={this.navigateToDetailTx} // 테스트용
-            >
-              Receive
-            </Button>
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              style={styles.bottomButton}
-              mode="contained"
-              onPress={this.navigateToSend} // 테스트용
-            >
-              Send
-            </Button>
-          </View>
-        </View>
+        {/* End of TxList Container */}
       </Layout>
     );
   }
+  private getDetailInfoOfErc20 = async (tokenAddress: string) => {
+    AsyncStorageUtils.getERC20Infos(
+      tokenAddress, //EOA dummy data
+    ).then((tokenInfo: Token | any) => {
+      //do parsing
+      var tempObj = JSON.parse(tokenInfo);
+      token.name = tempObj.name;
+      token.symbol = tempObj.symbol;
+      token.address = tempObj.address;
+      token.totalBalance = tempObj.totalBalance;
+      this.setToken(token);
+    });
+  };
   private setToken = async (newToken: Token) => {
     const { tokenStore } = this.props;
     await tokenStore.setToken(newToken);
