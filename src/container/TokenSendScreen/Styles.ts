@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  // container: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'center',
-  // },
+  listSectionContainer: {
+    width: '100%',
+    margin: 10,
+    marginLeft: -10,
+  },
   textInputContainer: {
     // flex: 0.5,
     width: '100%',

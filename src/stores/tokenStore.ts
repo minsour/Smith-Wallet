@@ -7,18 +7,32 @@ interface Token {
   totalBalance: number;
 }
 
+interface TokenHistory {
+  blockNumber: string;
+  hash: string; //transaction hash
+  from: string;
+  to: string;
+  timeStamp: string;
+  contractAddress: string;
+  value: string;
+  tokenName: string;
+  tokenSymbol: string;
+}
+
 export class TokenStore {
-  @observable private token: Token = {
+  @observable public token: Token = {
     name: '',
     symbol: '',
     address: '',
     totalBalance: 0,
   };
 
-  @observable private name = '';
-  @observable private symbol = '';
-  @observable private address = '';
-  @observable private totalBalance = 0;
+  @observable public name = '';
+  @observable public symbol = '';
+  @observable public address = '';
+  @observable public totalBalance = 0;
+
+  @observable public tokenHistoryList: TokenHistory[] = [];
 
   @action public setToken = (newToken: Token) => {
     this.token = newToken;

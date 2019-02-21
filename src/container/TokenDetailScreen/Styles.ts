@@ -4,12 +4,12 @@ import { DIMENSIONS_WIDTH } from '../../constants/dementions';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  summary: {
+  summaryContainer: {
     flex: 1,
     backgroundColor: BG_COLOR,
     alignItems: 'center',
@@ -85,5 +85,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  txListContainer: {
+    flex: 1,
   },
 });

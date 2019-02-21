@@ -11,8 +11,10 @@
     "@types/react-native-qrcode": "^0.2.2",
     "ethers": "^4.0.25",
     "expo": "^32.0.0",
+    "js-html-parser": "^1.0.6",
     "mobx": "^4.5.0",
     "mobx-react": "^5.3.6",
+    "moment": "^2.24.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-gesture-handler": "^1.0.12",
@@ -20,8 +22,7 @@
     "react-native-paper": "^2.4.0",
     "react-native-qrcode": "^0.2.7",
     "react-native-vector-icons": "^6.1.0",
-    "react-navigation": "^3.0.9",
-    "web3": "^1.0.0-beta.46"
+    "react-navigation": "^3.0.9"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
