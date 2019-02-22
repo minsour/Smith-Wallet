@@ -9,6 +9,7 @@ import { inject, observer } from 'mobx-react';
 import { TokenInfoStore } from '../../stores/tokenInfoStore';
 import { SEND_ICON_COLOR, RECEIVE_ICON_COLOR } from '../../constants/colors';
 import { SEND_ICON, RECEIVE_ICON } from '../../constants/icons';
+import { styles } from './Styles';
 
 const moment = require('moment');
 const ethers = require('ethers');
@@ -50,7 +51,7 @@ export class TxSummaryListScreen extends React.Component<
     const { tokenInfoStore } = this.props;
     return (
       <Layout header={false}>
-        <List.Section>
+        <List.Section style={styles.listSectionContainer}>
           <ScrollView>
             {tokenInfoStore.tokenHistoryList.map(token => (
               <List.Item
