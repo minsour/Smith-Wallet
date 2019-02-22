@@ -60,6 +60,6 @@ export class Token extends React.Component<TokenProps> {
           />
         } 
       </TouchableRipple>
-    );0
+    );
   }
 }
