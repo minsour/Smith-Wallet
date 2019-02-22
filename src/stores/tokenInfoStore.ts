@@ -1,15 +1,15 @@
 import { observable, action, computed } from 'mobx';
 
-interface Token {
+interface TokenInfo {
   name: string;
   symbol: string;
   address: string;
   totalBalance: number;
 }
 
-interface TokenHistory {
+interface TokenInfoHistory {
   blockNumber: string;
-  hash: string; //transaction hash
+  hash: string;
   from: string;
   to: string;
   timeStamp: string;
@@ -19,13 +19,13 @@ interface TokenHistory {
   tokenSymbol: string;
 }
 
-export class TokenStore {
-  @observable public token: Token = {
+export class TokenInfoStore {
+  @observable public tokenInfo: TokenInfo = {
     name: '',
     symbol: '',
     address: '',
     totalBalance: 0,
   };
 
-  @observable public tokenHistoryList: TokenHistory[] = [];
+  @observable public tokenHistoryList: TokenInfoHistory[] = [];
 }
