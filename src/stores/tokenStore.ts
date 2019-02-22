@@ -112,6 +112,10 @@ export class TokenStore {
 
   @action public selectToken = () => {
     this.willBeAddedTokenList.forEach(token => {
+      // AddTokenScreen에 렌더될 리스트에서 삭제 후
+      let idx = this.ercTokenList.indexOf(token)
+      this.ercTokenList.splice(idx, 1)
+      // MainScreen에 렌더될 리스트에 푸시
       this.selectedTokenList.push(token)
     })
   }
