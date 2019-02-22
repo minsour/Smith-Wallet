@@ -27,42 +27,5 @@ export class TokenStore {
     totalBalance: 0,
   };
 
-  @observable public name = '';
-  @observable public symbol = '';
-  @observable public address = '';
-  @observable public totalBalance = 0;
-
   @observable public tokenHistoryList: TokenHistory[] = [];
-
-  @action public setToken = (newToken: Token) => {
-    this.token = newToken;
-  };
-  @action public setAddress = (newAddress: string) => {
-    this.address = newAddress;
-  };
-  @action public setName = (newName: string) => {
-    this.name = newName;
-  };
-  @action public setSymbol = (newSymbol: string) => {
-    this.symbol = newSymbol;
-  };
-  @action public setTotalBalance = (newTotalBalance: number) => {
-    this.totalBalance = newTotalBalance;
-  };
-
-  @computed public get getToken(): any {
-    return this.token;
-  }
-  @computed public get getAddress(): string {
-    return this.address;
-  }
-  @computed public get getName(): string {
-    return this.name;
-  }
-  @computed public get getSymbol(): string {
-    return this.symbol;
-  }
-  @computed public get getTotalBalance(): number {
-    return this.totalBalance;
-  }
 }
