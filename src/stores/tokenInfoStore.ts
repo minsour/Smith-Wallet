@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 
 interface TokenInfo {
   name: string;
@@ -18,6 +18,8 @@ interface TokenInfoHistory {
   tokenName: string;
   tokenSymbol: string;
 }
+
+// interface TokenTxReceipt {} //TxReceipt할때 사용할듯
 
 export class TokenInfoStore {
   @observable public tokenInfo: TokenInfo = {

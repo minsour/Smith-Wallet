@@ -1,7 +1,4 @@
 import { AsyncStorage } from 'react-native';
-import { erc20Abi } from './erc20Abi';
-
-const ethers = require('ethers');
 
 export class AsyncStorageUtils {
   static storeMnemonic = async (newMnemonic: string) => {
