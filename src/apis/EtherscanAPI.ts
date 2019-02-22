@@ -53,4 +53,15 @@ const getERC20TokenHistory = async (
   }
 };
 
-export { getERC20Info, getERC20TokenHistory };
+const getTxReceipt = async (txHash: string) => {
+  try {
+    const defaultProvider = new ethers.getDefaultProvider('mainnet');
+    defaultProvider.getTransactionReceipt(txHash).then((txReceipt: any) => {
+      console.log('TXRECEIPT' + JSON.stringify(txReceipt));
+    });
+  } catch (error) {
+    console.error('Error during loading TX receipt:::' + error);
+  }
+};
+
+export { getERC20Info, getERC20TokenHistory, getTxReceipt };

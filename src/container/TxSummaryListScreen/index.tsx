@@ -9,7 +9,7 @@ import { TokenInfoStore } from '../../stores/tokenInfoStore';
 import { SEND_ICON_COLOR, RECEIVE_ICON_COLOR } from '../../constants/colors';
 import { SEND_ICON, RECEIVE_ICON } from '../../constants/icons';
 import { styles } from './Styles';
-import { getERC20TokenHistory } from '../../apis/EtherscanAPI';
+import { getERC20TokenHistory, getTxReceipt } from '../../apis/EtherscanAPI';
 
 const moment = require('moment');
 const ethers = require('ethers');
@@ -73,6 +73,9 @@ export class TxSummaryListScreen extends React.Component<
                     {this.convertValue(token.value)} {token.tokenSymbol}
                   </Text>
                 )}
+                onPress={() => {
+                  getTxReceipt(token.hash);
+                }}
               />
             ))}
           </ScrollView>
