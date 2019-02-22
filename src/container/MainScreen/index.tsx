@@ -10,18 +10,20 @@ import { ModalLayout } from '../../layout/ModalLayout';
 import { modal } from '../../constants/modal'
 import { AddSomethingScreen } from '../AddSomethingScreen';
 import { WalletStore } from '../../stores/walletStore';
-import { ModalStore } from '../../stores/modalStore';
+import { TokenStore } from '../../stores/tokenStore';
 import { store } from '../../constants/store';
+import { ModalStore } from '../../stores/modalStore';
 
 const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
 interface MainScreenProps {
   navigation: NavigationScreenProp<any,any>
   walletStore?: WalletStore
+  tokenStore?: TokenStore
   modalStore?: ModalStore
 }
 
-@inject(store.MODAL_STORE, store.WALLET_STORE)
+@inject(store.TOKEN_STORE, store.WALLET_STORE, store.MODAL_STORE)
 @observer
 export class MainScreen extends React.Component<MainScreenProps> {
   state = {
@@ -29,7 +31,8 @@ export class MainScreen extends React.Component<MainScreenProps> {
   }
 
   render() {
-    if(this.props.walletStore!.getWallet === "") {
+    this.props.tokenStore!.initWillBeAddedToken()
+    if(this.props.walletStore!.getMnemonic === "") {
      return <Loading>지갑 로딩중</Loading>
     }
     return (
@@ -46,8 +49,8 @@ export class MainScreen extends React.Component<MainScreenProps> {
           onStateChange={({ open }) => this.setState({ open })}
           fabStyle={styles.fabStyle}
         />
-        {this.props.modalStore!.visible[modal.addModal] &&
-          <ModalLayout visibleKey={modal.addModal}>
+        {this.props.modalStore!.visible[modal.ADD_MODAL] &&
+          <ModalLayout visibleKey={modal.ADD_MODAL}>
             <AddSomethingScreen navigation={this.props.navigation}/>
           </ModalLayout>
         }
@@ -56,7 +59,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
   }
 
   private showAddModal = () => {
-    this.props.modalStore!.showModal(modal.addModal)
+    this.props.modalStore!.showModal(modal.ADD_MODAL)
   };
 
   private navigateToAddressList = () => {

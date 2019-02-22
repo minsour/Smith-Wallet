@@ -1,5 +1,5 @@
 export const modal = {
-    addModal: 'addModal',
-    loading: 'loadgin',
-    addToken: 'addToken',
+    ADD_MODAL: 'addModal',
+    LOADING: 'loading',
+    ADD_TOKEN: 'addToken',
 }

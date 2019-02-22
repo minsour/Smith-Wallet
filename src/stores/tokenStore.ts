@@ -94,7 +94,7 @@ export class TokenStore {
   @action public pickUpToken = (token: Token) => {
     this.willBeAddedTokenList.push(token)
     if (this.willBeAddedTokenList) {
-      this.root.modalStore.showModal(modal.addToken)
+      this.root.modalStore.showModal(modal.ADD_TOKEN)
     }
   }
 
@@ -102,7 +102,7 @@ export class TokenStore {
     let idx = this.willBeAddedTokenList.indexOf(token)
     this.willBeAddedTokenList.splice(idx, 1)
     if (this.willBeAddedTokenList.length == 0) {
-      this.root.modalStore.hideModal(modal.addToken)
+      this.root.modalStore.hideModal(modal.ADD_TOKEN)
     }
   }
 

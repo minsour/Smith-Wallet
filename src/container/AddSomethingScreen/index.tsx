@@ -15,7 +15,7 @@ interface AddSomethingScreenProps {
   modalStore?: ModalStore
 }
 
-@inject(store.modalStore)
+@inject(store.MODAL_STORE)
 @observer
 export class AddSomethingScreen extends React.Component<AddSomethingScreenProps> {
   render() {
@@ -36,11 +36,11 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
   }
 
   private navigateToAddToken = () => {
-    this.props.modalStore!.hideModal(modal.addModal)
+    this.props.modalStore!.hideModal(modal.ADD_MODAL)
     this.props.navigation.navigate(route.ADD_TOKEN)
   }
   private navigateToAddEOA = () => {
-    this.props.modalStore!.hideModal(modal.addModal)
+    this.props.modalStore!.hideModal(modal.ADD_MODAL)
     this.props.navigation.navigate(route.ADD_EOA)
   }
 }

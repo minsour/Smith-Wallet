@@ -47,7 +47,7 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
             }
           </ScrollView>
         </View>
-        {this.props.modalStore!.visible[modal.addToken] &&
+        {this.props.modalStore!.visible[modal.ADD_TOKEN] &&
             <Button
               style={styles.addButton}
               onPress={this.setlectToken}
@@ -62,7 +62,7 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
   }
   private setlectToken = () => {
     this.props.tokenStore!.selectToken()
-    this.props.modalStore!.visible[modal.addToken] = false
+    this.props.modalStore!.visible[modal.ADD_TOKEN] = false
     this.props.navigation.navigate(route.MAIN_SCREEN)
   }
 }
