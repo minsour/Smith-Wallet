@@ -6,16 +6,17 @@ import { List } from 'react-native-paper';
 import { WalletStore } from '../../stores/walletStore';
 import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
 import { inject, observer } from 'mobx-react';
-import { TokenStore } from '../../stores/tokenStore';
-import { observable } from 'mobx';
-import { styles } from '../TokenSendScreen/Styles';
+import { TokenInfoStore } from '../../stores/tokenInfoStore';
+import { SEND_ICON_COLOR, RECEIVE_ICON_COLOR } from '../../constants/colors';
+import { SEND_ICON, RECEIVE_ICON } from '../../constants/icons';
+
 const moment = require('moment');
 const ethers = require('ethers');
 
 interface TxSummaryListScreenProps {
   navigation: NavigationScreenProp<any, any>;
   walletStore: WalletStore;
-  tokenStore: TokenStore;
+  tokenInfoStore: TokenInfoStore;
 }
 
 interface TokenHistory {
@@ -32,12 +33,8 @@ var keyIndex: number = 0;
 var contractAddress = '0xCe5559F046d8C01192E15f55063906F8d1c14790';
 var userAddress = '0x6b59210ade46b62b25e82e95ab390a7ccadd4c3a';
 
-// 아이콘 이름 상수화
-const SEND_ICON = 'file-upload';
-const RECEIVE_ICON = 'file-download';
-
 @inject('walletStore')
-@inject('tokenStore')
+@inject('tokenInfoStore')
 @observer
 export class TxSummaryListScreen extends React.Component<
   TxSummaryListScreenProps
@@ -45,16 +42,17 @@ export class TxSummaryListScreen extends React.Component<
   componentDidMount() {
     AsyncStorageUtils.getErc20TokenHistory(contractAddress, userAddress).then(
       (responseJson: TokenHistory | any) => {
-        this.props.tokenStore.tokenHistoryList = JSON.parse(responseJson);
+        this.props.tokenInfoStore.tokenHistoryList = JSON.parse(responseJson);
       },
     );
   }
   render() {
+    const { tokenInfoStore } = this.props;
     return (
       <Layout header={false}>
-        <List.Section style={styles.listSectionContainer}>
+        <List.Section>
           <ScrollView>
-            {this.props.tokenStore.tokenHistoryList.map(token => (
+            {tokenInfoStore.tokenHistoryList.map(token => (
               <List.Item
                 key={`${keyIndex++}`}
                 title={token.to}
@@ -62,7 +60,11 @@ export class TxSummaryListScreen extends React.Component<
                 left={() => (
                   <List.Icon
                     icon={this.classifySendReceive(token.from, userAddress)}
-                    color="#000000"
+                    color={
+                      token.from === userAddress
+                        ? SEND_ICON_COLOR
+                        : RECEIVE_ICON_COLOR
+                    }
                   />
                 )}
                 right={() => (
@@ -78,6 +80,7 @@ export class TxSummaryListScreen extends React.Component<
     );
   }
   private convertTimestamp = (timeStamp: string) => {
+    //UNIX timestamp -> 일반 Date로 쉽게 변환하기 위해 moment.js 모듈 사용
     var result = moment.unix(parseInt(timeStamp));
     return result.format('YYYY-MM-DD HH:mm:ss');
   };

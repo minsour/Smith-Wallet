@@ -8,8 +8,7 @@ import { Layout } from '../../layout/Layout';
 import { TxSummaryListHeader } from '../../route/TxSummaryListHeader';
 import { WalletStore } from '../../stores/walletStore';
 import { inject, observer } from 'mobx-react';
-import { observable } from 'mobx';
-import { TokenStore } from '../../stores/tokenStore';
+import { TokenInfoStore } from '../../stores/tokenInfoStore';
 import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
 
 const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
@@ -17,7 +16,7 @@ const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
 interface TokenDetailScreenProps {
   navigation: NavigationScreenProp<any, any>;
   walletStore: WalletStore;
-  tokenStore: TokenStore;
+  tokenInfoStore: TokenInfoStore;
 }
 
 interface Token {
@@ -27,38 +26,33 @@ interface Token {
   totalBalance: number;
 }
 
-var token: Token = {
-  name: '',
-  symbol: '',
-  address: '',
-  totalBalance: 0,
-};
-
 const userAddress = '0xc858df16fb030c529c8b43469c42f354f98a8d57'; //This is dummy data
 
 @inject('walletStore')
-@inject('tokenStore')
+@inject('tokenInfoStore')
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
     this.getDetailInfoOfErc20(userAddress);
   }
   render() {
-    const { tokenStore } = this.props;
+    const { tokenInfoStore } = this.props;
     return (
       <Layout header={false}>
         {/* Start of Top Summary Container */}
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryFont}>{tokenStore.getToken.name}</Text>
           <Text style={styles.summaryFont}>
-            {tokenStore.getToken.totalBalance}
+            {tokenInfoStore.tokenInfo.name}
+          </Text>
+          <Text style={styles.summaryFont}>
+            {tokenInfoStore.tokenInfo.totalBalance}
             {'  '}
-            {tokenStore.getToken.symbol}
+            {tokenInfoStore.tokenInfo.symbol}
           </Text>
           <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
             {this.props.walletStore.getWallet.address}
           </Text>
-          {/* Start of Top Summary Container */}
+          {/* End of Top Summary Container */}
 
           {/* Start of Button Container */}
           <View style={styles.container}>
@@ -95,19 +89,9 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   private getDetailInfoOfErc20 = async (tokenAddress: string) => {
     AsyncStorageUtils.getERC20Infos(
       tokenAddress, //EOA dummy data
-    ).then((tokenInfo: Token | any) => {
-      //do parsing
-      var tempObj = JSON.parse(tokenInfo);
-      token.name = tempObj.name;
-      token.symbol = tempObj.symbol;
-      token.address = tempObj.address;
-      token.totalBalance = tempObj.totalBalance;
-      this.setToken(token);
+    ).then((token: Token | any) => {
+      this.props.tokenInfoStore.tokenInfo = JSON.parse(token);
     });
-  };
-  private setToken = async (newToken: Token) => {
-    const { tokenStore } = this.props;
-    await tokenStore.setToken(newToken);
   };
   private navigateToDetailTx = () => {
     this.props.navigation.navigate(route.DETAIL_TX_ROUTE);
