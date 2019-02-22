@@ -16,7 +16,7 @@ interface SummaryScreenProps {
   walletStore?: WalletStore
 }
 
-@inject(store.walletStore)
+@inject(store.WALLET_STORE)
 @observer
 export class SummaryScreen extends React.Component<SummaryScreenProps> {
   @observable token = true;

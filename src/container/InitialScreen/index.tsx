@@ -16,7 +16,7 @@ interface InitialScreenProps {
 }
 
 // 임시로 여기서 tokenStore.loadTokenList() 호출중
-@inject(store.tokenStore)
+@inject(store.TOKEN_STORE)
 @observer
 export class InitialScreen extends React.Component<InitialScreenProps> {
   render() {

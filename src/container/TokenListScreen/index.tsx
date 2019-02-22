@@ -14,7 +14,7 @@ interface TokenListScreenProps {
   tokenStore?: TokenStore
 }
 
-@inject(store.tokenStore)
+@inject(store.TOKEN_STORE)
 @observer
 export class TokenListScreen extends React.Component<TokenListScreenProps> {
   render() {

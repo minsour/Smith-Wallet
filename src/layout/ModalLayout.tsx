@@ -14,12 +14,12 @@ interface ModalProps {
   modalStore?: ModalStore
 }
 
-@inject(store.modalStore)
+@inject(store.MODAL_STORE)
 @observer
 export class ModalLayout extends React.Component<ModalProps> {
   render() {
     const { modalStore, visibleKey } = this.props
-    
+
     return (
       <Portal>
         <Modal
