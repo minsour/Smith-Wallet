@@ -12,6 +12,7 @@ import { route } from '../../constants/route';
 import { TokenStore } from '../../stores/tokenStore';
 import { ModalStore } from '../../stores/modalStore';
 import { store } from '../../constants/store';
+import { observable } from 'mobx';
 
 interface AddTokenScreenProps {
   tokenStore?: TokenStore
@@ -22,6 +23,7 @@ interface AddTokenScreenProps {
 @inject(store.TOKEN_STORE, store.MODAL_STORE)
 @observer
 export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
+  @observable searchText: string = ""
   render() {
     let tokenId: number = 0
     return (
@@ -29,8 +31,8 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
         <View style={styles.searchBarContainer}>
           <Searchbar
             placeholder="검색하기"
-            onChangeText={()=>{}}
-            value={""}
+            onChangeText={(searchText)=> this.searchToken(searchText)}
+            value={this.searchText}
             style={styles.searchBar}
           />
         </View>
@@ -64,5 +66,16 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
     this.props.tokenStore!.selectToken()
     this.props.modalStore!.visible[modal.ADD_TOKEN] = false
     this.props.navigation.navigate(route.MAIN_SCREEN)
+  }
+
+  private searchToken = (searchText: string) => {
+    // searchBar 동기화
+    this.searchText = searchText
+    // searchText가 토큰명 or 토큰심볼(대문자 or 소문자)에 포함되는 토큰들
+    this.props.tokenStore!.searchedTokenList =
+      this.props.tokenStore!.ercTokenList
+      .filter( token => token.koreanName.indexOf(searchText) !== -1
+        || token.symbol.indexOf(searchText) !== -1
+        || token.symbol.toLocaleLowerCase().indexOf(searchText) !== -1 )
   }
 }
