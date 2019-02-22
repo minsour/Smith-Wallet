@@ -4,12 +4,12 @@ import { NavigationScreenProp } from 'react-navigation';
 import { Layout } from '../../layout/Layout';
 import { List } from 'react-native-paper';
 import { WalletStore } from '../../stores/walletStore';
-import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
 import { inject, observer } from 'mobx-react';
 import { TokenInfoStore } from '../../stores/tokenInfoStore';
 import { SEND_ICON_COLOR, RECEIVE_ICON_COLOR } from '../../constants/colors';
 import { SEND_ICON, RECEIVE_ICON } from '../../constants/icons';
 import { styles } from './Styles';
+import { getERC20TokenHistory } from '../../apis/EtherscanAPI';
 
 const moment = require('moment');
 const ethers = require('ethers');
@@ -41,7 +41,7 @@ export class TxSummaryListScreen extends React.Component<
   TxSummaryListScreenProps
 > {
   componentDidMount() {
-    AsyncStorageUtils.getErc20TokenHistory(contractAddress, userAddress).then(
+    getERC20TokenHistory(contractAddress, userAddress).then(
       (responseJson: TokenHistory | any) => {
         this.props.tokenInfoStore.tokenHistoryList = JSON.parse(responseJson);
       },

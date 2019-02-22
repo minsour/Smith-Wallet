@@ -9,7 +9,7 @@ import { TxSummaryListHeader } from '../../route/TxSummaryListHeader';
 import { WalletStore } from '../../stores/walletStore';
 import { inject, observer } from 'mobx-react';
 import { TokenInfoStore } from '../../stores/tokenInfoStore';
-import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
+import { getERC20Info } from '../../apis/EtherscanAPI';
 
 const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
 
@@ -33,7 +33,7 @@ const userAddress = '0xc858df16fb030c529c8b43469c42f354f98a8d57'; //This is dumm
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
-    this.getDetailInfoOfErc20(userAddress);
+    this.getDetailInfoOfERC20('tokenAddress', userAddress);
   }
   render() {
     const { tokenInfoStore } = this.props;
@@ -86,10 +86,11 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
       </Layout>
     );
   }
-  private getDetailInfoOfErc20 = async (tokenAddress: string) => {
-    AsyncStorageUtils.getERC20Infos(
-      tokenAddress, //EOA dummy data
-    ).then((token: Token | any) => {
+  private getDetailInfoOfERC20 = async (
+    tokenAddress: string,
+    userAddress: string,
+  ) => {
+    getERC20Info(tokenAddress, userAddress).then((token: Token | any) => {
       this.props.tokenInfoStore.tokenInfo = JSON.parse(token);
     });
   };
