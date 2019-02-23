@@ -1,4 +1,4 @@
-import { UPBIT_MARKET_CODE_URL } from '../constants/apiUrl';
+import { UPBIT_MARKET_CODE_URL, GET_UPBIT_ERC_URL } from '../constants/apiUrl';
 import { GET } from '../constants/apiMethod';
 
 const publicAPI = (method: string, url: string, body: {} = {}) => {
@@ -21,4 +21,8 @@ const privateAPI = () => {
 
 export const getMarketCode = () => {
   return publicAPI(GET, UPBIT_MARKET_CODE_URL)
+}
+
+export const getERCToken = () => {
+  return publicAPI(GET, GET_UPBIT_ERC_URL)
 }
