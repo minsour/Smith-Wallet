@@ -13,6 +13,7 @@ import { WalletStore } from '../../stores/walletStore';
 import { TokenStore } from '../../stores/tokenStore';
 import { store } from '../../constants/store';
 import { ModalStore } from '../../stores/modalStore';
+import { TxSomethingScreen } from '../TxSomethingScreen';
 
 const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
@@ -54,6 +55,14 @@ export class MainScreen extends React.Component<MainScreenProps> {
             <AddSomethingScreen navigation={this.props.navigation}/>
           </ModalLayout>
         }
+        {this.props.modalStore!.visible[modal.CLICK_TOKEN] &&
+          this.props.navigation.navigate(route.TOKEN_DETAIL_SCREEN)
+        }
+        {this.props.modalStore!.visible[modal.TX_MODAL] &&
+          <ModalLayout visibleKey={modal.TX_MODAL}>
+            <TxSomethingScreen navigation={this.props.navigation}/>
+          </ModalLayout>
+        }
       </PaperProvider>
     );
   }
@@ -67,6 +76,6 @@ export class MainScreen extends React.Component<MainScreenProps> {
   };
 
   private navigateToManageApp = () => {
-    this.props.navigation.navigate(route.TOKEN_DETAIL_SCREEN);
+    this.props.navigation.navigate(route.MANAGING_SCREEN);
   };
 }
