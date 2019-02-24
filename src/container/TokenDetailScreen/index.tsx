@@ -95,7 +95,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     });
   };
   private navigateToDetailTx = () => {
-    this.props.navigation.navigate(route.DETAIL_TX_ROUTE);
+    this.props.navigation.navigate(route.TOKEN_RECEIVE_SCREEN);
   };
 
   private navigateToSend = () => {
