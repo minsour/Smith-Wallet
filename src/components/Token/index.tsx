@@ -1,7 +1,6 @@
 import * as React from "react";
 import { NotBalanceToken } from './NotBalanceToken';
 import { BalanceToken } from './BalanceToken';
-import { NavigationScreenProp } from 'react-navigation';
 
 interface TokenType {
   symbol: string
@@ -18,7 +17,6 @@ interface TokenProps {
   symbol: string
   address: string
   token: TokenType
-  navigation?: NavigationScreenProp<any,any>
 }
 
 export class Token extends React.Component<TokenProps> {
@@ -31,7 +29,6 @@ export class Token extends React.Component<TokenProps> {
         name={this.props.name}
         symbol={this.props.symbol}
         token={this.props.token}
-        navigation={this.props.navigation!}
       /> :
       // AddTokenScreen에 rendering
       <NotBalanceToken

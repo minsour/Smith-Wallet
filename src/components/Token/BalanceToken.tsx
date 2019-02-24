@@ -7,8 +7,6 @@ import { store } from '../../constants/store';
 import { ModalStore } from '../../stores/modalStore';
 import { modal } from '../../constants/modal';
 import { TokenStore } from '../../stores/tokenStore';
-import { NavigationScreenProp } from 'react-navigation';
-import { route } from '../../constants/route';
 
 interface TokenType {
   symbol: string
@@ -26,7 +24,6 @@ interface BalanceTokenProps {
   modalStore?: ModalStore
   tokenStore?: TokenStore
   token: TokenType
-  navigation: NavigationScreenProp<any,any>
 }
 
 @inject(store.MODAL_STORE, store.TOKEN_STORE)
