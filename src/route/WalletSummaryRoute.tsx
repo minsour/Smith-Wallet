@@ -2,7 +2,6 @@
 import { createMaterialTopTabNavigator } from "react-navigation";
 import { EthereumRoute } from "./EthereumRoute";
 import { BitcoinRoute } from "./BitcoinRoute";
-import { Dimensions } from 'react-native';
 import { BG_COLOR } from "../constants/colors";
 import { DIMENSIONS_WIDTH } from '../constants/dementions';
 

@@ -1,4 +1,6 @@
 import { AsyncStorage } from 'react-native';
+import { etherscanProvider } from '../apis/ethers';
+// const ethers = require('ethers');
 
 export class AsyncStorageUtils {
   static storeMnemonic = async (newMnemonic: string) => {

@@ -10,37 +10,37 @@ import { modal } from '../../constants/modal';
 import { ModalStore } from '../../stores/modalStore';
 import { store } from '../../constants/store';
 
-interface AddSomethingScreenProps {
+interface TxSomethingScreenProps {
   navigation: NavigationScreenProp<any, any>
   modalStore?: ModalStore
 }
 
 @inject(store.MODAL_STORE)
 @observer
-export class AddSomethingScreen extends React.Component<AddSomethingScreenProps> {
+export class TxSomethingScreen extends React.Component<TxSomethingScreenProps> {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableRipple style={styles.content} onPress={this.navigateToAddToken}>
+        <TouchableRipple style={styles.content} onPress={this.navigateToTokenReceive}>
           <Text>
-            토큰 추가하기
+            받기
           </Text>
         </TouchableRipple>
-        <TouchableRipple style={styles.content} onPress={this.navigateToAddEOA}>
+        <TouchableRipple style={styles.content} onPress={this.navigateToTokenSend}>
           <Text>
-            계좌 추가하기
+            보내기
           </Text>
         </TouchableRipple>
       </View>
     );
   }
 
-  private navigateToAddToken = () => {
-    this.props.modalStore!.hideModal(modal.ADD_MODAL)
-    this.props.navigation.navigate(route.ADD_TOKEN)
+  private navigateToTokenReceive = () => {
+    this.props.modalStore!.hideModal(modal.TX_MODAL)
+    this.props.navigation.navigate(route.TOKEN_SEND_SCREEN)
   }
-  private navigateToAddEOA = () => {
-    this.props.modalStore!.hideModal(modal.ADD_MODAL)
-    this.props.navigation.navigate(route.ADD_EOA)
+  private navigateToTokenSend = () => {
+    this.props.modalStore!.hideModal(modal.TX_MODAL)
+    this.props.navigation.navigate(route.TOKEN_SEND_SCREEN)
   }
 }

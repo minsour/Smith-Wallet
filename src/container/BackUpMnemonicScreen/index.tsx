@@ -8,18 +8,19 @@ import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
 import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';
 import 'ethers/dist/shims.js';  // 안드로이드 니모닉 생성 시 발생하는 오류 해결(String.prototype.normalize 사용)
-import { WalletStore } from '../../stores/walletStore';
 import { inject } from 'mobx-react';
-import { Loading } from '../../layout/Loading';
+//import { Loading } from '../../layout/Loading';
+import { WalletStore } from '../../stores/walletStore';
+import { store } from '../../constants/store';
 
 const ethers = require("ethers");
 
 interface BackUpMnemonicScreenProps {
   navigation: NavigationScreenProp<any,any>
-  walletStore: WalletStore
+  walletStore?: WalletStore
 }
 
-@inject("walletStore")
+@inject(store.walletStore)
 @observer
 export class BackUpMnemonicScreen extends React.Component<
   BackUpMnemonicScreenProps
@@ -31,10 +32,10 @@ export class BackUpMnemonicScreen extends React.Component<
   }
 
   render() {
-    if(!this.myMnemonic) {
-      // 제대로 작동 안하는 중 !!
-      return <Loading>지갑 생성중</Loading>
-    }
+    // if(!this.myMnemonic) {
+    //   // 제대로 작동 안하는 중 !!
+    //   return <Loading>지갑 생성중</Loading>
+    // }
     return (
       <Layout header={true} headerTitle="Mnemonic 백업">
         <Title>Mnemonic Backup</Title>
@@ -73,15 +74,15 @@ export class BackUpMnemonicScreen extends React.Component<
   };
   
   private setWallet = async () => {
+    const { walletStore } = this.props
     await this.setMnemonic();
-    const { walletStore } = this.props;
     const path = "m/44'/60'/0/0";
-    walletStore.setWallet(ethers.Wallet.fromMnemonic(walletStore.getMnemonic, path));
+    walletStore!.setWallet(ethers.Wallet.fromMnemonic(walletStore!.getMnemonic, path));
   };
 
   private setMnemonic = async () => {
-    const { walletStore } = this.props;
+    const { walletStore } = this.props
     await AsyncStorageUtils.loadMnemonic()
-    .then( res => walletStore.setMnemonic(res) );
+    .then( res => walletStore!.setMnemonic(res) );
   };
 }
