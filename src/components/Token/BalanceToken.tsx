@@ -45,7 +45,7 @@ export class BalanceToken extends React.Component<BalanceTokenProps> {
             </Text>
           </View>
           <View style={styles.left}>
-            <TouchableRipple onPress={}>
+            <TouchableRipple onPress={() => this.showTxModal(this.props.token)}>
               <Text>
                 송금
               </Text>
@@ -60,5 +60,11 @@ export class BalanceToken extends React.Component<BalanceTokenProps> {
     this.props.tokenStore!.clickToken(clickedToken)
     console.log(this.props.tokenStore!.clickedToken) // 테스트용
     this.props.modalStore!.showModal(modal.CLICK_TOKEN)
+  }
+
+  private showTxModal = (clickedToken: any) => {
+    this.props.tokenStore!.clickToken(clickedToken)
+    console.log(this.props.tokenStore!.clickedToken) // 테스트용
+    this.props.modalStore!.showModal(modal.TX_MODAL)
   }
 }
