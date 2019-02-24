@@ -22,16 +22,16 @@ export class TokenListScreen extends React.Component<TokenListScreenProps> {
     return (
       <Layout header={false}>
         <ScrollView>
-            {this.props.tokenStore!.selectedTokenList.map(token =>
-              <Token
-                key={`${tokenId++}`}
-                balance={12300}
-                name={token.koreanName}
-                symbol={token.symbol}
-                address={token.address}
-                token={token}
-              />)
-            }
+          {this.props.tokenStore!.selectedTokenList.map(token =>
+            <Token
+              key={`${tokenId++}`}
+              balance={12300}
+              name={token.koreanName}
+              symbol={token.symbol}
+              address={token.address}
+              token={token}
+            />
+          )}
           </ScrollView>
       </Layout>
     );
