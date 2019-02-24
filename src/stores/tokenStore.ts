@@ -21,6 +21,9 @@ export class TokenStore {
   @observable public willBeAddedTokenList: Token[] = []  // AddTokenScreen에서 사용자가 선택한 토큰들
   @observable public searchedTokenList: Token[] = []  // 
   @observable public selectedTokenList: Token[] = []  // ercTokenList 중 사용자가 지갑에 추가한 토큰리스트
+  @observable public clickedToken: Token = {
+    symbol: "", koreanName: "", marketCode: "", address: "", balance: ""
+  }
 
   @action public pushToken = (loadedTokenList: any[]) => {
     loadedTokenList.forEach(token => {
@@ -74,5 +77,9 @@ export class TokenStore {
       // MainScreen에 렌더될 리스트에 푸시
       this.selectedTokenList.push(token)
     })
+  }
+
+  @action public clickToken = (clickedToken: Token) => {
+    this.clickedToken = clickedToken
   }
 }
