@@ -22,11 +22,13 @@ export const styles = StyleSheet.create({
     height: 60
   },
   balanceToken: {
-    backgroundColor: "#fff",
-    padding: 3,
-    margin: 5,
-    borderRadius: 2,
-    height: 70
+    flexDirection: 'row'
+  },
+  right: {
+    flex: 4
+  },
+  left: {
+    flex: 1
   },
   title: {
     flexDirection: 'row'
