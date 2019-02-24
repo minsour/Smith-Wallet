@@ -49,13 +49,13 @@ export const styles = StyleSheet.create({
     backgroundColor: "#030066",
     borderRadius: 0,
     width: DIMENSIONS_WIDTH,
-    height: 55,
-    marginTop: -27,
-    marginBottom:-1,
+    height: 60,
+    marginTop: -20,
+    marginBottom:-3,
     justifyContent: 'center'
   },
   buttonFont: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 17,
   }
 });
