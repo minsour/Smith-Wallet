@@ -10,6 +10,8 @@ export const route = {
   BITCOIN_ROUTE: 'BTC',
   SELECT_ADDRESS_SCREEN: 'SelectAddress',
   TOKEN_SEND_SCREEN: 'TokenSend',
+  ADD_TOKEN: "AddToken",
+  ADD_EOA: "AddEOA",
   TOKEN_RECEIVE_SCREEN: 'TokenReceive',
   SUMMARY_TX_ROUTE: 'SummaryTx',
   TOKEN_DETAIL_SCREEN: 'TokenDetail',
