@@ -11,11 +11,24 @@ interface Token {
   balance?: string
 }
 
+interface TokenHistory {
+  blockNumber: string;
+  hash: string;
+  from: string;
+  to: string;
+  timeStamp: string;
+  contractAddress: string;
+  value: string;
+  tokenName: string;
+  tokenSymbol: string;
+}
+
 export class TokenStore {
   private root: any
   constructor(root: any) {
     this.root = root
   }
+
   // interface 에는 modifier 가 안 붙여짐. 아래처럼 선언 할 때 붙이면 될 
   @observable public ercTokenList: Token[] = []  // upbitTokenList 와 etherscanTopToken 의 교집합
   @observable public willBeAddedTokenList: Token[] = []  // AddTokenScreen에서 사용자가 선택한 토큰들
@@ -24,6 +37,8 @@ export class TokenStore {
   @observable public clickedToken: Token = {
     symbol: "", koreanName: "", marketCode: "", address: "", balance: ""
   }
+  @observable public tokenHistoryList: TokenHistory[] = [];
+
 
   @action public pushToken = (loadedTokenList: any[]) => {
     loadedTokenList.forEach(token => {
