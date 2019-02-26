@@ -5,11 +5,12 @@ import { Layout } from '../../layout/Layout';
 import { List } from 'react-native-paper';
 import { WalletStore } from '../../stores/walletStore';
 import { inject, observer } from 'mobx-react';
-import { TokenInfoStore } from '../../stores/tokenInfoStore';
+import { TokenStore } from '../../stores/tokenStore';
 import { SEND_ICON_COLOR, RECEIVE_ICON_COLOR } from '../../constants/colors';
 import { SEND_ICON, RECEIVE_ICON } from '../../constants/icons';
 import { styles } from './Styles';
 import { getERC20TokenHistory, getTxReceipt } from '../../apis/EtherscanAPI';
+import { store } from '../../constants/store';
 
 const moment = require('moment');
 const ethers = require('ethers');
@@ -17,7 +18,7 @@ const ethers = require('ethers');
 interface TxSummaryListScreenProps {
   navigation: NavigationScreenProp<any, any>;
   walletStore: WalletStore;
-  tokenInfoStore: TokenInfoStore;
+  tokenStore: TokenStore;
 }
 
 interface TokenHistory {
@@ -30,10 +31,6 @@ interface TokenHistory {
 }
 var keyIndex: number = 0;
 
-// 임시로 하드코딩한 값
-var contractAddress = '0xCe5559F046d8C01192E15f55063906F8d1c14790';
-var userAddress = '0x6b59210ade46b62b25e82e95ab390a7ccadd4c3a';
-
 const txData = {
   addressTo: '0xc858df16fb030c529c8b43469c42f354f98a8d57',
   addressFrom: '0x2Cc08D64C38FA547ecEe4B15Ef8238A5912B2206',
@@ -42,35 +39,35 @@ const txData = {
   value: '5',
 };
 
-@inject('walletStore')
-@inject('tokenInfoStore')
+@inject(store.WALLET_STORE)
+@inject(store.TOKEN_STORE)
 @observer
 export class TxSummaryListScreen extends React.Component<
   TxSummaryListScreenProps
 > {
   componentDidMount() {
-    getERC20TokenHistory(contractAddress, userAddress).then(
+    getERC20TokenHistory(this.props.tokenStore.clickedToken.address, this.props.walletStore.getWallet.address).then(
       (responseJson: TokenHistory | any) => {
-        this.props.tokenInfoStore.tokenHistoryList = JSON.parse(responseJson);
+        this.props.tokenStore.tokenHistoryList = JSON.parse(responseJson);
       },
     );
   }
   render() {
-    const { tokenInfoStore } = this.props;
+    const { tokenStore } = this.props;
     return (
       <Layout header={false}>
         <List.Section style={styles.listSectionContainer}>
           <ScrollView>
-            {tokenInfoStore.tokenHistoryList.map(token => (
+            {tokenStore.tokenHistoryList.map(token => (
               <List.Item
                 key={`${keyIndex++}`}
                 title={token.to}
                 description={this.convertTimestamp(token.timeStamp)}
                 left={() => (
                   <List.Icon
-                    icon={this.classifySendReceive(token.from, userAddress)}
+                    icon={this.classifySendReceive(token.from, this.props.walletStore.getWallet.address)}
                     color={
-                      token.from === userAddress
+                      token.from === this.props.walletStore.getWallet.address
                         ? SEND_ICON_COLOR
                         : RECEIVE_ICON_COLOR
                     }

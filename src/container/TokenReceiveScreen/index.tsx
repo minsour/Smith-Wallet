@@ -5,13 +5,14 @@ import { WalletStore } from '../../stores/walletStore';
 import { Layout } from '../../layout/Layout';
 import { inject, observer } from 'mobx-react';
 import QRCode from 'react-native-qrcode';
+import { store } from '../../constants/store';
 
 interface TokenReceiveScreenProps {
   navigation: NavigationScreenProp<any, any>;
   walletStore: WalletStore;
 }
 
-@inject('walletStore')
+@inject(store.WALLET_STORE)
 @observer
 export class TokenReceiveScreen extends React.Component<
   TokenReceiveScreenProps
@@ -24,8 +25,7 @@ export class TokenReceiveScreen extends React.Component<
         headerNavigation={this.props.navigation}
       >
         <QRCode
-          // value={this.props.walletStore.getWallet.address}
-          value="address(If I successfully load EOA, this appears without any errors)"
+          value={this.props.walletStore.getWallet.address}
           size={200}
           bgColor="black"
           fgColor="white"
