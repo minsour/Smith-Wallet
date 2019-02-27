@@ -34,7 +34,10 @@ export class MainScreen extends React.Component<MainScreenProps> {
   render() {
     this.props.tokenStore!.initWillBeAddedToken()
     if(this.props.walletStore!.getMnemonic === "") {
-     return <Loading>지갑 로딩중</Loading>
+      return <Loading>지갑 로딩중</Loading>
+    }
+    if (this.props.modalStore!.visible[modal.LOADING]) {
+      return <Loading>잔액 확인중</Loading>
     }
     return (
       <PaperProvider>
@@ -51,7 +54,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
           fabStyle={styles.fabStyle}
         />
         {this.props.modalStore!.visible[modal.ADD_MODAL] &&
-          <ModalLayout visibleKey={modal.ADD_MODAL}>
+          <ModalLayout visibleKey={modal.ADD_MODAL} animationIn='slideInUp' animationOut='slideInDown'>
             <AddSomethingScreen navigation={this.props.navigation}/>
           </ModalLayout>
         }
