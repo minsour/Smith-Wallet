@@ -9,13 +9,15 @@ import { observer } from 'mobx-react/native';
 import { modal } from '../../constants/modal';
 import { ModalStore } from '../../stores/modalStore';
 import { store } from '../../constants/store';
+import { TokenStore } from '../../stores/tokenStore';
 
 interface TxSomethingScreenProps {
   navigation: NavigationScreenProp<any, any>
   modalStore?: ModalStore
+  tokenStore?: TokenStore
 }
 
-@inject(store.MODAL_STORE)
+@inject(store.MODAL_STORE, store.TOKEN_STORE)
 @observer
 export class TxSomethingScreen extends React.Component<TxSomethingScreenProps> {
   render() {
@@ -31,6 +33,7 @@ export class TxSomethingScreen extends React.Component<TxSomethingScreenProps> {
             보내기
           </Text>
         </TouchableRipple>
+        {}
       </View>
     );
   }
@@ -39,8 +42,12 @@ export class TxSomethingScreen extends React.Component<TxSomethingScreenProps> {
     this.props.modalStore!.hideModal(modal.TX_MODAL)
     this.props.navigation.navigate(route.TOKEN_SEND_SCREEN)
   }
-  private navigateToTokenSend = () => {
-    this.props.modalStore!.hideModal(modal.TX_MODAL)
+
+  private navigateToTokenSend = async () => {
+    await this.props.modalStore!.showModal(modal.LOADING)
+    await this.props.modalStore!.hideModal(modal.TX_MODAL)
+    await this.props.tokenStore!.balanceOf(this.props.tokenStore!.clickedToken)
+    await this.props.modalStore!.hideModal(modal.LOADING)
     this.props.navigation.navigate(route.TOKEN_SEND_SCREEN)
   }
 }
