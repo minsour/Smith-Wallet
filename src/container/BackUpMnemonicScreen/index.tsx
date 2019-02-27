@@ -10,8 +10,10 @@ import { Layout } from '../../layout/Layout';
 import 'ethers/dist/shims.js';  // 안드로이드 니모닉 생성 시 발생하는 오류 해결(String.prototype.normalize 사용)
 import { inject } from 'mobx-react';
 //import { Loading } from '../../layout/Loading';
+import { getNewWalletMnemonic, getAccountInfo, getBalanceOfERC20Token, transferERC20Token } from '../../apis/ethers'
 import { WalletStore } from '../../stores/walletStore';
 import { store } from '../../constants/store';
+import { getBalanceOfETH } from '../../apis/etherscan';
 
 const ethers = require("ethers");
 
@@ -20,7 +22,7 @@ interface BackUpMnemonicScreenProps {
   walletStore?: WalletStore
 }
 
-@inject(store.walletStore)
+@inject(store.WALLET_STORE)
 @observer
 export class BackUpMnemonicScreen extends React.Component<
   BackUpMnemonicScreenProps
@@ -29,6 +31,8 @@ export class BackUpMnemonicScreen extends React.Component<
 
   componentDidMount() {
     this.createMnemonic();
+    this.saveMnemonic(this.myMnemonic);
+    this.setMnemonic()
   }
 
   render() {
@@ -46,23 +50,59 @@ export class BackUpMnemonicScreen extends React.Component<
           multiline={true}
           value={this.myMnemonic}
         />
+        
         <Button
           style={styles.createButton}
           mode="contained"
           onPress={() => {
-            this.saveMnemonic(this.myMnemonic);
-            this.setWallet();
+          this.balanceOf()
+          }}
+        >
+        balancOf
+        </Button>
+
+        <Button
+          style={styles.createButton}
+          mode="contained"
+          onPress={() => {
+            this.transfer()
+          }}
+        >
+        transfer
+        </Button>
+        <Button
+          style={styles.createButton}
+          mode="contained"
+          onPress={() => {
             this.navigateToWallet();
           }}
         >
-          Done
+          next
         </Button>
       </Layout>
     );
   }
 
+  private balanceOf = () => {
+    getBalanceOfETH(getAccountInfo(this.myMnemonic, 0).privateKey
+    )
+    .then((tx:any)=>{console.log(tx.toString())})
+    .catch((tx:any)=>{console.log(tx)});
+  }
+
+  private transfer = () => {
+    transferERC20Token(getAccountInfo(this.myMnemonic, 0).privateKey,
+     "0xc382E6FB34609d656e1196a0cab6D463d8Ae8a34",
+      "0xDc27C2b26EDbfb7Eb223589D4997dDA997DA8D1e",
+       1)
+    .then((tx:any)=>{console.log(tx)})
+    .catch((tx:any)=>{console.log(tx)});
+  }
+
   private createMnemonic = () => {
-    this.myMnemonic = ethers.Wallet.createRandom().mnemonic;
+    this.myMnemonic = getNewWalletMnemonic();
+    console.log(this.myMnemonic);
+    console.log(getAccountInfo(this.myMnemonic, 0));
   };
 
   private saveMnemonic = (newMnemonic: string) => {
@@ -74,15 +114,14 @@ export class BackUpMnemonicScreen extends React.Component<
   };
   
   private setWallet = async () => {
-    const { walletStore } = this.props
     await this.setMnemonic();
     const path = "m/44'/60'/0/0";
-    walletStore!.setWallet(ethers.Wallet.fromMnemonic(walletStore!.getMnemonic, path));
+    this.props.walletStore!.setWallet(ethers.Wallet.fromMnemonic(this.props.walletStore!.getMnemonic, path));
   };
 
   private setMnemonic = async () => {
-    const { walletStore } = this.props
     await AsyncStorageUtils.loadMnemonic()
-    .then( res => walletStore!.setMnemonic(res) );
+    .then( res => this.props.walletStore!.setMnemonic(res) );
   };
+
 }
