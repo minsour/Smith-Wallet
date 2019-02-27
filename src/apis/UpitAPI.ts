@@ -1,5 +1,5 @@
-import { UPBIT_MARKET_CODE_URL, GET_UPBIT_ERC_URL } from '../constants/apiUrl';
-import { GET } from '../constants/apiMethod';
+import { UPBIT_MARKET_CODE_URL, GET_UPBIT_ERC_URL, UPBIT_GET_TICKER_URL } from '../constants/apiUrl';
+import { GET } from '../constants/apiMethod'
 
 const publicAPI = (method: string, url: string, body: {} = {}) => {
   // fetch는 Promise를 반환하므로, 받아서 바로 .then() 쓰면 됨.
@@ -25,4 +25,8 @@ export const getMarketCode = () => {
 
 export const getERCToken = () => {
   return publicAPI(GET, GET_UPBIT_ERC_URL)
+}
+
+export const getTokenTicker = (marketCode:string) => {
+  return publicAPI(GET, `${UPBIT_GET_TICKER_URL}${marketCode}`)
 }
