@@ -3,37 +3,49 @@ import { NavigationScreenProp } from "react-navigation";
 import { styles } from "./Styles";
 import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';
-import { ScrollView } from 'react-native';
+import { ScrollView, View, RefreshControl } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { Token } from '../../components/Token';
 import { TokenStore } from '../../stores/tokenStore';
 import { store } from '../../constants/store';
+import { getBalanceOfEthereum, getAccountInfo } from '../../apis/ethers';
+import { WalletStore } from '../../stores/walletStore';
+import { observable, action } from 'mobx';
 
 interface TokenListScreenProps {
   navigation: NavigationScreenProp<any, any>
   tokenStore?: TokenStore
+  walletStore?: WalletStore
 }
 
-@inject(store.TOKEN_STORE)
+@inject(store.TOKEN_STORE, store.WALLET_STORE)
 @observer
 export class TokenListScreen extends React.Component<TokenListScreenProps> {
+  @observable refreshing = false
+  @action _onRefresh = () => {
+    this.refreshing = true
+    this.props.tokenStore!.updateBalanceInfo()
+    this.refreshing = false
+  }
   render() {
     let tokenId: number = 0
     return (
-      <Layout header={false}>
-        <ScrollView>
+      <View style={styles.container}>
+        <ScrollView refreshControl={
+          <RefreshControl
+            refreshing={this.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }>
           {this.props.tokenStore!.selectedTokenList.map(token =>
             <Token
               key={`${tokenId++}`}
-              balance={12300}
-              name={token.koreanName}
-              symbol={token.symbol}
-              address={token.address}
               token={token}
+              selected={true}
             />
           )}
           </ScrollView>
-      </Layout>
+      </View>
     );
   }
 
