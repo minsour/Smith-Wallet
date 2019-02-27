@@ -1,6 +1,9 @@
 import { observable, action, computed } from 'mobx';
-import { getMarketCode, getERCToken } from '../apis/UpitAPI';
+import { getMarketCode, getERCToken, getTokenTicker } from '../apis/UpitAPI';
 import { modal } from '../constants/modal';
+import { getBalanceOfEthereum, getAccountInfo, getBalanceOfERC20Token, etherscanProvider } from '../apis/ethers';
+import { getBalanceOfETH } from '../apis/etherscan';
+import { ethers, utils } from 'ethers';
 
 interface Token {
   symbol: string
@@ -8,7 +11,9 @@ interface Token {
   marketCode: string
   address: string
   abi?: string
-  balance?: string
+  balance?: number
+  krwBalance?: number
+  gasfee?: string
 }
 
 export class TokenStore {
@@ -22,7 +27,7 @@ export class TokenStore {
   @observable public searchedTokenList: Token[] = []  // 
   @observable public selectedTokenList: Token[] = []  // ercTokenList 중 사용자가 지갑에 추가한 토큰리스트
   @observable public clickedToken: Token = {
-    symbol: "", koreanName: "", marketCode: "", address: "", balance: ""
+    symbol: "", koreanName: "", marketCode: "", address: "", balance: 0, krwBalance: 0
   }
 
   @action public pushToken = (loadedTokenList: any[]) => {
@@ -31,7 +36,9 @@ export class TokenStore {
         symbol: token.symbol,
         koreanName: token.korean_name,
         address: token.address,
-        marketCode: token.market
+        marketCode: token.market,
+        balance: 0,
+        krwBalance: 0
       })
     })
   }
@@ -42,6 +49,9 @@ export class TokenStore {
       .catch()
     
     this.searchedTokenList = this.ercTokenList
+    // 이더리움 삽입
+    this.selectedTokenList.push(this.ercTokenList[0])
+    this.ercTokenList.splice(0, 1)
 
     // 잘 가져오는지 확인용
     this.ercTokenList.forEach(element => {
@@ -79,7 +89,65 @@ export class TokenStore {
     })
   }
 
-  @action public clickToken = (clickedToken: Token) => {
+  @action public clickToken = async (clickedToken: Token) => {
+    await etherscanProvider.getGasPrice().then(gasPrice => {
+      clickedToken.gasfee = utils.formatEther(gasPrice)
+      console.log(utils.formatEther(gasPrice))
+    })
     this.clickedToken = clickedToken
+  }
+
+  @action public parseUpbitTokenTicker = (loadedList: any[]) => {
+    if (loadedList == undefined) {
+      return
+    }
+    let tradePriceMap = new Map();
+    loadedList.forEach(element => {
+      tradePriceMap.set(element.market, element.trade_price);
+    })
+    this.selectedTokenList = this.selectedTokenList.map(element=>{
+      element.krwBalance = tradePriceMap.get(element.marketCode)
+      return element
+    })
+  }
+
+  @action public getTokenPrice = async () => {
+    let marketCode:string = this.selectedTokenList.map((e:Token)=>{return e.marketCode}).join(",");
+    await getTokenTicker(marketCode)
+    .then((responseJson) => this.parseUpbitTokenTicker(responseJson))
+    .catch((reject) => {
+      console.error(
+        "Error occurs during requesting ToeknTicker on Upbit :::" + reject
+      )
+    })
+  }
+
+  @action public updateBalanceInfo = () => {
+    this.selectedTokenList.forEach(token => {
+      if ("KRW-ETH" == token.marketCode) this.balanceOf(token)
+      else this.erc20BalanceOf(token)
+    })
+    this.getTokenPrice()
+  }
+
+  public balanceOf = (token: any) => {
+    getBalanceOfETH(getAccountInfo(this.root.walletStore.getMnemonic, 0).address)
+    .then(responseJson => {
+      token.balance = ethers.utils.formatEther(responseJson.result)
+      console.log(token.koreanName+responseJson.result)
+  })
+  }
+  private erc20BalanceOf = (token: Token) => {
+    getBalanceOfERC20Token(getAccountInfo(this.root.walletStore.getMnemonic, 0).privateKey, token.address)
+      .then((tx: any) => {
+      token.balance = Number.parseFloat(tx.toString())
+        console.log(token.koreanName+tx.toString())
+    })
+    .catch((tx:any)=>{console.log(tx)});
+    // token.balance = 10
+  }
+
+  public getGasPrice = () => {
+    return etherscanProvider.getGasPrice()
   }
 }
