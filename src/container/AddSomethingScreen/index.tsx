@@ -23,12 +23,22 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
       <View style={styles.container}>
         <TouchableRipple style={styles.content} onPress={this.navigateToAddToken}>
           <Text>
-            토큰 추가하기
+            토큰 추가
           </Text>
         </TouchableRipple>
         <TouchableRipple style={styles.content} onPress={this.navigateToAddEOA}>
           <Text>
-            계좌 추가하기
+            계좌 추가
+          </Text>
+        </TouchableRipple>
+        <TouchableRipple style={styles.content} onPress={this.navigateToImportMnemonic}>
+          <Text>
+            지갑 추가
+          </Text>
+        </TouchableRipple>
+        <TouchableRipple style={styles.content} onPress={this.navigateToAddEOA}>
+          <Text>
+            업비트 연동
           </Text>
         </TouchableRipple>
       </View>
@@ -42,5 +52,9 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
   private navigateToAddEOA = () => {
     this.props.modalStore!.hideModal(modal.ADD_MODAL)
     this.props.navigation.navigate(route.ADD_EOA)
+  }
+  private navigateToImportMnemonic = () => {
+    this.props.modalStore!.hideModal(modal.ADD_MODAL)
+    this.props.navigation.navigate(route.ENTER_MNEMONIC_SCREEN)
   }
 }

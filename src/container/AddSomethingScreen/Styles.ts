@@ -1,21 +1,20 @@
 import { StyleSheet } from "react-native";
 import { BG_COLOR } from '../../constants/colors';
+import { DIMENSIONS_WIDTH, DIMENSIONS_HEIGHT } from '../../constants/dementions';
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: BG_COLOR,
-    borderRadius: 5,
-    width: 270,
-    height: 120, 
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5
+    borderRadius: 7,
+    width: DIMENSIONS_WIDTH,
+    height: 180,
+    marginTop: DIMENSIONS_HEIGHT - 180,
+    padding: 5,
+    flexDirection: 'row'
   },
   content: {
     flex: 1,
-    width: 270,
     alignItems: 'center',
-    justifyContent: 'center'
   },
   contentFont: {
     fontSize: 15
