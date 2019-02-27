@@ -8,33 +8,25 @@ interface TokenType {
   marketCode: string
   address: string
   abi?: string
-  balance?: string
+  balance?: number
+  krwBalance?: number
 }
 
 interface TokenProps {
-  balance?: number
-  name: string
-  symbol: string
-  address: string
   token: TokenType
+  selected?: boolean
 }
 
 export class Token extends React.Component<TokenProps> {
   render() {
     return (
-      this.props.balance ? 
+      this.props.selected ? 
       // SummaryScreen에 rendering
       <BalanceToken
-        balance={this.props.balance}
-        name={this.props.name}
-        symbol={this.props.symbol}
         token={this.props.token}
       /> :
       // AddTokenScreen에 rendering
       <NotBalanceToken
-        name={this.props.name}
-        symbol={this.props.symbol}
-        address={this.props.address}
         token={this.props.token}
       />
     );

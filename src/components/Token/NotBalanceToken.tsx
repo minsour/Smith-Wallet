@@ -14,13 +14,10 @@ interface TokenType {
     marketCode: string
     address: string
     abi?: string
-    balance?: string
+    balance?: number
 }
   
 interface NotBalanceTokenProps {
-  name: string
-  symbol: string
-  address: string
   tokenStore?: TokenStore
   token: TokenType
 }
@@ -45,15 +42,10 @@ export class NotBalanceToken extends React.Component<NotBalanceTokenProps> {
         <View>
           <View style={styles.title}>
             <Text style={styles.nameFont}>
-              {this.props.name}
+              {this.props.token.koreanName}
             </Text>
             <Text style={styles.symbolFont}>
-              {this.props.symbol}
-            </Text>
-          </View>
-          <View>
-            <Text style={styles.addressFont}>
-              {this.props.address}
+              {this.props.token.symbol}
             </Text>
           </View>
         </View>

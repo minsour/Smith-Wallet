@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, TouchableRipple } from "react-native-paper";
+import { Text, TouchableRipple, Button } from "react-native-paper";
 import { styles } from "./Styles";
 import { View } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
@@ -7,6 +7,7 @@ import { store } from '../../constants/store';
 import { ModalStore } from '../../stores/modalStore';
 import { modal } from '../../constants/modal';
 import { TokenStore } from '../../stores/tokenStore';
+import { WalletStore } from '../../stores/walletStore';
 
 interface TokenType {
   symbol: string
@@ -14,39 +15,43 @@ interface TokenType {
   marketCode: string
   address: string
   abi?: string
-  balance?: string
+  balance?: number
+  krwBalance?: number
 }
 
 interface BalanceTokenProps {
-  name: string
-  symbol: string
-  balance: number
   modalStore?: ModalStore
   tokenStore?: TokenStore
+  walletStore?: WalletStore
   token: TokenType
 }
 
-@inject(store.MODAL_STORE, store.TOKEN_STORE)
+@inject(store.MODAL_STORE, store.TOKEN_STORE, store.WALLET_STORE)
 @observer
 export class BalanceToken extends React.Component<BalanceTokenProps> {
   render() {
     return (
-      <TouchableRipple style={styles.dropedItem} onPress={() => this.clickToken(this.props.token)}>
+      <TouchableRipple style={styles.selectedItem} onPress={() => this.clickToken(this.props.token)}>
         <View style={styles.balanceToken}>
           <View style={styles.right}>
             <Text style={styles.nameFont}>
-              {this.props.name}
+              {this.props.token.koreanName}
             </Text>
             <Text style={styles.balance}>
-              {this.props.balance} {this.props.symbol}
+              {this.props.token.balance} {this.props.token.symbol}
+            </Text>
+            <Text style={styles.balance}>
+              {this.props.token.krwBalance! * this.props.token.balance!} KRW
             </Text>
           </View>
           <View style={styles.left}>
-            <TouchableRipple onPress={() => this.showTxModal(this.props.token)}>
-              <Text>
-                송금
-              </Text>
-            </TouchableRipple>
+            <Button
+              style={styles.button}
+              mode="contained"
+              onPress={() => this.showTxModal(this.props.token)} //테스트용
+            >
+              송금
+            </Button>
           </View>
         </View>
       </TouchableRipple>
