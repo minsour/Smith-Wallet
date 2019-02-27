@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     paddingTop: 10
   },
   list: {
-    flex: 7,
+    flex: 9,
     width: DIMENSIONS_WIDTH
   },
   listTab: {
