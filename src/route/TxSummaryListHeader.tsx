@@ -1,13 +1,15 @@
 import { createMaterialTopTabNavigator } from 'react-navigation';
 import { TxSummaryListScreen } from '../container/TxSummaryListScreen';
+import { SendTxSummaryListScreen } from '../container/SendTxSummaryListScreen';
+import { ReceiveTxSummaryListScreen } from '../container/ReceiveTxSummaryListScreen';
 import { BG_COLOR } from '../constants/colors';
 import { DIMENSIONS_WIDTH } from '../constants/dementions';
 
 export const TxSummaryListHeader = createMaterialTopTabNavigator(
   {
     All: TxSummaryListScreen,
-    Send: TxSummaryListScreen,
-    Receive: TxSummaryListScreen,
+    Send: SendTxSummaryListScreen,
+    Receive: ReceiveTxSummaryListScreen,
   },
   {
     initialRouteName: 'All',
@@ -23,7 +25,6 @@ export const TxSummaryListHeader = createMaterialTopTabNavigator(
         width: DIMENSIONS_WIDTH,
         height: 50,
         backgroundColor: BG_COLOR,
-        marginTop: -20,
       },
     },
   },

@@ -34,19 +34,4 @@ export class AsyncStorageUtils {
     }
     return '';
   };
-
-  static getTxHistoryByAddress = async (address: string) => {
-    try {
-      await etherscanProvider
-        .getHistory(address)
-        .then(function(history: string) {
-          console.log(history);
-          //parsing 작업 추가 필요
-        });
-    } catch (error) {
-      console.error(
-        'Error occurs during loading transaction history :::' + error,
-      );
-    }
-  };
 }

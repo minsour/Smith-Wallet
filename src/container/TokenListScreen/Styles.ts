@@ -10,9 +10,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center"
   },
   Button: {
-    width:250,
-    height:40,
-    backgroundColor:"#030066",
-    margin:15
-  }
+    width: 250,
+    height: 40,
+    backgroundColor: '#030066',
+    margin: 15,
+  },
 });
