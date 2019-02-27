@@ -23,8 +23,8 @@ export const styles = StyleSheet.create({
   },
   searchBar: {
     backgroundColor: "#fff",
-    width: DIMENSIONS_WIDTH - 20,
-    height: 50,
+    width: DIMENSIONS_WIDTH - 28,
+    height: 40,
     elevation: 0,
     borderRadius: 30,
     padding: 10
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#030066",
     borderRadius: 0,
     width: DIMENSIONS_WIDTH,
-    height: 60,
+    height: 55,
     marginTop: -20,
     marginBottom:-3,
     justifyContent: 'center'

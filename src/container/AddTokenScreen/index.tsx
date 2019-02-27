@@ -13,14 +13,16 @@ import { TokenStore } from '../../stores/tokenStore';
 import { ModalStore } from '../../stores/modalStore';
 import { store } from '../../constants/store';
 import { observable } from 'mobx';
+import { WalletStore } from '../../stores/walletStore';
 
 interface AddTokenScreenProps {
   tokenStore?: TokenStore
   modalStore?: ModalStore
+  walletStore?: WalletStore
   navigation: NavigationScreenProp<any,any>
 }
 
-@inject(store.TOKEN_STORE, store.MODAL_STORE)
+@inject(store.TOKEN_STORE, store.MODAL_STORE, store.WALLET_STORE)
 @observer
 export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
   @observable searchText: string = ""
@@ -31,7 +33,7 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
         <View style={styles.searchBarContainer}>
           <Searchbar
             placeholder="검색하기"
-            onChangeText={(searchText)=> this.searchToken(searchText)}
+            onChangeText={(searchText) => this.searchToken(searchText)}
             value={this.searchText}
             style={styles.searchBar}
           />
@@ -41,30 +43,29 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
             {this.props.tokenStore!.searchedTokenList.map(token =>
               <Token
                 key={`${tokenId++}`}
-                name={token.koreanName}
-                symbol={token.symbol}
-                address={token.address}
                 token={token}
               />)
             }
           </ScrollView>
         </View>
         {this.props.modalStore!.visible[modal.ADD_TOKEN] &&
-            <Button
-              style={styles.addButton}
-              onPress={this.setlectToken}
-            >
-              <Text style={styles.buttonFont}>
-                추 가
+          <Button
+            style={styles.addButton}
+            onPress={this.setlectToken}
+          >
+            <Text style={styles.buttonFont}>
+              추 가
               </Text>
-            </Button>
-          }
+          </Button>
+        }
       </Layout>
     );
   }
+
   private setlectToken = () => {
     this.props.tokenStore!.selectToken()
     this.props.modalStore!.visible[modal.ADD_TOKEN] = false
+    this.props.tokenStore!.updateBalanceInfo()
     this.props.navigation.navigate(route.MAIN_SCREEN)
   }
 
