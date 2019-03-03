@@ -1,7 +1,8 @@
-import React from "react";
-import { NavigationScreenProps } from "react-navigation";
-import PINCode from "@haskkor/react-native-pincode";
-import { AsyncStorageUtils } from "../../utils/asyncStorageUtils";
+import React from 'react';
+import { NavigationScreenProps } from 'react-navigation';
+import PINCode from '@haskkor/react-native-pincode';
+import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
+import { AsyncStorage } from 'react-native';
 import { Layout } from '../../layout/Layout';
 
 export class CreatePinCodeScreen extends React.Component<
@@ -12,13 +13,8 @@ export class CreatePinCodeScreen extends React.Component<
       <Layout header={false}>
         <PINCode
           finishProcess={this.navigateToDestination}
-          status={"choose"}
-          passwordLength={6}
-          titleChoose="암 호"
-          subtitleChoose="지갑 비밀번호를 생성해 주세요."
-          // node_modules/@haskkor/react-native-pincode/dist/index.js
-          // 에서 암호 다시 입력하는(2번째) 스크린의 문구 
-          // "다시 입력해 주세요." 로 수정
+          status={'choose'}
+          maxAttempts={100}
           storePin={AsyncStorageUtils.storePin}
         />
       </Layout>
@@ -27,7 +23,7 @@ export class CreatePinCodeScreen extends React.Component<
 
   private navigateToDestination = () => {
     this.props.navigation.navigate(
-      this.props.navigation.getParam("destination")
+      this.props.navigation.getParam('destination'),
     );
   };
 }
