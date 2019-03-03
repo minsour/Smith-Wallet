@@ -1,62 +1,54 @@
 import { observable, action, computed } from 'mobx';
-
-interface Account {
-    address: string;
-    balance: number;
-    index?: number;
-}
+import { makePath, etherscanProvider } from '../apis/ethers';
+import { ethers } from 'ethers';
+import { walletTab } from '../constants/walletTab'
 
 interface Wallet {
-    ethersWallet: any;
-    Mnemonic: string;
-    accounts: Account[];
-    accountsCount: number;
-    selectedAccount: Account;
-    totalBalance: number;
+  wallet?: ethers.Wallet
+  selectedTokenList?: any[]
+  accountLenth?: number
+  accountName?: Map<number, string>
 }
 
 export class WalletStore {
-    // interface 에는 modifier 가 안 붙여짐. 아래처럼 선언 할 때 붙이면 될 듯.
-    @observable private wallet: Wallet = {
-        ethersWallet: "",
-        Mnemonic: "",
-        accounts: [],
-        accountsCount: 0,
-        selectedAccount: { address: "", balance: 0 },
-        totalBalance: 0
+  private root: any
+  constructor(root: any) {
+    this.root = root
+  }
+    
+  // interface 에는 modifier 가 안 붙여짐. 아래처럼 선언 할 때 붙이면 될 듯.
+  @observable public walletList:Map<string, Wallet> = new Map()
+  
+  @action public addSmith = (Mnemonic: string, path: number) => {
+    let wallet: Wallet = {
+      wallet: new ethers.Wallet(ethers.Wallet.fromMnemonic(Mnemonic, makePath(path)).privateKey, etherscanProvider),
+      selectedTokenList: this.root.tokenStore.selectedTokenList,
+      accountLenth: path + 1
     }
-
-    @action public setWallet = ( newWallet: any ) => {
-        this.wallet.ethersWallet = newWallet;
+    wallet.accountName!.set(wallet.accountLenth!, '첫째')
+    this.walletList.set(walletTab.Smith, wallet)
+    console.log(this.walletList.get(walletTab.Smith))
+    console.log(this.walletList.get(walletTab.UPbit))
+  }
+  
+  @action public addImport = (Mnemonic: string, path: number) => {
+    console.log('addImport')
+    let wallet: Wallet = {
+      wallet: new ethers.Wallet(ethers.Wallet.fromMnemonic(Mnemonic, makePath(path)).privateKey, etherscanProvider),
+      selectedTokenList: this.root.tokenStore.selectedTokenList,
+      accountLenth: path + 1
     }
-    @action public setMnemonic = ( newMnemonic: string) => {
-        this.wallet.Mnemonic = newMnemonic;
+    wallet.accountName!.set(wallet.accountLenth!, '첫째')
+    this.walletList.set(walletTab.Import, wallet)  
+    console.log(this.walletList.get(walletTab.Import)!.wallet!.address)
+  }
+  
+  @action public addUPbit = () => {
+    console.log(this.walletList)
+    let wallet: Wallet = {
+      selectedTokenList: this.root.tokenStore.selectedTokenList
     }
-    @action public createAccount = ( newAccount: Account ) => {
-        this.wallet.accounts[this.wallet.accountsCount].index = this.wallet.accountsCount;
-        this.wallet.accounts[this.wallet.accountsCount++] = newAccount;
-        this.wallet.totalBalance += newAccount.balance;
-    }
-    @action public setAccount = ( index: number ) => {
-        if(this.wallet.selectedAccount.index === index) {
-            // err: 이미 되어있습니다.
-        }
-        this.wallet.selectedAccount = this.wallet.accounts[index];
-    }
-
-    @computed public get getWallet(): any {
-        return this.wallet.ethersWallet;
-    }
-    @computed public get getMnemonic(): string {
-        return this.wallet.Mnemonic;
-    }
-    @computed public get getBalance(): number {
-        return this.wallet.selectedAccount.balance;
-    }
-    @computed public get getAddress(): string {
-        return this.wallet.selectedAccount.address;
-    }
-    @computed public get getTotalBalance(): number {
-        return this.wallet.totalBalance;
-    }
+    this.walletList.set(walletTab.UPbit, wallet)
+    console.log(wallet+' addWallet')
+  }
 }

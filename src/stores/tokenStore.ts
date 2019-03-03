@@ -1,9 +1,10 @@
 import { observable, action, computed } from 'mobx';
 import { getMarketCode, getERCToken, getTokenTicker } from '../apis/UpitAPI';
 import { modal } from '../constants/modal';
-import { getBalanceOfEthereum, getAccountInfo, getBalanceOfERC20Token, etherscanProvider } from '../apis/ethers';
+import { getBalanceOfEthereum, getBalanceOfERC20Token, etherscanProvider } from '../apis/ethers';
 import { getBalanceOfETH } from '../apis/etherscan';
 import { ethers, utils } from 'ethers';
+import { walletTab } from '../constants/walletTab';
 
 interface Token {
   symbol: string
@@ -140,20 +141,21 @@ export class TokenStore {
   @action public updateBalanceInfo = () => {
     this.selectedTokenList.forEach(token => {
       if ("KRW-ETH" == token.marketCode) this.balanceOf(token)
-      else this.erc20BalanceOf(token)
+      //else this.erc20BalanceOf(token)
     })
     this.getTokenPrice()
   }
 
   public balanceOf = (token: any) => {
-    getBalanceOfETH(getAccountInfo(this.root.walletStore.getMnemonic, 0).address)
+    //getBalanceOfETH(getAccountInfo(this.root.walletStore.getMnemonic('Usefullet'), 0).address)
+    getBalanceOfETH(this.root.walletStore.walletList.get(walletTab.Smith).wallet.address)
     .then(responseJson => {
       token.balance = ethers.utils.formatEther(responseJson.result)
       console.log(token.koreanName+responseJson.result)
   })
   }
   private erc20BalanceOf = (token: Token) => {
-    getBalanceOfERC20Token(getAccountInfo(this.root.walletStore.getMnemonic, 0).privateKey, token.address)
+    getBalanceOfERC20Token(this.root.walletStore.walletList.get(walletTab.Smith).privateKey, token.address)
       .then((tx: any) => {
       token.balance = Number.parseFloat(tx.toString())
         console.log(token.koreanName+tx.toString())
