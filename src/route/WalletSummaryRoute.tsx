@@ -1,40 +1,146 @@
 // src/route
 import { createMaterialTopTabNavigator } from "react-navigation";
-import { EthereumRoute } from "./EthereumRoute";
-import { BitcoinRoute } from "./BitcoinRoute";
 import { BG_COLOR } from "../constants/colors";
 import { DIMENSIONS_WIDTH } from '../constants/dementions';
+import { SmithSummaryScreen } from '../container/SummaryScreen/SmithSummaryScreen'
+import { ImportSummaryScreen } from '../container/SummaryScreen/ImportSummaryScreen'
+import { UPbitSummaryScreen } from '../container/SummaryScreen/UPbitSummaryScreen'
 
-export const WalletSummaryRoute = createMaterialTopTabNavigator (
+export const SmithSummaryRoute = createMaterialTopTabNavigator (
     {
-        ETH: EthereumRoute,
-        BTC: BitcoinRoute
+        Smith: SmithSummaryScreen
     },
     {
-        initialRouteName: "ETH",
         tabBarOptions: {
+            upperCaseLabel: false,
             tabStyle: {
                 backgroundColor: "#1E2D5F",
-                width: 60,
+                width: 72,
                 height: 30,
-                marginLeft: 5,
-                marginRight: 7,
-                marginTop: 17,
-                borderRadius: 7
+                marginLeft: 4,
+                marginRight: 9,
+                marginTop: 16,
+                borderRadius: 7,
             },
             labelStyle: {
-                //
+                fontSize: 13,
             },
             indicatorStyle: {
                 height: 0
             },
             style:{
-              width: DIMENSIONS_WIDTH,
-              height: 80,
-              backgroundColor: BG_COLOR,
-              elevation: 0,
-              paddingTop: 20,
-              paddingLeft: 20
+                width: DIMENSIONS_WIDTH,
+                height: 80,
+                backgroundColor: BG_COLOR,
+                elevation: 0,
+                paddingTop: 20,
+                paddingLeft: 20
+            }
+        }
+    }
+);
+
+export const ImportSummaryRoute = createMaterialTopTabNavigator (
+    {
+        Smith: SmithSummaryScreen,
+        Import: ImportSummaryScreen
+    },
+    {
+        tabBarOptions: {
+            upperCaseLabel: false,
+            tabStyle: {
+                backgroundColor: "#1E2D5F",
+                width: 72,
+                height: 30,
+                marginLeft: 4,
+                marginRight: 9,
+                marginTop: 16,
+                borderRadius: 7,
+            },
+            labelStyle: {
+                fontSize: 13,
+            },
+            indicatorStyle: {
+                height: 0
+            },
+            style:{
+                width: DIMENSIONS_WIDTH,
+                height: 80,
+                backgroundColor: BG_COLOR,
+                elevation: 0,
+                paddingTop: 20,
+                paddingLeft: 20
+            }
+        }
+    }
+);
+
+export const UPbitSummaryRoute = createMaterialTopTabNavigator (
+    {
+        Smith: SmithSummaryScreen,
+        UPbit: UPbitSummaryScreen
+    },
+    {
+        tabBarOptions: {
+            upperCaseLabel: false,
+            tabStyle: {
+                backgroundColor: "#1E2D5F",
+                width: 72,
+                height: 30,
+                marginLeft: 4,
+                marginRight: 9,
+                marginTop: 16,
+                borderRadius: 7,
+            },
+            labelStyle: {
+                fontSize: 13,
+            },
+            indicatorStyle: {
+                height: 0
+            },
+            style:{
+                width: DIMENSIONS_WIDTH,
+                height: 80,
+                backgroundColor: BG_COLOR,
+                elevation: 0,
+                paddingTop: 20,
+                paddingLeft: 20
+            }
+        }
+    }
+);
+
+export const WalletSummaryRoute = createMaterialTopTabNavigator (
+    {
+        Smith: SmithSummaryScreen,
+        Import: ImportSummaryScreen,
+        UPbit: UPbitSummaryScreen
+    },
+    {
+        tabBarOptions: {
+            upperCaseLabel: false,
+            tabStyle: {
+                backgroundColor: "#1E2D5F",
+                width: 72,
+                height: 30,
+                marginLeft: 4,
+                marginRight: 9,
+                marginTop: 16,
+                borderRadius: 7,
+            },
+            labelStyle: {
+                fontSize: 13,
+            },
+            indicatorStyle: {
+                height: 0
+            },
+            style:{
+                width: DIMENSIONS_WIDTH,
+                height: 80,
+                backgroundColor: BG_COLOR,
+                elevation: 0,
+                paddingTop: 20,
+                paddingLeft: 20
             }
         }
     }
