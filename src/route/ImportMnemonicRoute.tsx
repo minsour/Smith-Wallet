@@ -1,11 +1,9 @@
 // src/route
 import { createSwitchNavigator } from "react-navigation";
-import { CreatePinCodeScreen } from "../container/CreatePinCodeScreen";
 import { EnterMnemonicScreen } from "../container/EnterMnemonicScreen";
-import { BackUpMnemonicScreen } from "../container/BackUpMnemonicScreen";
+import { AuthorizePinCodeScreen } from '../container/AuthorizePinCodeScreen';
 
 export const ImportMnemonicRoute = createSwitchNavigator({
-  CreatePinCode: CreatePinCodeScreen,
-  EnterMnemonic: EnterMnemonicScreen,
-  BackUpMnemonic: BackUpMnemonicScreen
+  AuthorizePinCode: AuthorizePinCodeScreen,
+  EnterMnemonic: EnterMnemonicScreen
 });
