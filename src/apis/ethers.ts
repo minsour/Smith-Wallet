@@ -2,21 +2,14 @@ import { ethers, utils } from 'ethers';
 import { erc20ABI } from '../abis/erc20'
 export const etherscanProvider = new ethers.providers.EtherscanProvider('ropsten', 'H7WMYM6JIQQBXT3EQYIMSRZK4K2JVB92ZD')
 
-const makePath = (index:number) => {
-    return `m/44'/60'/${index}/0`
+export const makePath = (index:number) => {
+    return `m/44'/60'/0'/0/${index}`
 }
 
 export const getNewWalletMnemonic = () => {
     return ethers.Wallet.createRandom().mnemonic
 }
 
-export const getAccountInfo = (mnemonic:string, index:number) => {
-    let wallet:ethers.Wallet = ethers.Wallet.fromMnemonic(mnemonic, makePath(index));
-    return {
-        "address" : wallet.address,
-        "privateKey" : wallet.privateKey
-    }
-}
 export const getBalanceOfERC20Token = (privateKey:string, contractAddress:string) => {
     let wallet:ethers.Wallet = new ethers.Wallet(privateKey, etherscanProvider)
     let contract = new ethers.Contract(contractAddress, erc20ABI, wallet)
