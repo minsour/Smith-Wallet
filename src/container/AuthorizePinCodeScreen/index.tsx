@@ -38,6 +38,7 @@ export class AuthorizePinCodeScreen extends React.Component<
         <PINCode
           status={'enter'}
           maxAttempts={100}
+          passwordLength={6}
           touchIDDisabled={true}
           storedPin={this.state.loadedPin}
           finishProcess={this.navigateToDestination}

@@ -13,6 +13,7 @@ export class CreatePinCodeScreen extends React.Component<
         <PINCode
           finishProcess={this.navigateToDestination}
           status={'choose'}
+          passwordLength={6}
           maxAttempts={100}
           storePin={AsyncStorageUtils.storePin}
         />
