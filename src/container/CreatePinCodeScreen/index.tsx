@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationScreenProps } from 'react-navigation';
 import PINCode from '@haskkor/react-native-pincode';
 import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
-import { AsyncStorage } from 'react-native';
 import { Layout } from '../../layout/Layout';
 
 export class CreatePinCodeScreen extends React.Component<

@@ -50,12 +50,9 @@ export class AuthorizePinCodeScreen extends React.Component<
     await AsyncStorageUtils.loadPin().then(pinCode => {
       console.log('temp: ' + pinCode);
       if (pinCode === null) {
-        //핀넘버 불러왔는데 아무것도 없음 == 저장된 지갑이 없는거겠지 그럼 지갑만드는화면으로 이동
+        //핀넘버 없음
         this.navigateToDestination();
       } else {
-        //핀넘버 불러왔는데 핀넘버 있음 == 인증하기
-        //인증후 요청화면으로 이동
-        //니모닉 있으면 메인화면으로 가기
         console.log('else: ' + pinCode);
         this.setState({ loadedPin: pinCode });
       }
