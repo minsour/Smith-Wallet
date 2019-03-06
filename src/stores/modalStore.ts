@@ -7,6 +7,9 @@ export class ModalStore {
     'addToken': false,
     'txModal': false,
     'clickToken': false,
+    'search': false,
+    'isPicked': false,
+    'refreshBalance': false,
   }
 
   @action public showModal = (key: string) => {
