@@ -18,6 +18,36 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     width: DIMENSIONS_WIDTH
   },
+  searchBarContainer: {
+    flex: 3,
+    flexDirection: "row",
+    backgroundColor: BG_COLOR,
+    alignItems: "center",
+    justifyContent: "center",
+    width: DIMENSIONS_WIDTH,
+    paddingTop: 20,
+  },
+  searchBar: {
+    backgroundColor: "#fff",
+    elevation: 0,
+    flex: 6,
+    height: '85%',
+    borderBottomColor: '#eaeaea',
+    borderBottomWidth: 1,
+  },
+  searchBarRight: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '85%',
+    borderBottomColor: '#eaeaea',
+    borderBottomWidth: 1,
+  },
+  searchRightFont: {
+    color: '#8041d9',
+    fontSize: 15
+  },
   loadingContainer: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.5)",
@@ -30,8 +60,9 @@ export const styles = StyleSheet.create({
     marginTop: 16,
     color: "#fff",
     fontSize: 16
-  },modalContainer: {
+  },
+  modalContainer: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 });
