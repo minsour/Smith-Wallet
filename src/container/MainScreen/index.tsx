@@ -2,7 +2,7 @@ import React from "react";
 import { FAB, Provider as PaperProvider  } from "react-native-paper";
 import { NavigationScreenProp, createAppContainer } from "react-navigation";
 import { route } from "../../constants/route";
-import { SmithSummaryRoute, ImportSummaryRoute, UPbitSummaryRoute, WalletSummaryRoute } from "../../route/WalletSummaryRoute";
+import { SmithSummaryRoute, UPbitSummaryRoute } from "../../route/WalletSummaryRoute";
 import { inject, observer } from 'mobx-react';
 import { Loading } from '../../layout/Loading';
 import { styles } from './Styles';
@@ -24,9 +24,7 @@ interface MainScreenProps {
 }
 
 const SmithSummaryContainer = createAppContainer(SmithSummaryRoute)
-const ImportSummaryContainer = createAppContainer(ImportSummaryRoute)
 const UPbitSummaryContainer = createAppContainer(UPbitSummaryRoute)
-const WalletSummaryContainer = createAppContainer(WalletSummaryRoute)
 
 @inject(store.TOKEN_STORE, store.WALLET_STORE, store.MODAL_STORE)
 @observer
@@ -45,21 +43,9 @@ export class MainScreen extends React.Component<MainScreenProps> {
     }
     return (
       <PaperProvider>
-        {this.props.walletStore!.walletList.get(walletTab.Import) ?
-          (
-            this.props.walletStore!.walletList.get(walletTab.UPbit) ? (
-              <WalletSummaryContainer/>
-            ) :
-            (
-              <ImportSummaryContainer/>
-            )
-          ) : (
-            this.props.walletStore!.walletList.get(walletTab.UPbit) ? (
-              <UPbitSummaryContainer/>
-            ) : (
-              <SmithSummaryContainer/>    
-            )
-          )
+        {this.props.walletStore!.walletList.get(walletTab.UPbit) ? 
+          <UPbitSummaryContainer/> :
+          <SmithSummaryContainer/>
         }
         <FAB.Group
           open={this.state.open}
