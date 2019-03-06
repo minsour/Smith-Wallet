@@ -8,6 +8,8 @@ import { ModalStore } from '../../stores/modalStore';
 import { modal } from '../../constants/modal';
 import { TokenStore } from '../../stores/tokenStore';
 import { WalletStore } from '../../stores/walletStore';
+import { getERC20TokenHistory } from '../../apis/EtherscanAPI';
+import { walletTab } from '../../constants/walletTab';
 
 interface TokenType {
   symbol: string
@@ -41,7 +43,7 @@ export class BalanceToken extends React.Component<BalanceTokenProps> {
               {this.props.token.balance} {this.props.token.symbol}
             </Text>
             <Text style={styles.balance}>
-              {this.props.token.krwBalance! * this.props.token.balance!} KRW
+              {this.props.token.krwBalance} KRW
             </Text>
           </View>
           <View style={styles.left}>
@@ -58,14 +60,14 @@ export class BalanceToken extends React.Component<BalanceTokenProps> {
     )
   }
   
-  private clickToken = (clickedToken: any) => {
-    this.props.tokenStore!.clickToken(clickedToken)
+  private clickToken = async (clickedToken: any) => {
+    await this.props.tokenStore!.clickToken(clickedToken)
     console.log(this.props.tokenStore!.clickedToken) // 테스트용
     this.props.modalStore!.showModal(modal.CLICK_TOKEN)
   }
 
-  private showTxModal = (clickedToken: any) => {
-    this.props.tokenStore!.clickToken(clickedToken)
+  private showTxModal = async (clickedToken: any) => {
+    await this.props.tokenStore!.clickToken(clickedToken)
     console.log(this.props.tokenStore!.clickedToken) // 테스트용
     this.props.modalStore!.showModal(modal.TX_MODAL)
   }
