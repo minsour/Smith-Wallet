@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   importButton:{
     width:250,
     height:40,
-    backgroundColor:"#A6A6A6",
+    backgroundColor:"#fff",
     margin:15
   }
 });

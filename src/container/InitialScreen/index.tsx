@@ -35,6 +35,13 @@ export class InitialScreen extends React.Component<InitialScreenProps> {
           >
             지갑 생성
           </Button>
+          <Button
+            style={styles.importButton}
+            mode="contained"
+            onPress={this.navigateToImportMnemonic} //테스트용
+          >
+            니모닉 가져오기
+          </Button>
         </View>
       </View>
     );
@@ -44,6 +51,13 @@ export class InitialScreen extends React.Component<InitialScreenProps> {
     this.props.tokenStore!.loadTokenList()
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.BACKUP_MNEMONIC_SCREEN
+    });
+  };
+
+  private navigateToImportMnemonic = () => {
+    this.props.tokenStore!.loadTokenList()
+    this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
+      destination: route.ENTER_MNEMONIC_SCREEN
     });
   };
 }

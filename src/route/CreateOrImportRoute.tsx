@@ -3,5 +3,6 @@ import { CreateWalletRoute } from './CreateWalletRoute';
 import { ImportMnemonicRoute } from '../route/ImportMnemonicRoute';
 
 export const CreateOrImportRoute = createSwitchNavigator ({
-    CreateWallet: CreateWalletRoute
+    CreateWallet: CreateWalletRoute,
+    ImportMnemonic: ImportMnemonicRoute
 });
