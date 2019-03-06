@@ -7,16 +7,19 @@ import { styles } from "./Styles";
 import { TokenListScreen } from '../TokenListScreen';
 import { EOAListScreen } from '../EOAListScreen';
 import { inject, observer } from "mobx-react";
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { WalletStore } from '../../stores/walletStore';
 import { store } from '../../constants/store';
+import { walletTab } from '../../constants/walletTab';
+import { TokenStore } from '../../stores/tokenStore';
 
 interface SummaryScreenProps {
   navigation: NavigationScreenProp<any,any>
   walletStore?: WalletStore
+  tokenStore?: TokenStore
 }
 
-@inject(store.WALLET_STORE)
+@inject(store.WALLET_STORE, store.TOKEN_STORE)
 @observer
 export class SmithSummaryScreen extends React.Component<SummaryScreenProps> {
   @observable token = true;
@@ -24,13 +27,16 @@ export class SmithSummaryScreen extends React.Component<SummaryScreenProps> {
   @action private renderToken = () => { this.token = true }
   @action private renderEOA = () => { this.token = false }
 
+  @computed public get getBalance () {
+    return this.props.walletStore!.walletList.get(walletTab.Smith)!.totalBalance
+  }
   render() {
     return (
       <Layout header={false}>
         <View style={styles.summary}>
           <Text style={styles.summaryFont}>Smith Wallet</Text>
           <View style={styles.balance}>
-            <Text style={styles.balanceFont}>789,000</Text>
+            <Text style={styles.balanceFont}>{this.getBalance}</Text>
             <Text style={styles.krwFont}>KRW</Text>
           </View>
         </View> 

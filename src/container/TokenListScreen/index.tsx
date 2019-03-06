@@ -8,7 +8,6 @@ import { inject, observer } from 'mobx-react';
 import { Token } from '../../components/Token';
 import { TokenStore } from '../../stores/tokenStore';
 import { store } from '../../constants/store';
-import { getBalanceOfEthereum, getAccountInfo } from '../../apis/ethers';
 import { WalletStore } from '../../stores/walletStore';
 import { observable, action } from 'mobx';
 
@@ -25,7 +24,7 @@ export class TokenListScreen extends React.Component<TokenListScreenProps> {
   @action _onRefresh = () => {
     this.refreshing = true
     this.props.tokenStore!.updateBalanceInfo()
-    this.refreshing = false
+      .then(()=>{ this.refreshing = false })
   }
   render() {
     let tokenId: number = 0
