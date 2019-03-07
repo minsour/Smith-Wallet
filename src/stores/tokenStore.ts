@@ -13,7 +13,7 @@ import { ethers, utils } from 'ethers';
 interface Token {
   symbol: string;
   koreanName: string;
-  engName: string;
+  englishName: string;
   marketCode: string;
   address: string;
   abi?: string;
@@ -50,7 +50,7 @@ export class TokenStore {
   @observable public clickedToken: Token = {
     symbol: '',
     koreanName: '',
-    engName: '',
+    englishName: '',
     marketCode: '',
     address: '',
     balance: 0,
@@ -63,7 +63,7 @@ export class TokenStore {
       this.ercTokenList.push({
         symbol: token.symbol,
         koreanName: token.korean_name,
-        engName: '',
+        englishName: token.english_name,
         address: token.address,
         marketCode: token.market,
         balance: 0,
