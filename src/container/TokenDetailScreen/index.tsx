@@ -9,9 +9,10 @@ import { TxSummaryListHeader } from '../../route/TxSummaryListHeader';
 import { WalletStore } from '../../stores/walletStore';
 import { TokenStore } from '../../stores/tokenStore';
 import { inject, observer } from 'mobx-react';
-import { getERC20Info } from '../../apis/EtherscanAPI';
+import { getERC20Info, getEtherInfo } from '../../apis/EtherscanAPI';
 import { store } from '../../constants/store';
 import { getAccountInfo } from '../../apis/ethers';
+import { getBalanceOfETH } from '../../apis/etherscan';
 const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
 
 interface TokenDetailScreenProps {
@@ -30,21 +31,22 @@ interface Token {
   balance?: string;
 }
 
+const ETHEREUM_ADDRESS = '0x0000000000000000000000000000000000000000';
+
 @inject(store.WALLET_STORE)
 @inject(store.TOKEN_STORE)
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
-    this.getDetailInfoOfERC20(
-      this.props.tokenStore!.clickedToken.address,
-      this.props.walletStore!.eoa.address,
-    );
-    console.log(
-      'tokenaddress::;' + this.props.tokenStore!.clickedToken.address,
-    );
-    console.log(
-      'userAddress@tokenDetial::' + this.props.walletStore!.eoa.address,
-    );
+    if (this.props.tokenStore!.clickedToken.address == ETHEREUM_ADDRESS) {
+      //do something for ether
+      this.getEtherBalance(this.props.walletStore!.eoa.address);
+    } else {
+      this.getDetailInfoOfERC20(
+        this.props.tokenStore!.clickedToken.address,
+        this.props.walletStore!.eoa.address,
+      );
+    }
   }
   render() {
     const { tokenStore } = this.props;
@@ -119,10 +121,10 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     });
   };
 
-  private getEOA = async () => {
-    this.props.walletStore!.eoa.address = await getAccountInfo(
-      this.props.walletStore!.getMnemonic,
-      0,
-    ).address;
+  private getEtherBalance = async (userAddress: string) => {
+    await getEtherInfo(userAddress).then((token: Token | any) => {
+      const tmpEther = JSON.parse(token);
+      this.props.tokenStore!.clickedToken.balance = tmpEther.balance;
+    });
   };
 }
