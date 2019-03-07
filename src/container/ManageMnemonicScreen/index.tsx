@@ -47,7 +47,13 @@ export class ManageMnemonicScreen extends React.Component<
           multiline={true}
           value={this.myMnemonic}
         />
-        <Button style={styles.createButton} mode="contained" onPress={() => {}}>
+        <Button
+          style={styles.createButton}
+          mode="contained"
+          onPress={() => {
+            this.copyMnemonic();
+          }}
+        >
           Copy
         </Button>
       </Layout>
@@ -58,5 +64,10 @@ export class ManageMnemonicScreen extends React.Component<
     await AsyncStorageUtils.loadMnemonic().then(res => {
       this.myMnemonic = res;
     });
+  };
+
+  private copyMnemonic = async () => {
+    await Clipboard.setString(this.myMnemonic);
+    alert('Mnemonic is copied!');
   };
 }
