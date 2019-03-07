@@ -32,6 +32,8 @@ interface TokenHistory {
   value: string;
   tokenName: string;
   tokenSymbol: string;
+  status: string;
+  message: string;
 }
 
 export class TokenStore {
