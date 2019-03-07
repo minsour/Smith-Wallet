@@ -47,7 +47,6 @@ export class AuthorizePinCodeScreen extends React.Component<
     );
   }
   private verifyPincode = async () => {
-    console.log('hello?');
     await AsyncStorageUtils.loadPin().then(pinCode => {
       console.log('temp: ' + pinCode);
       if (pinCode === null) {
@@ -68,7 +67,13 @@ export class AuthorizePinCodeScreen extends React.Component<
 
   private navigateToDestination = async () => {
     await this.props.tokenStore!.loadTokenList();
-    if (this.props.walletStore!.getMnemonic !== null) {
+    if (
+      this.props.navigation.getParam('destination') ==
+      route.MANAGE_MNEMONIC_SCREEN
+    ) {
+      console.log('니모닉 백업하려나 보다');
+      this.props.navigation.navigate(route.MANAGE_MNEMONIC_SCREEN);
+    } else if (this.props.walletStore!.getMnemonic !== null) {
       console.log('지갑 있음');
       this.props.navigation.navigate(route.MAIN_SCREEN);
     } else {
