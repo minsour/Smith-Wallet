@@ -1,4 +1,3 @@
-// const ethers = require('ethers');
 import { ethers, utils } from 'ethers';
 import { erc20Abi } from '../utils/erc20Abi';
 
@@ -17,8 +16,8 @@ const getERC20Info = async (tokenAddress: string, userAddress: string) => {
     const balance = await contract.balanceOf(userAddress);
 
     console.log('erc20Name:::' + erc20Name);
-    console.log('erc20Name:::' + erc20Symbol);
-    console.log('erc20Name:::' + balance);
+    console.log('erc20Symbol:::' + erc20Symbol);
+    console.log('erc20Balance:::' + balance);
 
     var tmpToken = {
       engName: erc20Name,
@@ -40,6 +39,7 @@ const getERC20TokenHistory = async (
   userAddress: string,
 ) => {
   try {
+    console.log('userADdress@etherscanAPI: ' + userAddress);
     const finalApiUrl =
       TX_HISTORY_API_URL +
       'contractaddress=' +
@@ -50,7 +50,7 @@ const getERC20TokenHistory = async (
       API_KEY;
     const response = await fetch(finalApiUrl);
     const responseJson = await response.json();
-    return JSON.stringify(responseJson.result);
+    // console.log(responseJson.message);
   } catch (error) {
     console.error('Error during loading ERC20 TX history:::' + error);
   }
