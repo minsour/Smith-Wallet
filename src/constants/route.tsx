@@ -1,6 +1,7 @@
 export const route = {
   BACKUP_MNEMONIC_SCREEN: 'BackUpMnemonic',
   ENTER_MNEMONIC_SCREEN: 'EnterMnemonic',
+  MANAGE_MNEMONIC_SCREEN: 'ManageMnemonic',
   SPLASH_SCREEN: 'Splash',
   AUTHORIZE_PINCODE_SCREEN: 'AuthorizePinCode',
   CREATE_PINCODE_SCREEN: 'CreatePinCode',
@@ -10,8 +11,8 @@ export const route = {
   BITCOIN_ROUTE: 'BTC',
   SELECT_ADDRESS_SCREEN: 'SelectAddress',
   TOKEN_SEND_SCREEN: 'TokenSend',
-  ADD_TOKEN: "AddToken",
-  ADD_EOA: "AddEOA",
+  ADD_TOKEN: 'AddToken',
+  ADD_EOA: 'AddEOA',
   TOKEN_RECEIVE_SCREEN: 'TokenReceive',
   SUMMARY_TX_ROUTE: 'SummaryTx',
   TOKEN_DETAIL_SCREEN: 'TokenDetail',
