@@ -4,11 +4,11 @@ import { erc20Abi } from '../utils/erc20Abi';
 const TX_HISTORY_API_URL =
   'https://api.etherscan.io/api?module=account&action=tokentx&page=1&offset=100&sort=desc&';
 const API_KEY = 'QYZRBUMFTPA75YXE3P8IWUQS8Q23R6875Y';
+const provider = ethers.getDefaultProvider('ropsten');
 
 const getERC20Info = async (tokenAddress: string, userAddress: string) => {
   try {
     const { Contract } = require('ethers');
-    const provider = ethers.getDefaultProvider();
     const contract = new Contract(tokenAddress, erc20Abi, provider);
 
     const erc20Name = await contract.name();
@@ -34,6 +34,14 @@ const getERC20Info = async (tokenAddress: string, userAddress: string) => {
   }
 };
 
+const getEtherInfo = async (userAddress: string) => {
+  const ethBalance = await provider.getBalance(userAddress);
+  var tmpEther = {
+    balance: ethers.utils.formatEther(ethBalance),
+  };
+  return JSON.stringify(tmpEther);
+};
+
 const getERC20TokenHistory = async (
   contractAddress: string,
   userAddress: string,
@@ -50,7 +58,7 @@ const getERC20TokenHistory = async (
       API_KEY;
     const response = await fetch(finalApiUrl);
     const responseJson = await response.json();
-    // console.log(responseJson.message);
+    return JSON.stringify(responseJson.result);
   } catch (error) {
     console.error('Error during loading ERC20 TX history:::' + error);
   }
@@ -67,4 +75,4 @@ const getTxReceipt = async (txHash: string) => {
   // }
 };
 
-export { getERC20Info, getERC20TokenHistory, getTxReceipt };
+export { getERC20Info, getERC20TokenHistory, getTxReceipt, getEtherInfo };
