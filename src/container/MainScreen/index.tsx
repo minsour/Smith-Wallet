@@ -14,6 +14,7 @@ import { TokenStore } from '../../stores/tokenStore';
 import { store } from '../../constants/store';
 import { ModalStore } from '../../stores/modalStore';
 import { TxSomethingScreen } from '../TxSomethingScreen';
+import { getAccountInfo } from '../../apis/ethers';
 
 const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
 
@@ -27,6 +28,10 @@ interface MainScreenProps {
 @inject(store.TOKEN_STORE, store.WALLET_STORE, store.MODAL_STORE)
 @observer
 export class MainScreen extends React.Component<MainScreenProps> {
+  componentDidMount() {
+    this.getEOA();
+  }
+
   state = {
     open: false,
   };
@@ -98,5 +103,12 @@ export class MainScreen extends React.Component<MainScreenProps> {
 
   private navigateToManageApp = () => {
     this.props.navigation.navigate(route.MANAGING_SCREEN);
+  };
+
+  private getEOA = async () => {
+    this.props.walletStore!.eoa.address = await getAccountInfo(
+      this.props.walletStore!.getMnemonic,
+      0,
+    ).address;
   };
 }

@@ -25,12 +25,12 @@ export class TokenReceiveScreen extends React.Component<
         headerNavigation={this.props.navigation}
       >
         <QRCode
-          value={this.props.walletStore.getWallet.address}
+          value={this.props.walletStore!.eoa.address}
           size={200}
           bgColor="black"
           fgColor="white"
         />
-        <Text>{this.props.walletStore.getWallet.address}</Text>
+        <Text>{this.props.walletStore!.eoa.address}</Text>
       </Layout>
     );
   }
