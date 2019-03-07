@@ -29,21 +29,21 @@ interface Token {
   abi?: string;
   balance?: string;
 }
-var usrAddress = '';
+
 @inject(store.WALLET_STORE)
 @inject(store.TOKEN_STORE)
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
+    this.getDetailInfoOfERC20(
+      this.props.tokenStore!.clickedToken.address,
+      this.props.walletStore!.eoa.address,
+    );
     console.log(
       'tokenaddress::;' + this.props.tokenStore!.clickedToken.address,
     );
-    usrAddress = getAccountInfo(this.props.walletStore!.getMnemonic, 0).address;
-
-    console.log('userAddress::' + usrAddress);
-    this.getDetailInfoOfERC20(
-      this.props.tokenStore!.clickedToken.address,
-      usrAddress,
+    console.log(
+      'userAddress@tokenDetial::' + this.props.walletStore!.eoa.address,
     );
   }
   render() {
@@ -63,7 +63,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
             {tokenStore!.clickedToken.symbol}
           </Text>
           <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
-            {usrAddress}
+            {this.props.walletStore!.eoa.address}
           </Text>
           {/* End of Top Summary Container */}
 
@@ -117,5 +117,12 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.SELECT_ADDRESS_SCREEN,
     });
+  };
+
+  private getEOA = async () => {
+    this.props.walletStore!.eoa.address = await getAccountInfo(
+      this.props.walletStore!.getMnemonic,
+      0,
+    ).address;
   };
 }

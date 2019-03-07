@@ -22,7 +22,6 @@ interface TxSummaryListScreenProps {
 
 var keyIndex: number = 0;
 
-
 @inject(store.WALLET_STORE)
 @inject(store.TOKEN_STORE)
 @observer
@@ -36,16 +35,19 @@ export class SendTxSummaryListScreen extends React.Component<
         <List.Section style={styles.listSectionContainer}>
           <ScrollView>
             {tokenStore.tokenHistoryList.map(token =>
-              token.from === this.props.walletStore.getWallet.address ? (
+              token.from === this.props.walletStore!.eoa.address ? (
                 <List.Item
                   key={`${keyIndex++}`}
                   title={token.to}
                   description={this.convertTimestamp(token.timeStamp)}
                   left={() => (
                     <List.Icon
-                      icon={this.classifySendReceive(token.from, this.props.walletStore.getWallet.address)}
+                      icon={this.classifySendReceive(
+                        token.from,
+                        this.props.walletStore!.eoa.address,
+                      )}
                       color={
-                        token.from === this.props.walletStore.getWallet.address
+                        token.from === this.props.walletStore!.eoa.address
                           ? SEND_ICON_COLOR
                           : RECEIVE_ICON_COLOR
                       }
