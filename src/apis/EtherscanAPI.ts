@@ -20,9 +20,6 @@ const getERC20Info = async (tokenAddress: string, userAddress: string) => {
     console.log('erc20Balance:::' + balance);
 
     var tmpToken = {
-      engName: erc20Name,
-      symbol: erc20Symbol,
-      address: tokenAddress,
       balance: ethers.utils.formatEther(balance),
     };
 

@@ -24,7 +24,7 @@ interface TokenDetailScreenProps {
 interface Token {
   symbol: string;
   koreanName: string;
-  engName: string;
+  englishName: string;
   marketCode: string;
   address: string;
   abi?: string;
@@ -57,7 +57,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
           <Text style={styles.summaryFont}>
             {tokenStore!.clickedToken.koreanName !== '' || null
               ? tokenStore!.clickedToken.koreanName
-              : tokenStore!.clickedToken.engName}
+              : tokenStore!.clickedToken.englishName}
           </Text>
           <Text style={styles.summaryFont}>
             {tokenStore!.clickedToken.balance}
@@ -108,7 +108,6 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     await getERC20Info(tokenAddress, userAddress).then((token: Token | any) => {
       const tmpToken = JSON.parse(token);
       this.props.tokenStore!.clickedToken.balance = tmpToken.balance;
-      this.props.tokenStore!.clickedToken.engName = tmpToken.engName; //한글이름 없는경우
     });
   };
   private navigateToDetailTx = () => {
