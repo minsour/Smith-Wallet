@@ -11,30 +11,40 @@ import { TokenStore } from '../../stores/tokenStore';
 import { inject, observer } from 'mobx-react';
 import { getERC20Info } from '../../apis/EtherscanAPI';
 import { store } from '../../constants/store';
-
+import { getAccountInfo } from '../../apis/ethers';
 const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
 
 interface TokenDetailScreenProps {
   navigation: NavigationScreenProp<any, any>;
-  walletStore: WalletStore;
-  tokenStore: TokenStore;
+  walletStore?: WalletStore;
+  tokenStore?: TokenStore;
 }
 
 interface Token {
-  symbol: string
-  koreanName: string
-  marketCode: string
-  address: string
-  abi?: string
-  balance?: string
+  symbol: string;
+  koreanName: string;
+  engName: string;
+  marketCode: string;
+  address: string;
+  abi?: string;
+  balance?: string;
 }
-
+var usrAddress = '';
 @inject(store.WALLET_STORE)
 @inject(store.TOKEN_STORE)
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
-    this.getDetailInfoOfERC20(this.props.tokenStore.clickedToken.address, this.props.walletStore.getWallet.address);
+    console.log(
+      'tokenaddress::;' + this.props.tokenStore!.clickedToken.address,
+    );
+    usrAddress = getAccountInfo(this.props.walletStore!.getMnemonic, 0).address;
+
+    console.log('userAddress::' + usrAddress);
+    this.getDetailInfoOfERC20(
+      this.props.tokenStore!.clickedToken.address,
+      usrAddress,
+    );
   }
   render() {
     const { tokenStore } = this.props;
@@ -43,15 +53,17 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
         {/* Start of Top Summary Container */}
         <View style={styles.summaryContainer}>
           <Text style={styles.summaryFont}>
-            {tokenStore.clickedToken.koreanName}
+            {tokenStore!.clickedToken.koreanName !== '' || null
+              ? tokenStore!.clickedToken.koreanName
+              : tokenStore!.clickedToken.engName}
           </Text>
           <Text style={styles.summaryFont}>
-            {tokenStore.clickedToken.balance}
+            {tokenStore!.clickedToken.balance}
             {'  '}
-            {tokenStore.clickedToken.symbol}
+            {tokenStore!.clickedToken.symbol}
           </Text>
           <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
-            {this.props.walletStore.getWallet.address}
+            {usrAddress}
           </Text>
           {/* End of Top Summary Container */}
 
@@ -92,7 +104,9 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     userAddress: string,
   ) => {
     await getERC20Info(tokenAddress, userAddress).then((token: Token | any) => {
-      this.props.tokenStore.clickedToken = JSON.parse(token);
+      const tmpToken = JSON.parse(token);
+      this.props.tokenStore!.clickedToken.balance = tmpToken.balance;
+      this.props.tokenStore!.clickedToken.engName = tmpToken.engName; //한글이름 없는경우
     });
   };
   private navigateToDetailTx = () => {
