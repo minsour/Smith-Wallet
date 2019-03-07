@@ -4,7 +4,7 @@ import { erc20Abi } from '../utils/erc20Abi';
 const TX_HISTORY_API_URL =
   'https://api.etherscan.io/api?module=account&action=tokentx&page=1&offset=100&sort=desc&';
 const API_KEY = 'QYZRBUMFTPA75YXE3P8IWUQS8Q23R6875Y';
-const provider = ethers.getDefaultProvider('ropsten');
+const provider = ethers.getDefaultProvider(); //메인넷
 
 const getERC20Info = async (tokenAddress: string, userAddress: string) => {
   try {
@@ -49,7 +49,7 @@ const getERC20TokenHistory = async (
   try {
     console.log('userADdress@etherscanAPI: ' + userAddress);
     const finalApiUrl =
-      TX_HISTORY_API_URL +
+      TX_HISTORY_API_URL + //메인넷
       'contractaddress=' +
       contractAddress +
       '&address=' +
@@ -64,6 +64,23 @@ const getERC20TokenHistory = async (
   }
 };
 
+const getEtherHistory = async (userAddress: string) => {
+  try {
+    const finalApiUrl =
+      'http://api-ropsten.etherscan.io/api?module=account&action=txlist' + //테스트넷
+      '&address=' +
+      userAddress +
+      '&startblock=0&endblock=99999999&sort=asc&apikey=' +
+      API_KEY;
+    console.log(finalApiUrl);
+    const response = await fetch(finalApiUrl);
+    const responseJson = await response.json();
+    return JSON.stringify(responseJson.result);
+  } catch (error) {
+    console.error('Error during loading Ethereum history:::' + error);
+  }
+};
+
 const getTxReceipt = async (txHash: string) => {
   // try {
   //   const defaultProvider = new ethers.getDefaultProvider('mainnet');
@@ -75,4 +92,10 @@ const getTxReceipt = async (txHash: string) => {
   // }
 };
 
-export { getERC20Info, getERC20TokenHistory, getTxReceipt, getEtherInfo };
+export {
+  getERC20Info,
+  getERC20TokenHistory,
+  getTxReceipt,
+  getEtherInfo,
+  getEtherHistory,
+};

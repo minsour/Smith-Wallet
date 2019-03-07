@@ -9,9 +9,12 @@ import { TokenStore } from '../../stores/tokenStore';
 import { SEND_ICON_COLOR, RECEIVE_ICON_COLOR } from '../../constants/colors';
 import { SEND_ICON, RECEIVE_ICON } from '../../constants/icons';
 import { styles } from './Styles';
-import { getERC20TokenHistory, getTxReceipt } from '../../apis/EtherscanAPI';
+import {
+  getERC20TokenHistory,
+  getTxReceipt,
+  getEtherHistory,
+} from '../../apis/EtherscanAPI';
 import { store } from '../../constants/store';
-import { getAccountInfo } from '../../apis/ethers';
 
 const moment = require('moment');
 const ethers = require('ethers');
@@ -40,6 +43,8 @@ const txData = {
   value: '5',
 };
 
+const ETHEREUM_ADDRESS = '0x0000000000000000000000000000000000000000';
+
 @inject(store.WALLET_STORE)
 @inject(store.TOKEN_STORE)
 @observer
@@ -53,12 +58,20 @@ export class TxSummaryListScreen extends React.Component<
     console.log(
       'userAddress@txsummary: ' + this.props.walletStore!.eoa.address,
     );
-    getERC20TokenHistory(
-      this.props.tokenStore!.clickedToken.address,
-      this.props.walletStore!.eoa.address,
-    ).then((responseJson: TokenHistory | any) => {
-      this.props.tokenStore!.tokenHistoryList = JSON.parse(responseJson);
-    });
+    if (this.props.tokenStore!.clickedToken.address == ETHEREUM_ADDRESS) {
+      getEtherHistory(this.props.walletStore!.eoa.address).then(
+        (responseJson: TokenHistory | any) => {
+          this.props.tokenStore!.tokenHistoryList = JSON.parse(responseJson);
+        },
+      );
+    } else {
+      getERC20TokenHistory(
+        this.props.tokenStore!.clickedToken.address,
+        this.props.walletStore!.eoa.address,
+      ).then((responseJson: TokenHistory | any) => {
+        this.props.tokenStore!.tokenHistoryList = JSON.parse(responseJson);
+      });
+    }
   }
   render() {
     const { tokenStore } = this.props;
