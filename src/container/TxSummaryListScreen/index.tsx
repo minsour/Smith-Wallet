@@ -9,7 +9,11 @@ import { TokenStore } from '../../stores/tokenStore';
 import { SEND_ICON_COLOR, RECEIVE_ICON_COLOR } from '../../constants/colors';
 import { SEND_ICON, RECEIVE_ICON } from '../../constants/icons';
 import { styles } from './Styles';
-import { getERC20TokenHistory, getTxReceipt } from '../../apis/EtherscanAPI';
+import {
+  getERC20TokenHistory,
+  getTxReceipt,
+  getEtherHistory,
+} from '../../apis/EtherscanAPI';
 import { store } from '../../constants/store';
 
 const moment = require('moment');
@@ -17,8 +21,8 @@ const ethers = require('ethers');
 
 interface TxSummaryListScreenProps {
   navigation: NavigationScreenProp<any, any>;
-  walletStore: WalletStore;
-  tokenStore: TokenStore;
+  walletStore?: WalletStore;
+  tokenStore?: TokenStore;
 }
 
 interface TokenHistory {
@@ -39,6 +43,8 @@ const txData = {
   value: '5',
 };
 
+const ETHEREUM_ADDRESS = '0x0000000000000000000000000000000000000000';
+
 @inject(store.WALLET_STORE)
 @inject(store.TOKEN_STORE)
 @observer
@@ -46,11 +52,26 @@ export class TxSummaryListScreen extends React.Component<
   TxSummaryListScreenProps
 > {
   componentDidMount() {
-    getERC20TokenHistory(this.props.tokenStore.clickedToken.address, this.props.walletStore.getWallet.address).then(
-      (responseJson: TokenHistory | any) => {
-        this.props.tokenStore.tokenHistoryList = JSON.parse(responseJson);
-      },
+    console.log(
+      'contractaddress: ' + this.props.tokenStore!.clickedToken.address,
     );
+    console.log(
+      'userAddress@txsummary: ' + this.props.walletStore!.eoa.address,
+    );
+    if (this.props.tokenStore!.clickedToken.address == ETHEREUM_ADDRESS) {
+      getEtherHistory(this.props.walletStore!.eoa.address).then(
+        (responseJson: TokenHistory | any) => {
+          this.props.tokenStore!.tokenHistoryList = JSON.parse(responseJson);
+        },
+      );
+    } else {
+      getERC20TokenHistory(
+        this.props.tokenStore!.clickedToken.address,
+        this.props.walletStore!.eoa.address,
+      ).then((responseJson: TokenHistory | any) => {
+        this.props.tokenStore!.tokenHistoryList = JSON.parse(responseJson);
+      });
+    }
   }
   render() {
     const { tokenStore } = this.props;
@@ -58,16 +79,19 @@ export class TxSummaryListScreen extends React.Component<
       <Layout header={false}>
         <List.Section style={styles.listSectionContainer}>
           <ScrollView>
-            {tokenStore.tokenHistoryList.map(token => (
+            {tokenStore!.tokenHistoryList.map(token => (
               <List.Item
                 key={`${keyIndex++}`}
                 title={token.to}
                 description={this.convertTimestamp(token.timeStamp)}
                 left={() => (
                   <List.Icon
-                    icon={this.classifySendReceive(token.from, this.props.walletStore.getWallet.address)}
+                    icon={this.classifySendReceive(
+                      token.from,
+                      this.props.walletStore!.eoa.address,
+                    )}
                     color={
-                      token.from === this.props.walletStore.getWallet.address
+                      token.from === this.props.walletStore!.eoa.address
                         ? SEND_ICON_COLOR
                         : RECEIVE_ICON_COLOR
                     }

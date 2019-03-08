@@ -1,6 +1,5 @@
 import { AsyncStorage } from 'react-native';
 import { etherscanProvider } from '../apis/ethers';
-// const ethers = require('ethers');
 
 export class AsyncStorageUtils {
   static storeMnemonic = async (newMnemonic: string) => {
@@ -19,6 +18,18 @@ export class AsyncStorageUtils {
     } catch (error) {
       console.error(
         'Error occurs during saving pincode in @MyStore:pin :::' + error,
+      );
+    }
+  };
+
+  static loadPin = async () => {
+    try {
+      const pin = await AsyncStorage.getItem('@MyStore:pin');
+      console.log('loadPIN:::' + pin);
+      return pin;
+    } catch (error) {
+      console.error(
+        'Error occurs during loading pincode in @MyStore:pin :::' + error,
       );
     }
   };

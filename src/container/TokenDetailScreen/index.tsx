@@ -9,32 +9,44 @@ import { TxSummaryListHeader } from '../../route/TxSummaryListHeader';
 import { WalletStore } from '../../stores/walletStore';
 import { TokenStore } from '../../stores/tokenStore';
 import { inject, observer } from 'mobx-react';
-import { getERC20Info } from '../../apis/EtherscanAPI';
+import { getERC20Info, getEtherInfo } from '../../apis/EtherscanAPI';
 import { store } from '../../constants/store';
-
+import { getAccountInfo } from '../../apis/ethers';
+import { getBalanceOfETH } from '../../apis/etherscan';
 const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
 
 interface TokenDetailScreenProps {
   navigation: NavigationScreenProp<any, any>;
-  walletStore: WalletStore;
-  tokenStore: TokenStore;
+  walletStore?: WalletStore;
+  tokenStore?: TokenStore;
 }
 
 interface Token {
-  symbol: string
-  koreanName: string
-  marketCode: string
-  address: string
-  abi?: string
-  balance?: string
+  symbol: string;
+  koreanName: string;
+  englishName: string;
+  marketCode: string;
+  address: string;
+  abi?: string;
+  balance?: string;
 }
+
+const ETHEREUM_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 @inject(store.WALLET_STORE)
 @inject(store.TOKEN_STORE)
 @observer
 export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
-    this.getDetailInfoOfERC20(this.props.tokenStore.clickedToken.address, this.props.walletStore.getWallet.address);
+    if (this.props.tokenStore!.clickedToken.address == ETHEREUM_ADDRESS) {
+      //do something for ether
+      this.getEtherBalance(this.props.walletStore!.eoa.address);
+    } else {
+      this.getDetailInfoOfERC20(
+        this.props.tokenStore!.clickedToken.address,
+        this.props.walletStore!.eoa.address,
+      );
+    }
   }
   render() {
     const { tokenStore } = this.props;
@@ -43,15 +55,17 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
         {/* Start of Top Summary Container */}
         <View style={styles.summaryContainer}>
           <Text style={styles.summaryFont}>
-            {tokenStore.clickedToken.koreanName}
+            {tokenStore!.clickedToken.koreanName !== '' || null
+              ? tokenStore!.clickedToken.koreanName
+              : tokenStore!.clickedToken.englishName}
           </Text>
           <Text style={styles.summaryFont}>
-            {tokenStore.clickedToken.balance}
+            {tokenStore!.clickedToken.balance}
             {'  '}
-            {tokenStore.clickedToken.symbol}
+            {tokenStore!.clickedToken.symbol}
           </Text>
           <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
-            {this.props.walletStore.getWallet.address}
+            {this.props.walletStore!.eoa.address}
           </Text>
           {/* End of Top Summary Container */}
 
@@ -92,7 +106,8 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     userAddress: string,
   ) => {
     await getERC20Info(tokenAddress, userAddress).then((token: Token | any) => {
-      this.props.tokenStore.clickedToken = JSON.parse(token);
+      const tmpToken = JSON.parse(token);
+      this.props.tokenStore!.clickedToken.balance = tmpToken.balance;
     });
   };
   private navigateToDetailTx = () => {
@@ -102,6 +117,13 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   private navigateToSend = () => {
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
       destination: route.SELECT_ADDRESS_SCREEN,
+    });
+  };
+
+  private getEtherBalance = async (userAddress: string) => {
+    await getEtherInfo(userAddress).then((token: Token | any) => {
+      const tmpEther = JSON.parse(token);
+      this.props.tokenStore!.clickedToken.balance = tmpEther.balance;
     });
   };
 }
