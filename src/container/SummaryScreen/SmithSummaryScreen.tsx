@@ -28,7 +28,7 @@ export class SmithSummaryScreen extends React.Component<SummaryScreenProps> {
   @action private renderEOA = () => { this.token = false }
 
   @computed public get getBalance () {
-    return this.props.walletStore!.walletList.get(walletTab.Smith)!.totalBalance
+    return this.props.walletStore!.currentWallet.totalBalance
   }
   render() {
     return (

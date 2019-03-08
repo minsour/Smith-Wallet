@@ -4,13 +4,13 @@ import { Text, Button, TextInput } from 'react-native-paper';
 import { NavigationScreenProp } from 'react-navigation';
 import { Layout } from '../../layout/Layout';
 import { styles } from './Styles';
-import { transferEthereum, getAccountInfo } from '../../apis/ethers';
+import { transferEthereum } from '../../apis/ethers';
 import { inject, observer } from 'mobx-react';
 import { store } from '../../constants/store';
 import { WalletStore } from '../../stores/walletStore';
 import { observable, action } from 'mobx';
 import { TokenStore } from '../../stores/tokenStore';
-import { ethers } from 'ethers';
+import { walletTab } from '../../constants/walletTab';
 
 interface TokenSendScreenProps {
   navigation: NavigationScreenProp<any, any>
@@ -107,7 +107,7 @@ export class TokenSendScreen extends React.Component<TokenSendScreenProps> {
   }
 
   private transfer = () => {
-    transferEthereum(getAccountInfo(this.props.walletStore!.getMnemonic, 0).privateKey,
+    transferEthereum(this.props.walletStore!.walletList.get(walletTab.Smith)!.wallet!.privateKey,
       this.account,
        Number.parseFloat(this.amount))
     .then((tx:any)=>{console.log(tx)})

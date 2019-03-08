@@ -35,7 +35,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
 
   render() {
     this.props.tokenStore!.initWillBeAddedToken()
-    if(!this.props.walletStore!.walletList.get(walletTab.Smith)) {
+    if(!this.props.walletStore!.currentWallet) {
       return <Loading>지갑 로딩중</Loading>
     }
     if (this.props.modalStore!.visible[modal.LOADING]) {
