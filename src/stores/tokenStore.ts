@@ -138,7 +138,7 @@ export class TokenStore {
     this.selectedTokenList.forEach(token => {
       totalBalance += token.krwBalance!
     })
-    this.root.walletStore.walletList.get(walletTab.Smith).totalBalance = totalBalance
+    this.root.walletStore.currentWallet.totalBalance = totalBalance
     console.log(`totalBalance : ${totalBalance}`)
   }
 
@@ -178,14 +178,14 @@ export class TokenStore {
 
   public balanceOf = async (token: any) => {
     //getBalanceOfETH(getAccountInfo(this.root.walletStore.getMnemonic('Usefullet'), 0).address)
-    await getBalanceOfETH(this.root.walletStore.walletList.get(walletTab.Smith).wallet.address)
+    await getBalanceOfETH(this.root.walletStore.currentWallet.wallet.address)
     .then(responseJson => {
       token.balance = ethers.utils.formatEther(responseJson.result)
       console.log(token.koreanName+responseJson.result)
   })
   }
   private erc20BalanceOf = (token: Token) => {
-    getBalanceOfERC20Token(this.root.walletStore.walletList.get(walletTab.Smith).privateKey, token.address)
+    getBalanceOfERC20Token(this.root.walletStore.currentWallet.privateKey, token.address)
       .then((tx: any) => {
       token.balance = Number.parseFloat(tx.toString())
         console.log(token.koreanName+tx.toString())
