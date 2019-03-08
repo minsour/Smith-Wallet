@@ -111,6 +111,7 @@ export class BackUpMnemonicScreen extends React.Component<
 
   private setWallet = async (newMnemonic: string) => {
     console.log('setMnemonic')
-    await this.props.walletStore!.addSmith(newMnemonic, 0)
+    await this.props.walletStore!.setMnemonic(newMnemonic)
+    await this.props.walletStore!.addSmith(0)
   }
 }

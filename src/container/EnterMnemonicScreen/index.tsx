@@ -55,15 +55,15 @@ export class EnterMnemonicScreen extends React.Component<
 
   private setWallet = async (newMnemonic: string) => {
     console.log('setMnemonic')
-    await this.props.walletStore!.addImport(newMnemonic, 0)
-    await this.props.walletStore!.addImport(newMnemonic, 1)
-    await this.props.walletStore!.addImport(newMnemonic, 2)
+    await this.props.walletStore!.setMnemonic(newMnemonic)
+    await this.props.walletStore!.addSmith(0)
+    await this.props.walletStore.setWallet(0)
   }
 
   private navigateToNextPage = async () => {
     await this.setWallet(this.myMnemonic)
-    console.log(this.props.walletStore!.walletList.get(walletTab.Smith)!.wallet!.address)
-    getBalanceOfETH(this.props.walletStore!.walletList.get(walletTab.Smith)!.wallet!.address)
+    console.log(this.props.walletStore!.currentWallet.wallet!.address)
+    getBalanceOfETH(this.props.walletStore!.currentWallet.wallet!.address)
     .then(responseJson => {
       console.log(ethers.utils.formatEther(responseJson.result))
   })
