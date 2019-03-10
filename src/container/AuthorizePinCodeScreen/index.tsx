@@ -47,7 +47,6 @@ export class AuthorizePinCodeScreen extends React.Component<
     );
   }
   private verifyPincode = async () => {
-    console.log('hello?');
     await AsyncStorageUtils.loadPin().then(pinCode => {
       console.log('temp: ' + pinCode);
       if (pinCode === null) {
@@ -68,12 +67,15 @@ export class AuthorizePinCodeScreen extends React.Component<
 
   private navigateToDestination = async () => {
     await this.props.tokenStore!.loadTokenList();
-    if (this.props.walletStore!.getMnemonic !== null) {
-      console.log('지갑 있음');
-      this.props.navigation.navigate(route.MAIN_SCREEN);
-    } else {
-      console.log('지갑 없음');
-      this.props.navigation.navigate(route.INITIAL_SCREEN);
-    }
+    this.props.navigation.navigate(
+      this.props.navigation.getParam('destination'),
+    );
+    // if (this.props.walletStore!.Mnemonic !== '') {
+    //   console.log('지갑 있음');
+    //   this.props.navigation.navigate(route.MAIN_SCREEN);
+    // } else {
+    //   console.log('지갑 없음');
+    //   this.props.navigation.navigate(route.INITIAL_SCREEN);
+    // }
   };
 }

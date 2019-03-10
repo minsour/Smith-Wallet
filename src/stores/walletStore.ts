@@ -21,6 +21,8 @@ export class WalletStore {
   @observable public accountLength: number = 0
   @observable public accountPath: number[] = []
   @observable public currentWallet: Wallet = {}
+  @observable public pincode: string = ''
+  @observable public islocked: boolean = false
   
   @action public setMnemonic = (Mnemonic: string) => {
     this.Mnemonic = Mnemonic

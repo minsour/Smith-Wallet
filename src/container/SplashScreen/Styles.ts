@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { DIMENSIONS_WIDTH } from '../../constants/dementions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,8 +10,25 @@ export const styles = StyleSheet.create({
   },
   splashImage: {
     resizeMode: "cover",
-    width: "100%",
-    height: "100%",
     backgroundColor: "#f8f9ff"
+  },
+  logoContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  logo: {
+    width: 300,
+    height: 50,
+    marginLeft: 15
+  },
+  loadingBar: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  loadingFont: {
+    marginTop: 12,
+    fontSize: 16
   }
 });

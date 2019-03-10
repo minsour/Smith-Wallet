@@ -1,6 +1,7 @@
 export const route = {
   BACKUP_MNEMONIC_SCREEN: 'BackUpMnemonic',
   ENTER_MNEMONIC_SCREEN: 'EnterMnemonic',
+  MANAGE_MNEMONIC_SCREEN: 'ManageMnemonic',
   ENTER_UPBIT_KEY_SCREEN: 'EnterUPbitKey',
   SPLASH_SCREEN: 'Splash',
   AUTHORIZE_PINCODE_SCREEN: 'AuthorizePinCode',
