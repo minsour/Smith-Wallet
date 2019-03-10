@@ -67,18 +67,15 @@ export class AuthorizePinCodeScreen extends React.Component<
 
   private navigateToDestination = async () => {
     await this.props.tokenStore!.loadTokenList();
-    if (
-      this.props.navigation.getParam('destination') ==
-      route.MANAGE_MNEMONIC_SCREEN
-    ) {
-      console.log('니모닉 백업');
-      this.props.navigation.navigate(route.MANAGE_MNEMONIC_SCREEN);
-    } else if (this.props.walletStore!.getMnemonic !== null) {
-      console.log('지갑 있음');
-      this.props.navigation.navigate(route.MAIN_SCREEN);
-    } else {
-      console.log('지갑 없음');
-      this.props.navigation.navigate(route.INITIAL_SCREEN);
-    }
+    this.props.navigation.navigate(
+      this.props.navigation.getParam('destination'),
+    );
+    // if (this.props.walletStore!.Mnemonic !== '') {
+    //   console.log('지갑 있음');
+    //   this.props.navigation.navigate(route.MAIN_SCREEN);
+    // } else {
+    //   console.log('지갑 없음');
+    //   this.props.navigation.navigate(route.INITIAL_SCREEN);
+    // }
   };
 }

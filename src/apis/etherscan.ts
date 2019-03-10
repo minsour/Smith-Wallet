@@ -16,7 +16,7 @@ const publicAPI = (method: string, url: string, body: {} = {}) => {
 }
 
 export const getBalanceOfETH = (address: string) => {
-    return publicAPI(GET, `https://api-rinkeby.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${API_KEY}`)
+    return publicAPI(GET, `https://api-ropsten.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${API_KEY}`)
 }
 
 export const getBalanceOfERC = (address: string) => {

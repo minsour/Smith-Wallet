@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image } from "react-native";
 import { route } from "../../constants/route";
-import { Button } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 import { styles } from "./Styles";
 import { inject, observer } from 'mobx-react/native';
@@ -21,9 +21,10 @@ interface InitialScreenProps {
 export class InitialScreen extends React.Component<InitialScreenProps> {
   render() {
     return (
-      <View style={styles.logo}>
-        <View style={styles.logo}>
+      <View style={styles.logoContainer}>
+        <View style={styles.logoContainer}>
           <Image
+            style={styles.logo}
             source={logoPath}
           />
         </View>
@@ -40,7 +41,7 @@ export class InitialScreen extends React.Component<InitialScreenProps> {
             mode="contained"
             onPress={this.navigateToImportMnemonic} //테스트용
           >
-            니모닉 가져오기
+            <Text style={{color: '#030066'}}>니모닉 가져오기</Text>
           </Button>
         </View>
       </View>
@@ -48,14 +49,14 @@ export class InitialScreen extends React.Component<InitialScreenProps> {
   }
 
   private navigateToCreateWallet = () => {
-    this.props.tokenStore!.loadTokenList()
+    //this.props.tokenStore!.loadTokenList()
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.BACKUP_MNEMONIC_SCREEN
     });
   };
 
   private navigateToImportMnemonic = () => {
-    this.props.tokenStore!.loadTokenList()
+    //this.props.tokenStore!.loadTokenList()
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.ENTER_MNEMONIC_SCREEN
     });
