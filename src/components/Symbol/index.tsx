@@ -8,10 +8,12 @@ import { TokenStore } from '../../stores/tokenStore';
 import { store } from '../../constants/store';
 import { ModalStore } from '../../stores/modalStore';
 import { modal } from '../../constants/modal';
+import * as Animatable from 'react-native-animatable'
 
 interface TokenType {
   symbol: string
   koreanName: string
+  englishName: string
   marketCode: string
   address: string
   abi?: string
@@ -37,13 +39,15 @@ export class Symbol extends React.Component<SymbolProps> {
   render() {
     return (
       //Chip.js 가서 text랑 icon 위치 변경
-      <Chip
-        icon='close'
-        onPress={this.dropToken}
-        style={styles.chipContainer}
-      >
-        {this.props.token.symbol}
-      </Chip>
+      <Animatable.View animation='fadeIn'>
+        <Chip
+          icon='close'
+          onPress={this.dropToken}
+          style={styles.chipContainer}
+        >
+          {this.props.token.symbol}
+        </Chip>
+      </Animatable.View>
     );
   }
 }
