@@ -70,6 +70,10 @@ export class TokenStore {
     });
   };
 
+  private compareKoreanName = (forward: Token, after: Token) => {
+    return (forward.koreanName) < (after.koreanName) ? -1 : (forward.koreanName) < (after.koreanName) ? 1 : 0
+  }
+
   @action public loadTokenList = async () => {
     await getERCToken()
       .then(responseJson => this.pushToken(responseJson))
@@ -79,6 +83,9 @@ export class TokenStore {
     // 이더리움 삽입
     this.selectedTokenList.push(this.ercTokenList[0]);
     this.ercTokenList.splice(0, 1);
+
+    this.ercTokenList = this.ercTokenList.sort(this.compareKoreanName)
+    this.searchedTokenList = this.searchedTokenList.sort(this.compareKoreanName)
 
     // 잘 가져오는지 확인용
     this.ercTokenList.forEach(element => {
@@ -115,10 +122,21 @@ export class TokenStore {
       // AddTokenScreen에 렌더될 리스트에서 삭제 후
       let idx = this.ercTokenList.indexOf(token);
       this.ercTokenList.splice(idx, 1);
+      this.searchedTokenList = this.ercTokenList
       // MainScreen에 렌더될 리스트에 푸시
       this.selectedTokenList.push(token);
     });
   };
+
+  @action public deleteToken = () => {
+    this.willBeAddedTokenList.forEach(token => {
+      let idx = this.selectedTokenList.indexOf(token)
+      this.selectedTokenList.splice(idx, 1)
+      this.ercTokenList.push(token)
+    })
+    this.ercTokenList = this.ercTokenList.sort(this.compareKoreanName)
+    this.searchedTokenList = this.ercTokenList
+  }
 
   @action public clickToken = async (clickedToken: Token) => {
     await etherscanProvider.getGasPrice().then(gasPrice => {
