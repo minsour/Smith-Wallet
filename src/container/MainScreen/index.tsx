@@ -59,9 +59,9 @@ export class MainScreen extends React.Component<MainScreenProps> {
             },
             {
               style: styles.actionsStyle,
-              icon: 'people',
-              label: '친구',
-              onPress: this.navigateToAddressList,
+              icon: 'delete-sweep',
+              label: '삭제',
+              onPress: this.navigateToDeleteToken,
             },
             {
               style: styles.actionsStyle,
@@ -97,8 +97,8 @@ export class MainScreen extends React.Component<MainScreenProps> {
     this.props.modalStore!.showModal(modal.ADD_MODAL);
   };
 
-  private navigateToAddressList = () => {
-    this.props.navigation.navigate(route.ADDRESS_LIST_SCREEN);
+  private navigateToDeleteToken = () => {
+    this.props.navigation.navigate(route.DELETE_TOKEN);
   };
 
   private navigateToManageApp = () => {
