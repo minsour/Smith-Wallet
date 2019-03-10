@@ -1,8 +1,8 @@
-import React from 'react';
-import { FAB, Provider as PaperProvider } from 'react-native-paper';
-import { NavigationScreenProp, createAppContainer } from 'react-navigation';
-import { route } from '../../constants/route';
-import { WalletSummaryRoute } from '../../route/WalletSummaryRoute';
+import React from "react";
+import { FAB, Provider as PaperProvider  } from "react-native-paper";
+import { NavigationScreenProp, createAppContainer } from "react-navigation";
+import { route } from "../../constants/route";
+import { SmithSummaryRoute, UPbitSummaryRoute } from "../../route/WalletSummaryRoute";
 import { inject, observer } from 'mobx-react';
 import { Loading } from '../../layout/Loading';
 import { styles } from './Styles';
@@ -14,9 +14,7 @@ import { TokenStore } from '../../stores/tokenStore';
 import { store } from '../../constants/store';
 import { ModalStore } from '../../stores/modalStore';
 import { TxSomethingScreen } from '../TxSomethingScreen';
-import { getAccountInfo } from '../../apis/ethers';
-
-const WalletSummaryContainer = createAppContainer(WalletSummaryRoute);
+import { walletTab } from '../../constants/walletTab';
 
 interface MainScreenProps {
   navigation: NavigationScreenProp<any, any>;
@@ -25,28 +23,30 @@ interface MainScreenProps {
   modalStore?: ModalStore;
 }
 
+const SmithSummaryContainer = createAppContainer(SmithSummaryRoute)
+const UPbitSummaryContainer = createAppContainer(UPbitSummaryRoute)
+
 @inject(store.TOKEN_STORE, store.WALLET_STORE, store.MODAL_STORE)
 @observer
 export class MainScreen extends React.Component<MainScreenProps> {
-  componentDidMount() {
-    this.getEOA();
-  }
-
   state = {
     open: false,
   };
 
   render() {
-    this.props.tokenStore!.initWillBeAddedToken();
-    // if(this.props.walletStore!.getMnemonic === "") {
-    //   return <Loading>지갑 로딩중</Loading>
-    // }
-    // if (this.props.modalStore!.visible[modal.LOADING]) {
-    //   return <Loading>잔액 확인중</Loading>
-    // }
+    this.props.tokenStore!.initWillBeAddedToken()
+    if(!this.props.walletStore!.currentWallet) {
+      return <Loading>지갑 로딩중</Loading>
+    }
+    if (this.props.modalStore!.visible[modal.LOADING]) {
+      return <Loading>잔액 확인중</Loading>
+    }
     return (
       <PaperProvider>
-        <WalletSummaryContainer />
+        {this.props.walletStore!.walletList.get(walletTab.UPbit) ? 
+          <UPbitSummaryContainer/> :
+          <SmithSummaryContainer/>
+        }
         <FAB.Group
           open={this.state.open}
           icon={this.state.open ? 'close' : 'add'}
@@ -103,12 +103,5 @@ export class MainScreen extends React.Component<MainScreenProps> {
 
   private navigateToManageApp = () => {
     this.props.navigation.navigate(route.MANAGING_SCREEN);
-  };
-
-  private getEOA = async () => {
-    this.props.walletStore!.eoa.address = await getAccountInfo(
-      this.props.walletStore!.getMnemonic,
-      0,
-    ).address;
   };
 }

@@ -1,25 +1,22 @@
 import { observable, action, computed } from 'mobx';
-import { getMarketCode, getERCToken, getTokenTicker } from '../apis/UpitAPI';
+import { getERCToken, getTokenTicker } from '../apis/UpitAPI';
 import { modal } from '../constants/modal';
-import {
-  getBalanceOfEthereum,
-  getAccountInfo,
-  getBalanceOfERC20Token,
-  etherscanProvider,
-} from '../apis/ethers';
+import { getBalanceOfEthereum, getBalanceOfERC20Token, etherscanProvider } from '../apis/ethers';
 import { getBalanceOfETH } from '../apis/etherscan';
 import { ethers, utils } from 'ethers';
+import { walletTab } from '../constants/walletTab';
 
 interface Token {
-  symbol: string;
-  koreanName: string;
-  englishName: string;
-  marketCode: string;
-  address: string;
-  abi?: string;
-  balance?: number;
-  krwBalance?: number;
-  gasfee?: string;
+  symbol: string
+  koreanName: string
+  englishName: string
+  marketCode: string
+  address: string
+  abi?: string
+  balance?: number
+  krwBalance?: number
+  gasfee?: string
+  isPicked?: boolean
 }
 
 interface TokenHistory {
@@ -55,7 +52,8 @@ export class TokenStore {
     address: '',
     balance: 0,
     krwBalance: 0,
-  };
+    isPicked: false
+  }
   @observable public tokenHistoryList: TokenHistory[] = [];
 
   @action public pushToken = (loadedTokenList: any[]) => {
@@ -105,8 +103,12 @@ export class TokenStore {
   };
 
   @action public initWillBeAddedToken = () => {
-    this.willBeAddedTokenList = [];
-  };
+    this.willBeAddedTokenList.forEach(token => {
+      token.isPicked = false
+    })
+    this.willBeAddedTokenList = []
+    this.root.modalStore.hideModal(modal.ADD_TOKEN)
+  }
 
   @action public selectToken = () => {
     this.willBeAddedTokenList.forEach(token => {
@@ -133,12 +135,29 @@ export class TokenStore {
     let tradePriceMap = new Map();
     loadedList.forEach(element => {
       tradePriceMap.set(element.market, element.trade_price);
-    });
-    this.selectedTokenList = this.selectedTokenList.map(element => {
-      element.krwBalance = tradePriceMap.get(element.marketCode);
-      return element;
-    });
-  };
+    })
+    this.selectedTokenList.forEach(element => {
+      element.krwBalance = tradePriceMap.get(element.marketCode)
+    })
+    this.getKrwBalance()
+    this.getTotalBalance()
+  }
+
+  @action public getTotalBalance = () => {
+    let totalBalance = 0
+    this.selectedTokenList.forEach(token => {
+      totalBalance += token.krwBalance!
+    })
+    this.root.walletStore.currentWallet.totalBalance = totalBalance
+    console.log(`totalBalance : ${totalBalance}`)
+  }
+
+  @action public getKrwBalance = () => {
+    this.selectedTokenList.forEach(token => {
+      console.log(token)
+      token.krwBalance = Math.floor((token.krwBalance! * token.balance!))
+    })
+  }
 
   @action public getTokenPrice = async () => {
     let marketCode: string = this.selectedTokenList
@@ -147,35 +166,40 @@ export class TokenStore {
       })
       .join(',');
     await getTokenTicker(marketCode)
-      .then(responseJson => this.parseUpbitTokenTicker(responseJson))
-      .catch(reject => {
-        console.error(
-          'Error occurs during requesting ToeknTicker on Upbit :::' + reject,
-        );
-      });
-  };
+    .then(async (responseJson) => await this.parseUpbitTokenTicker(responseJson))
+    .catch((reject) => {
+      console.error(
+        "Error occurs during requesting ToeknTicker on Upbit :::" + reject
+      )
+    })
+  }
 
-  @action public updateBalanceInfo = () => {
-    this.selectedTokenList.forEach(token => {
-      if ('KRW-ETH' == token.marketCode) this.balanceOf(token);
-      else this.erc20BalanceOf(token);
-    });
-    this.getTokenPrice();
-  };
+  @action private updateBalance = async () => {
+    for (let i = 0; i < this.selectedTokenList.length; i++) {
+      let token = this.selectedTokenList[i]
+      if ("KRW-ETH" == token.marketCode) {
+        await this.balanceOf(token)
+      }
+      else await this.erc20BalanceOf(token)
+    }
+  }
 
-  public balanceOf = (token: any) => {
-    getBalanceOfETH(
-      getAccountInfo(this.root.walletStore.getMnemonic, 0).address,
-    ).then(responseJson => {
-      token.balance = ethers.utils.formatEther(responseJson.result);
-      console.log(token.koreanName + responseJson.result);
-    });
-  };
+  @action public updateBalanceInfo = async () => {
+    await this.updateBalance()
+    console.log(this.selectedTokenList)
+    await this.getTokenPrice()
+  }
+
+  public balanceOf = async (token: any) => {
+    //getBalanceOfETH(getAccountInfo(this.root.walletStore.getMnemonic('Usefullet'), 0).address)
+    await getBalanceOfETH(this.root.walletStore.currentWallet.wallet.address)
+    .then(responseJson => {
+      token.balance = ethers.utils.formatEther(responseJson.result)
+      console.log(token.koreanName+responseJson.result)
+  })
+  }
   private erc20BalanceOf = (token: Token) => {
-    getBalanceOfERC20Token(
-      getAccountInfo(this.root.walletStore.getMnemonic, 0).privateKey,
-      token.address,
-    )
+    getBalanceOfERC20Token(this.root.walletStore.currentWallet.privateKey, token.address)
       .then((tx: any) => {
         token.balance = Number.parseFloat(tx.toString());
         console.log(token.koreanName + tx.toString());

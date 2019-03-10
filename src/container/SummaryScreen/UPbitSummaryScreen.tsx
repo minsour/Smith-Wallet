@@ -10,7 +10,6 @@ import { inject, observer } from "mobx-react";
 import { observable, action } from 'mobx';
 import { WalletStore } from '../../stores/walletStore';
 import { store } from '../../constants/store';
-import { getBalanceOfEthereum, getAccountInfo } from '../../apis/ethers';
 
 interface SummaryScreenProps {
   navigation: NavigationScreenProp<any,any>
@@ -19,7 +18,7 @@ interface SummaryScreenProps {
 
 @inject(store.WALLET_STORE)
 @observer
-export class SummaryScreen extends React.Component<SummaryScreenProps> {
+export class UPbitSummaryScreen extends React.Component<SummaryScreenProps> {
   @observable token = true;
 
   @action private renderToken = () => { this.token = true }
@@ -29,12 +28,11 @@ export class SummaryScreen extends React.Component<SummaryScreenProps> {
     return (
       <Layout header={false}>
         <View style={styles.summary}>
-          <Text style={styles.summaryFont}>이더리움</Text>
+          <Text style={styles.summaryFont}>UPbit</Text>
           <View style={styles.balance}>
             <Text style={styles.balanceFont}>789,000</Text>
             <Text style={styles.krwFont}>KRW</Text>
           </View>
-          <Text style={styles.addressFont}>{this.props.walletStore!.getWallet.address}</Text>
         </View> 
         <View style={styles.list}>
           <View style={styles.listTab}>

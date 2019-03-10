@@ -9,7 +9,7 @@ export class RootStore {
     
   constructor() {
     this.tokenStore = new TokenStore(this);
-    this.walletStore = new WalletStore();
+    this.walletStore = new WalletStore(this);
     this.modalStore = new ModalStore();
   }
 }

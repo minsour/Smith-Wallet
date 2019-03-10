@@ -7,17 +7,18 @@ import { UserHeaderRight } from "./UserHeaderRight";
 import { styles } from "./Styles";
 
 interface UserHeaderProps {
-    title?: string;
-    navigation?: NavigationScreenProp<any,any>;
+  title?: string;
+  navigation?: NavigationScreenProp<any, any>;
+  search?: boolean
   }
 
 export class UserHeader extends React.Component<UserHeaderProps> {
   render() {
     return (
         <View style={styles.userHeader}>
-            <UserHeaderLeft navigation={this.props.navigation} />
-            <UserHeaderTitle>{this.props.title} </UserHeaderTitle>
-            <UserHeaderRight />
+          <UserHeaderLeft navigation={this.props.navigation} />
+          <UserHeaderTitle>{this.props.title} </UserHeaderTitle>
+          <UserHeaderRight search={this.props.search}/>
         </View>
     );
   }

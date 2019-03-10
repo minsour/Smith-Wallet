@@ -10,6 +10,7 @@ interface TokenType {
   abi?: string
   balance?: number
   krwBalance?: number
+  isPicked?: boolean
 }
 
 interface TokenProps {

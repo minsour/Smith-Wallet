@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { NavigationScreenProp } from 'react-navigation';
 import { Layout } from '../../layout/Layout';
@@ -21,8 +21,9 @@ interface TokenSendScreenProps {
 
 @inject(store.WALLET_STORE, store.TOKEN_STORE)
 @observer
-export class AddEOAScreen extends React.Component<TokenSendScreenProps> {
-  @observable name = ''
+export class EnterUPbitKeyScreen extends React.Component<TokenSendScreenProps> {
+  @observable amount = ''
+  @observable account = ''
   title = this.props.tokenStore!.clickedToken.koreanName + ' 보내기'
   render() {
     return (
@@ -36,30 +37,39 @@ export class AddEOAScreen extends React.Component<TokenSendScreenProps> {
             <View>
               <TextInput
                 style={styles.accountInput}
-                label='새로운 계좌 이름'
-                value={this.name}
+                label="Access Key"
+                value={this.account}
                 underlineColor="#030066"
-                onChangeText={name => this.changeName(name)}
+                onChangeText={account => this.changeAccount(account)}
+              />
+            </View>
+            <View>
+              <TextInput
+                style={styles.amountInput}
+                label="Secret Key"
+                value={this.amount}
+                underlineColor="#030066"
+                onChangeText={amount => this.changeAmount(amount)}
               />
             </View>
           </View>
         </View>
         <View style={styles.bottomContainer}>
         </View>
-        {this.name.length != 0 ?
+        {this.amount.length != 0 ?
           <Button
             style={styles.button}
-            onPress={this.addEOA}
+            onPress={this.transfer}
           >
             <Text style={styles.buttonFont}>
-              추 가
+              보내기
             </Text>
           </Button> :
           <Button
             style={styles.notButton}
           >
             <Text style={styles.notButtonFont}>
-              추 가
+              보내기
             </Text>
           </Button>
         }
@@ -67,15 +77,16 @@ export class AddEOAScreen extends React.Component<TokenSendScreenProps> {
     );
   }
 
-  @action private changeName = (name: string) => {
-    this.name = name
+  @action private changeAccount = (account: string) => {
+    this.account = account
   }
 
-  @action private addEOA = () => {
-    console.log('1')
-    console.log(this.props.walletStore!.Mnemonic)
-    this.props.walletStore!.addSmith(this.props.walletStore!.accountLength, this.name)
-    console.log('3')
+  @action private changeAmount = (amount: string) => {
+    this.amount = amount
+  }
+
+  private transfer = async () => {
+    await this.props.walletStore!.addUPbit()
     this.props.navigation.navigate(route.MAIN_SCREEN)
   }
 }

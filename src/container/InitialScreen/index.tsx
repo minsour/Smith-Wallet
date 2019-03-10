@@ -55,6 +55,7 @@ export class InitialScreen extends React.Component<InitialScreenProps> {
   };
 
   private navigateToImportMnemonic = () => {
+    this.props.tokenStore!.loadTokenList()
     this.props.navigation.navigate(route.CREATE_PINCODE_SCREEN, {
       destination: route.ENTER_MNEMONIC_SCREEN
     });

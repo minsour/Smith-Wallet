@@ -14,21 +14,6 @@ export const styles = StyleSheet.create({
     backgroundColor:"#030066",
     margin:15
   },
-  searchBarContainer: {
-    flex: 1,
-    backgroundColor: BG_COLOR,
-    width: DIMENSIONS_WIDTH,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  searchBar: {
-    backgroundColor: "#fff",
-    width: DIMENSIONS_WIDTH - 28,
-    height: 40,
-    elevation: 0,
-    borderRadius: 30,
-    padding: 10
-  },
   list: {
     flex:10,
     marginTop: 10,
@@ -44,6 +29,20 @@ export const styles = StyleSheet.create({
     padding: 3,
     margin: 5,
     borderRadius: 2
+  },
+  symbolContainer: {
+    width: DIMENSIONS_WIDTH - 40,
+    height: 54,
+    paddingTop: 7,
+    backgroundColor: BG_COLOR
+  },
+  symbolScrollContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
+  temp: {
+    height: 0
   },
   addButton: {
     backgroundColor: "#030066",

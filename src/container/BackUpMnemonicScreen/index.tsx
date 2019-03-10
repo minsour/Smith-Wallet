@@ -10,10 +10,11 @@ import { Layout } from '../../layout/Layout';
 import 'ethers/dist/shims.js';  // 안드로이드 니모닉 생성 시 발생하는 오류 해결(String.prototype.normalize 사용)
 import { inject } from 'mobx-react';
 //import { Loading } from '../../layout/Loading';
-import { getNewWalletMnemonic, getAccountInfo, getBalanceOfERC20Token, transferERC20Token } from '../../apis/ethers'
+import { getNewWalletMnemonic, getBalanceOfERC20Token, transferERC20Token } from '../../apis/ethers'
 import { WalletStore } from '../../stores/walletStore';
 import { store } from '../../constants/store';
 import { getBalanceOfETH } from '../../apis/etherscan';
+import { walletTab } from '../../constants/walletTab';
 
 const ethers = require("ethers");
 
@@ -31,8 +32,7 @@ export class BackUpMnemonicScreen extends React.Component<
 
   componentDidMount() {
     this.createMnemonic();
-    this.saveMnemonic(this.myMnemonic);
-    this.setMnemonic()
+    this.setWallet(this.myMnemonic)
   }
 
   render() {
@@ -84,14 +84,14 @@ export class BackUpMnemonicScreen extends React.Component<
   }
 
   private balanceOf = () => {
-    getBalanceOfETH(getAccountInfo(this.myMnemonic, 0).privateKey
+    getBalanceOfETH(this.props.walletStore!.walletList.get(walletTab.Smith)!.wallet!.privateKey
     )
     .then((tx:any)=>{console.log(tx.toString())})
     .catch((tx:any)=>{console.log(tx)});
   }
 
   private transfer = () => {
-    transferERC20Token(getAccountInfo(this.myMnemonic, 0).privateKey,
+    transferERC20Token(this.props.walletStore!.walletList.get(walletTab.Smith)!.wallet!.privateKey,
      "0xc382E6FB34609d656e1196a0cab6D463d8Ae8a34",
       "0xDc27C2b26EDbfb7Eb223589D4997dDA997DA8D1e",
        1)
@@ -100,28 +100,18 @@ export class BackUpMnemonicScreen extends React.Component<
   }
 
   private createMnemonic = () => {
+    console.log('createMnemonic')
     this.myMnemonic = getNewWalletMnemonic();
     console.log(this.myMnemonic);
-    console.log(getAccountInfo(this.myMnemonic, 0));
-  };
-
-  private saveMnemonic = (newMnemonic: string) => {
-    AsyncStorageUtils.storeMnemonic(newMnemonic);
   };
 
   private navigateToWallet = () => {
     this.props.navigation.navigate(route.MAIN_SCREEN);
   };
-  
-  private setWallet = async () => {
-    await this.setMnemonic();
-    const path = "m/44'/60'/0/0";
-    this.props.walletStore!.setWallet(ethers.Wallet.fromMnemonic(this.props.walletStore!.getMnemonic, path));
-  };
 
-  private setMnemonic = async () => {
-    await AsyncStorageUtils.loadMnemonic()
-    .then( res => this.props.walletStore!.setMnemonic(res) );
-  };
-
+  private setWallet = async (newMnemonic: string) => {
+    console.log('setMnemonic')
+    await this.props.walletStore!.setMnemonic(newMnemonic)
+    await this.props.walletStore!.addSmith(0)
+  }
 }

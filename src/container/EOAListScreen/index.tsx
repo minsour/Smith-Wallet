@@ -1,29 +1,46 @@
 import React from "react";
-import { Text, Button } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 import { styles } from "./Styles";
 import { route } from "../../constants/route";
 import { Layout } from '../../layout/Layout';
+import { View, ScrollView, RefreshControl } from 'react-native';
+import { EOA } from '../../components/EOA';
+import { WalletStore } from '../../stores/walletStore';
+import { inject, observer } from 'mobx-react';
+import { store } from '../../constants/store';
 
 interface EOAListScreenProps {
-    navigation: NavigationScreenProp<any,any>
+  navigation: NavigationScreenProp<any, any>
+  walletStore?: WalletStore
 }
 
+@inject(store.WALLET_STORE)
+@observer
 export class EOAListScreen extends React.Component<EOAListScreenProps> {
   render() {
+    let EOAId: number = 0
     return (
-      <Layout header={false}>
-        <Text>
-          EOA 리스트 스크린
-        </Text>
-        <Button
-          style={styles.Button}
-          mode="contained"
-          onPress={this.navigateToSplash} // 테스트용
+      <View style={styles.container}>
+        <ScrollView
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={this.refreshing}
+          //     onRefresh={this._onRefresh}
+          //   />}
         >
-          추가
-        </Button>
-      </Layout>
+          {/* <EOA
+            path={0}
+          /> */}
+          {
+            this.props.walletStore!.accountPath.map(path => 
+              <EOA
+                key={`${EOAId++}`}
+                path={path}
+              />
+            )
+          }
+        </ScrollView>
+      </View>
     );
   }
 
