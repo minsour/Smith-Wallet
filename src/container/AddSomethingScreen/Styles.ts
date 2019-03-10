@@ -5,18 +5,43 @@ import { DIMENSIONS_WIDTH, DIMENSIONS_HEIGHT } from '../../constants/dementions'
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: BG_COLOR,
-    borderRadius: 7,
+    borderRadius: 18,
     width: DIMENSIONS_WIDTH,
-    height: 180,
-    marginTop: DIMENSIONS_HEIGHT - 180,
-    padding: 5,
+    height: 150,
+    marginTop: DIMENSIONS_HEIGHT - 150,
+    paddingTop: 0,
     flexDirection: 'row'
   },
   content: {
     flex: 1,
+    borderRadius: 18,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  upbit: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#b1b1b1',
+  },
+  viewContent: {
+    alignItems: 'center',
+  },
+  icon: {
+    width: 40,
+    height: 40,
+    marginTop: -10
   },
   contentFont: {
     fontSize: 15
+  },
+  font: {
+    fontSize: 14,
+    marginTop: 3
+  },
+  upbitFont: {
+    fontSize: 14,
+    marginTop: 3,
+    color: '#dcdcdc'
   }
 });

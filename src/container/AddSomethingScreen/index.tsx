@@ -1,7 +1,6 @@
 import React from "react";
-import { Text, TouchableRipple } from "react-native-paper";
+import { Text, TouchableRipple, IconButton } from "react-native-paper";
 import { NavigationScreenProp } from 'react-navigation';
-import { StackActions, NavigationActions } from 'react-navigation';
 import { View } from 'react-native';
 import { styles } from './Styles'
 import { route } from '../../constants/route';
@@ -26,25 +25,39 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
     return (
       <View style={styles.container}>
         <TouchableRipple style={styles.content} onPress={this.navigateToAddToken}>
-          <Text>
-            토큰 추가
-          </Text>
+          <View style={styles.viewContent}>
+            <IconButton style={styles.icon} size={38} icon='playlist-add'/>
+            <Text style={styles.font}>
+              토큰 추가
+            </Text>
+          </View>
         </TouchableRipple>
         <TouchableRipple style={styles.content} onPress={this.navigateToAddEOA}>
-          <Text>
-            계좌 추가
-          </Text>
+          <View style={styles.viewContent}>
+            <IconButton style={styles.icon} size={38} icon='folder-open'/>
+            <Text style={styles.font}>
+              계좌 추가
+            </Text>
+          </View>
         </TouchableRipple>
-        <TouchableRipple style={styles.content} onPress={this.navigateToImportMnemonic}>
-          <Text>
-            지갑 추가
-          </Text>
-        </TouchableRipple>
-        <TouchableRipple style={styles.content} onPress={this.navigateToImportUPbit}>
-          <Text>
-            업비트 연동
-          </Text>
-        </TouchableRipple>
+        {this.props.walletStore!.walletList.get(walletTab.UPbit) ?
+          <View style={styles.content}>
+            <View style={styles.viewContent}>
+              <IconButton style={styles.icon} color='#dcdcdc' size={38} icon='vertical-align-bottom' />
+              <Text style={styles.upbitFont}>
+                업비트 연동
+              </Text>
+            </View>
+          </View> :
+          <TouchableRipple style={styles.content} onPress={this.navigateToImportUPbit}>
+            <View style={styles.viewContent}>
+              <IconButton style={styles.icon} size={38} icon='vertical-align-bottom'/>
+              <Text style={styles.font}>
+                업비트 연동
+              </Text>
+            </View>
+          </TouchableRipple>
+        }
       </View>
     );
   }
@@ -53,16 +66,12 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
     this.props.modalStore!.hideModal(modal.ADD_MODAL)
     this.props.navigation.navigate(route.ADD_TOKEN)
   }
+
   private navigateToAddEOA = () => {
     this.props.modalStore!.hideModal(modal.ADD_MODAL)
     this.props.navigation.navigate(route.ADD_EOA)
   }
-  private navigateToImportMnemonic = async () => {
-    this.props.modalStore!.hideModal(modal.ADD_MODAL)
-    this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
-      destination: route.ENTER_MNEMONIC_SCREEN
-    });
-  }
+
   private navigateToImportUPbit = () => {
     this.props.modalStore!.hideModal(modal.ADD_MODAL)
     this.props.navigation.navigate(route.AUTHORIZE_PINCODE_SCREEN, {
