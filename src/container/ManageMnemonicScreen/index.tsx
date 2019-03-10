@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clipboard } from 'react-native';
+import { Clipboard, Alert } from 'react-native';
 import { Button, Text, Title, TextInput } from 'react-native-paper';
 import { NavigationScreenProp } from 'react-navigation';
 import { observer } from 'mobx-react/native';
@@ -68,6 +68,6 @@ export class ManageMnemonicScreen extends React.Component<
 
   private copyMnemonic = async () => {
     await Clipboard.setString(this.myMnemonic);
-    alert('Mnemonic is copied!');
+    Alert.alert('Copied!', 'Mnemonic is copied!');
   };
 }

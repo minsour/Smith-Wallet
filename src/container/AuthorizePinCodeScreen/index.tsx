@@ -71,7 +71,7 @@ export class AuthorizePinCodeScreen extends React.Component<
       this.props.navigation.getParam('destination') ==
       route.MANAGE_MNEMONIC_SCREEN
     ) {
-      console.log('니모닉 백업하려나 보다');
+      console.log('니모닉 백업');
       this.props.navigation.navigate(route.MANAGE_MNEMONIC_SCREEN);
     } else if (this.props.walletStore!.getMnemonic !== null) {
       console.log('지갑 있음');
