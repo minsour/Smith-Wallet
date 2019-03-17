@@ -11,6 +11,8 @@ import { store } from '../../constants/store';
 import { observer } from 'mobx-react/native';
 import { TokenStore } from '../../stores/tokenStore';
 import { WalletStore } from '../../stores/walletStore';
+import { walletTab } from '../../constants/walletTab';
+import { getNewWalletMnemonic } from '../../apis/ethers';
 
 interface SplashScreenProps {
   navigation: NavigationScreenProp<any, any>
@@ -42,10 +44,9 @@ export class SplashScreen extends React.Component<SplashScreenProps> {
   }
 
   private navigateToSomething = async () => {
-    console.log('hello?');
     await AsyncStorageUtils.loadPin().then(async pinCode => {
       console.log('temp: ' + pinCode);
-      if (this.props.walletStore!.islocked) {
+      if (this.props.walletStore!.isLocked) {
         //...
         // AsyncStorage 에서 꺼낸 다음
 
@@ -56,11 +57,32 @@ export class SplashScreen extends React.Component<SplashScreenProps> {
       } else {
         //...
         // AsyncStorage 에서 wallet 유무 검사 후
-        // 없으면 
-        this.props.tokenStore!.loadTokenList()
-        this.props.navigation.navigate(route.INITIAL_SCREEN)
-        // 있으면
-        // this.props.navigation.navigate(route.MAIN_SCREEN)
+        console.log(AsyncStorageUtils.loadWalletStorage().then(W => console.log(W)))
+        if (await AsyncStorageUtils.loadWalletStorage()) {
+          // 없으면 
+          await this.props.tokenStore!.loadTokenList()
+          await AsyncStorageUtils.storeTokenStorage(this.props.tokenStore!.tokenStorage)
+          this.props.navigation.navigate(route.INITIAL_SCREEN)
+        }
+        else {
+          // 있으면
+          console.log('있어')
+          await AsyncStorageUtils.loadTokenStorage().then(TokenStorage => {
+            console.log('loadTokenStorage')
+            this.props.tokenStore!.tokenStorage = TokenStorage!
+            this.props.tokenStore!.copyTokenStorage()
+          })
+          await AsyncStorageUtils.loadWalletStorage().then(WalletStorage => {
+            console.log('loadWalletStorage')
+            this.props.walletStore!.walletStorage = WalletStorage!
+            this.props.walletStore!.copyWalletStorage()
+            console.log('setWallet 전')
+            this.props.walletStore!.setWallet(0)
+            console.log('setWallet 후')
+          })
+          console.log('navigation 전')
+          this.props.navigation.navigate(route.MAIN_SCREEN)
+        }
       }
     });
   }
