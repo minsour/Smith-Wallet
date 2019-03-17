@@ -40,7 +40,7 @@ export class AddSomethingScreen extends React.Component<AddSomethingScreenProps>
             </Text>
           </View>
         </TouchableRipple>
-        {this.props.walletStore!.walletList.get(walletTab.UPbit) ?
+        {this.props.walletStore!.walletList[walletTab.UPbit] ?
           <View style={styles.content}>
             <View style={styles.viewContent}>
               <IconButton style={styles.icon} color='#dcdcdc' size={38} icon='vertical-align-bottom' />

@@ -43,7 +43,7 @@ export class MainScreen extends React.Component<MainScreenProps> {
     }
     return (
       <PaperProvider>
-        {this.props.walletStore!.walletList.get(walletTab.UPbit) ? 
+        {this.props.walletStore!.walletList[walletTab.UPbit] ? 
           <UPbitSummaryContainer/> :
           <SmithSummaryContainer/>
         }

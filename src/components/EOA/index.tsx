@@ -26,7 +26,7 @@ export class EOA extends React.Component<EOAProps> {
         <View style={styles.EOA}>
           <View style={styles.name}>
             <Text style={styles.nameFont}>
-              {this.props.walletStore!.walletList.get(`${walletTab.Smith}${this.props.path}`)!.accountName}
+              {this.props.walletStore!.walletList[`${walletTab.Smith}${this.props.path}`]!.accountName}
             </Text>
             <IconButton
               icon='create'
@@ -35,7 +35,7 @@ export class EOA extends React.Component<EOAProps> {
             />
           </View>
           <Text style={styles.addressFont}>
-            {this.props.walletStore!.walletList.get(`${walletTab.Smith}${this.props.path}`)!.wallet!.address}
+            {this.props.walletStore!.walletList[`${walletTab.Smith}${this.props.path}`]!.walletAddress}
           </Text>
         </View>
       </TouchableRipple>
@@ -43,8 +43,8 @@ export class EOA extends React.Component<EOAProps> {
   }
   
   private clickEOA = (path: number) => {
-      this.props.walletStore!.setWallet(path)
-      this.props.tokenStore!.updateBalanceInfo()
+    this.props.walletStore!.setWallet(path)
+    this.props.tokenStore!.updateBalanceInfo()
   }
     
   private reWriteName = (path: number) => {
