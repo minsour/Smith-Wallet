@@ -5,6 +5,14 @@ import { getBalanceOfEthereum, getBalanceOfERC20Token, etherscanProvider } from 
 import { getBalanceOfETH } from '../apis/etherscan';
 import { ethers, utils } from 'ethers';
 import { walletTab } from '../constants/walletTab';
+import { AsyncStorageUtils } from '../utils/asyncStorageUtils';
+
+interface TokenStorage {
+  ercTokenList: Token[]
+  willBeAddedTokenList: Token[]
+  searchedTokenList: Token[]
+  selectedTokenList: Token[]
+}
 
 interface Token {
   symbol: string
@@ -55,6 +63,19 @@ export class TokenStore {
     isPicked: false
   }
   @observable public tokenHistoryList: TokenHistory[] = [];
+  @observable public tokenStorage: TokenStorage = {
+    ercTokenList: [],
+    searchedTokenList: [],
+    selectedTokenList: [],
+    willBeAddedTokenList: []
+  }
+
+  @action public copyTokenStorage = () => {
+    this.ercTokenList = this.tokenStorage.ercTokenList
+    this.searchedTokenList = this.tokenStorage.searchedTokenList
+    this.selectedTokenList = this.tokenStorage.selectedTokenList
+    this.willBeAddedTokenList = this.tokenStorage.willBeAddedTokenList
+  }
 
   @action public pushToken = (loadedTokenList: any[]) => {
     loadedTokenList.forEach(token => {
@@ -75,23 +96,35 @@ export class TokenStore {
   }
 
   @action public loadTokenList = async () => {
-    await getERCToken()
-      .then(responseJson => this.pushToken(responseJson))
-      .catch();
+    while (this.ercTokenList.length < 25 || this.ercTokenList.length > 40) {
+      await getERCToken()
+        .then(responseJson => this.pushToken(responseJson))
+        .catch();
 
-    this.searchedTokenList = this.ercTokenList;
-    // 이더리움 삽입
-    this.selectedTokenList.push(this.ercTokenList[0]);
-    this.ercTokenList.splice(0, 1);
+      this.searchedTokenList = this.ercTokenList;
+      // 이더리움 삽입
+      this.selectedTokenList.push(this.ercTokenList[0]);
+      this.ercTokenList.splice(0, 1);
 
-    this.ercTokenList = this.ercTokenList.sort(this.compareKoreanName)
-    this.searchedTokenList = this.searchedTokenList.sort(this.compareKoreanName)
+      this.ercTokenList = this.ercTokenList.sort(this.compareKoreanName)
+      this.searchedTokenList = this.searchedTokenList.sort(this.compareKoreanName)
 
-    // 잘 가져오는지 확인용
-    this.ercTokenList.forEach(element => {
-      console.log(element);
-    });
-    console.log(this.ercTokenList.length + 'FINISH');
+      // 잘 가져오는지 확인용
+      // this.ercTokenList.forEach(element => {
+      //   console.log(element);
+      // });
+      //   console.log(this.ercTokenList.length + 'FINISH');
+      if (this.ercTokenList.length < 25 || this.ercTokenList.length > 40) {
+        this.ercTokenList = []
+        this.selectedTokenList = []
+      }
+      else {
+        this.tokenStorage.ercTokenList = this.ercTokenList
+        this.tokenStorage.searchedTokenList = this.searchedTokenList
+        this.tokenStorage.selectedTokenList = this.selectedTokenList
+        this.tokenStorage.willBeAddedTokenList = this.willBeAddedTokenList
+      }
+    }
   };
 
   @action public pickUpToken = (token: Token) => {
@@ -117,15 +150,27 @@ export class TokenStore {
     this.root.modalStore.hideModal(modal.ADD_TOKEN)
   }
 
-  @action public selectToken = () => {
-    this.willBeAddedTokenList.forEach(token => {
+  @action public selectToken = async () => {
+    for (let j = 0; j < this.willBeAddedTokenList.length; j++) {
       // AddTokenScreen에 렌더될 리스트에서 삭제 후
-      let idx = this.ercTokenList.indexOf(token);
-      this.ercTokenList.splice(idx, 1);
+      let idx: number
+      for (let i = 0; i < this.ercTokenList.length; i++) {
+        if (this.willBeAddedTokenList[j].address == this.ercTokenList[i].address) {
+          idx = i
+          this.willBeAddedTokenList[j].isPicked=false
+          break
+        }
+      }
+      this.ercTokenList.splice(idx!, 1);
       this.searchedTokenList = this.ercTokenList
+      console.log(idx)
       // MainScreen에 렌더될 리스트에 푸시
-      this.selectedTokenList.push(token);
-    });
+      this.selectedTokenList.push(this.willBeAddedTokenList[j]);
+    }
+    this.tokenStorage.ercTokenList = this.ercTokenList
+    this.tokenStorage.searchedTokenList = this.searchedTokenList
+    this.tokenStorage.selectedTokenList = this.selectedTokenList
+    this.tokenStorage.willBeAddedTokenList = this.willBeAddedTokenList
   };
 
   @action public deleteToken = () => {
@@ -133,9 +178,15 @@ export class TokenStore {
       let idx = this.selectedTokenList.indexOf(token)
       this.selectedTokenList.splice(idx, 1)
       this.ercTokenList.push(token)
+      token.isPicked = false
     })
     this.ercTokenList = this.ercTokenList.sort(this.compareKoreanName)
     this.searchedTokenList = this.ercTokenList
+
+    this.tokenStorage.ercTokenList = this.ercTokenList
+    this.tokenStorage.searchedTokenList = this.searchedTokenList
+    this.tokenStorage.selectedTokenList = this.selectedTokenList
+    this.tokenStorage.willBeAddedTokenList = this.willBeAddedTokenList
   }
 
   @action public clickToken = async (clickedToken: Token) => {
@@ -206,18 +257,22 @@ export class TokenStore {
     await this.updateBalance()
     console.log(this.selectedTokenList)
     await this.getTokenPrice()
+
+    this.tokenStorage.ercTokenList = this.ercTokenList
+    this.tokenStorage.searchedTokenList = this.searchedTokenList
+    this.tokenStorage.selectedTokenList = this.selectedTokenList
   }
 
   public balanceOf = async (token: any) => {
     //getBalanceOfETH(getAccountInfo(this.root.walletStore.getMnemonic('Usefullet'), 0).address)
-    await getBalanceOfETH(this.root.walletStore.currentWallet.wallet.address)
+    await getBalanceOfETH(this.root.walletStore.currentWallet.walletAddress)
     .then(responseJson => {
       token.balance = ethers.utils.formatEther(responseJson.result)
       console.log(token.koreanName+responseJson.result)
   })
   }
   private erc20BalanceOf = (token: Token) => {
-    getBalanceOfERC20Token(this.root.walletStore.currentWallet.privateKey, token.address)
+    getBalanceOfERC20Token(this.root.walletStore.currentWallet.walletPrivateKey, token.address)
       .then((tx: any) => {
         token.balance = Number.parseFloat(tx.toString());
         console.log(token.koreanName + tx.toString());
