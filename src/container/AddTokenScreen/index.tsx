@@ -14,6 +14,7 @@ import { store } from '../../constants/store';
 import { WalletStore } from '../../stores/walletStore';
 import { Symbol } from '../../components/Symbol';
 import { route } from '../../constants/route';
+import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
 
 interface AddTokenScreenProps {
   tokenStore?: TokenStore
@@ -62,10 +63,11 @@ export class AddTokenScreen extends React.Component<AddTokenScreenProps> {
     );
   }
 
-  private setlectToken = () => {
+  private setlectToken = async () => {
     this.props.tokenStore!.selectToken()
     this.props.modalStore!.visible[modal.ADD_TOKEN] = false
     this.props.tokenStore!.updateBalanceInfo()
+    await AsyncStorageUtils.storeTokenStorage(this.props.tokenStore!.tokenStorage)
     this.props.navigation.navigate(route.MAIN_SCREEN)
   }
 }

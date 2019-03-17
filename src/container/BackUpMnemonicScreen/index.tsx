@@ -15,31 +15,32 @@ import { WalletStore } from '../../stores/walletStore';
 import { store } from '../../constants/store';
 import { getBalanceOfETH } from '../../apis/etherscan';
 import { walletTab } from '../../constants/walletTab';
+import { ModalStore } from '../../stores/modalStore';
+import { modal } from '../../constants/modal';
+import { Loading } from '../../layout/Loading';
 
 const ethers = require("ethers");
 
 interface BackUpMnemonicScreenProps {
   navigation: NavigationScreenProp<any,any>
   walletStore?: WalletStore
+  modalStore?: ModalStore
 }
 
-@inject(store.WALLET_STORE)
+@inject(store.WALLET_STORE, store.MODAL_STORE)
 @observer
 export class BackUpMnemonicScreen extends React.Component<
   BackUpMnemonicScreenProps
-> {
-  @observable myMnemonic: string = "";
-
+  > {
   componentDidMount() {
-    this.createMnemonic();
-    this.setWallet(this.myMnemonic)
+    this.setWallet()
   }
-
   render() {
-    // if(!this.myMnemonic) {
-    //   // 제대로 작동 안하는 중 !!
-    //   return <Loading>지갑 생성중</Loading>
-    // }
+    if (this.props.modalStore!.visible[modal.LOADING]) {
+      return (
+        <Loading>지갑 생성하는 중</Loading>
+      )
+    }
     return (
       <Layout header={true} headerTitle="Mnemonic 백업">
         <Title>Mnemonic Backup</Title>
@@ -48,28 +49,9 @@ export class BackUpMnemonicScreen extends React.Component<
           style={styles.mnemonicContainer}
           mode={"outlined"}
           multiline={true}
-          value={this.myMnemonic}
+          value={this.props.walletStore!.Mnemonic}
         />
-        
-        <Button
-          style={styles.createButton}
-          mode="contained"
-          onPress={() => {
-          this.balanceOf()
-          }}
-        >
-        balancOf
-        </Button>
 
-        <Button
-          style={styles.createButton}
-          mode="contained"
-          onPress={() => {
-            this.transfer()
-          }}
-        >
-        transfer
-        </Button>
         <Button
           style={styles.createButton}
           mode="contained"
@@ -83,35 +65,16 @@ export class BackUpMnemonicScreen extends React.Component<
     );
   }
 
-  private balanceOf = () => {
-    getBalanceOfETH(this.props.walletStore!.walletList.get(walletTab.Smith)!.wallet!.privateKey
-    )
-    .then((tx:any)=>{console.log(tx.toString())})
-    .catch((tx:any)=>{console.log(tx)});
-  }
-
-  private transfer = () => {
-    transferERC20Token(this.props.walletStore!.walletList.get(walletTab.Smith)!.wallet!.privateKey,
-     "0xc382E6FB34609d656e1196a0cab6D463d8Ae8a34",
-      "0xDc27C2b26EDbfb7Eb223589D4997dDA997DA8D1e",
-       1)
-    .then((tx:any)=>{console.log(tx)})
-    .catch((tx:any)=>{console.log(tx)});
-  }
-
-  private createMnemonic = () => {
-    console.log('createMnemonic')
-    this.myMnemonic = getNewWalletMnemonic();
-    console.log(this.myMnemonic);
-  };
-
   private navigateToWallet = () => {
     this.props.navigation.navigate(route.MAIN_SCREEN);
   };
-
-  private setWallet = async (newMnemonic: string) => {
+  
+  private setWallet = () => {
     console.log('setMnemonic')
-    await this.props.walletStore!.setMnemonic(newMnemonic)
-    await this.props.walletStore!.addSmith(0)
+    this.props.walletStore!.setMnemonic(getNewWalletMnemonic())
+    this.props.walletStore!.addSmith(0)
+    this.props.walletStore!.setWallet(0)
+    console.log(this.props.walletStore!.walletStorage)
+    AsyncStorageUtils.storeWalletStorage(this.props.walletStore!.walletStorage)
   }
 }

@@ -14,6 +14,7 @@ import { store } from '../../constants/store';
 import { WalletStore } from '../../stores/walletStore';
 import { Symbol } from '../../components/Symbol';
 import { route } from '../../constants/route';
+import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
 
 interface DeleteTokenScreenProps {
   tokenStore?: TokenStore
@@ -63,9 +64,10 @@ export class DeleteTokenScreen extends React.Component<DeleteTokenScreenProps> {
     );
   }
 
-  private deleteToken = () => {
+  private deleteToken = async () => {
     this.props.tokenStore!.deleteToken()
     this.props.modalStore!.visible[modal.ADD_TOKEN] = false
+    await AsyncStorageUtils.storeTokenStorage(this.props.tokenStore!.tokenStorage)
     this.props.navigation.navigate(route.MAIN_SCREEN)
   }
 }
