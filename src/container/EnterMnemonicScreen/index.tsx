@@ -12,13 +12,19 @@ import { WalletStore } from '../../stores/walletStore';
 import { walletTab } from '../../constants/walletTab';
 import { getBalanceOfETH } from '../../apis/etherscan';
 import { ethers } from 'ethers';
+import { AsyncStorageUtils } from '../../utils/asyncStorageUtils';
+import { ModalStore } from '../../stores/modalStore';
+import { modal } from '../../constants/modal';
+import { Loading } from '../../layout/Loading';
+import { ModalLayout } from '../../layout/ModalLayout';
 
 interface EnterMnemonicScreenProps {
   navigation: NavigationScreenProp<any, any>
   walletStore: WalletStore
+  modalStore: ModalStore
 }
 
-@inject(store.WALLET_STORE)
+@inject(store.WALLET_STORE, store.MODAL_STORE)
 @observer
 export class EnterMnemonicScreen extends React.Component<
   EnterMnemonicScreenProps
@@ -26,6 +32,11 @@ export class EnterMnemonicScreen extends React.Component<
   @observable myMnemonic: string = "";
 
   render() {
+    if (this.props.modalStore.visible[modal.LOADING]) {
+      return (
+        <Loading>지갑 가져오는 중</Loading>
+      )
+    }
     return (
       <Layout header={true} headerTitle="Mnemonic 입력" headerNavigation={this.props.navigation}>
         <Title>Mnemonic Recovery</Title>
@@ -58,15 +69,19 @@ export class EnterMnemonicScreen extends React.Component<
     await this.props.walletStore!.setMnemonic(newMnemonic)
     await this.props.walletStore!.addSmith(0)
     await this.props.walletStore.setWallet(0)
+    console.log(this.props.walletStore!.walletStorage)
+    await AsyncStorageUtils.storeWalletStorage(this.props.walletStore!.walletStorage)
   }
 
   private navigateToNextPage = async () => {
+    await this.props.modalStore.showModal(modal.LOADING)
     await this.setWallet(this.myMnemonic)
-    console.log(this.props.walletStore!.currentWallet.wallet!.address)
-    getBalanceOfETH(this.props.walletStore!.currentWallet.wallet!.address)
-    .then(responseJson => {
-      console.log(ethers.utils.formatEther(responseJson.result))
-  })
+    console.log(this.props.walletStore!.currentWallet.walletAddress)
+    getBalanceOfETH(this.props.walletStore!.currentWallet.walletAddress!)
+      .then(responseJson => {
+        console.log(ethers.utils.formatEther(responseJson.result))
+      })
+    this.props.modalStore.hideModal(modal.LOADING)
     this.props.navigation.navigate(route.MAIN_SCREEN);
   };
 }
