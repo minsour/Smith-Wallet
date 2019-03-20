@@ -29,7 +29,7 @@ export class ManageMnemonicScreen extends React.Component<
   @observable myMnemonic: string = '';
 
   componentDidMount() {
-    this.setMnemonic();
+    // this.setMnemonic();
   }
 
   render() {
@@ -45,7 +45,7 @@ export class ManageMnemonicScreen extends React.Component<
           style={styles.mnemonicContainer}
           mode={'outlined'}
           multiline={true}
-          value={this.myMnemonic}
+          value={this.props.walletStore!.Mnemonic}
         />
         <Button
           style={styles.createButton}
@@ -60,14 +60,14 @@ export class ManageMnemonicScreen extends React.Component<
     );
   }
 
-  private setMnemonic = async () => {
-    await AsyncStorageUtils.loadMnemonic().then(res => {
-      this.myMnemonic = res;
-    });
-  };
+  // private setMnemonic = async () => {
+  //   await AsyncStorageUtils.loadMnemonic().then(res => {
+  //     this.myMnemonic = res;
+  //   });
+  // };
 
   private copyMnemonic = async () => {
-    await Clipboard.setString(this.myMnemonic);
+    await Clipboard.setString(this.props.walletStore!.Mnemonic);
     Alert.alert('Copied!', 'Mnemonic is copied!');
   };
 }
