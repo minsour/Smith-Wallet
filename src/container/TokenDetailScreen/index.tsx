@@ -13,6 +13,7 @@ import { getERC20Info, getEtherInfo } from '../../apis/EtherscanAPI';
 import { store } from '../../constants/store';
 import { getAccountInfo } from '../../apis/ethers';
 import { getBalanceOfETH } from '../../apis/etherscan';
+import { AnyPtrRecord } from 'dns';
 const TxSummaryListContainer = createAppContainer(TxSummaryListHeader);
 
 interface TokenDetailScreenProps {
@@ -40,11 +41,12 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   componentDidMount() {
     if (this.props.tokenStore!.clickedToken.address == ETHEREUM_ADDRESS) {
       //do something for ether
-      this.getEtherBalance(this.props.walletStore!.eoa.address);
+      // console.log(this.props.walletStore!.currentWallet.walletAddress);
+      this.getEtherBalance(this.props.walletStore!.currentWallet.walletAddress);
     } else {
       this.getDetailInfoOfERC20(
         this.props.tokenStore!.clickedToken.address,
-        this.props.walletStore!.eoa.address,
+        this.props.walletStore!.currentWallet.walletAddress,
       );
     }
   }
@@ -65,7 +67,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
             {tokenStore!.clickedToken.symbol}
           </Text>
           <Text style={styles.addressFont} onPress={this.navigateToDetailTx}>
-            {this.props.walletStore!.eoa.address}
+            {this.props.walletStore!.currentWallet.walletAddress}
           </Text>
           {/* End of Top Summary Container */}
 
@@ -103,7 +105,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   }
   private getDetailInfoOfERC20 = async (
     tokenAddress: string,
-    userAddress: string,
+    userAddress: string | any,
   ) => {
     await getERC20Info(tokenAddress, userAddress).then((token: Token | any) => {
       const tmpToken = JSON.parse(token);
@@ -120,7 +122,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
     });
   };
 
-  private getEtherBalance = async (userAddress: string) => {
+  private getEtherBalance = async (userAddress: string | any) => {
     await getEtherInfo(userAddress).then((token: Token | any) => {
       const tmpEther = JSON.parse(token);
       this.props.tokenStore!.clickedToken.balance = tmpEther.balance;
