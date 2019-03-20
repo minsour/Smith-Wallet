@@ -28,7 +28,7 @@ export class AuthorizePinCodeScreen extends React.Component<
   };
   componentDidMount() {
     this.verifyPincode();
-    this.setMnemonic();
+    // this.setMnemonic();
   }
   render() {
     // 처음 핀코드 입력받는 창에서는 헤더 없고, 이후에는 뒤로가기 버튼은 있음
@@ -53,23 +53,37 @@ export class AuthorizePinCodeScreen extends React.Component<
         //핀넘버 없음
         this.navigateToDestination();
       } else {
+        //핀넘버 있음
         console.log('else: ' + pinCode);
         this.setState({ loadedPin: pinCode });
       }
     });
   };
 
-  private setMnemonic = async () => {
-    await AsyncStorageUtils.loadMnemonic().then(res =>
-      this.props.walletStore!.setMnemonic(res),
-    );
-  };
+  // private setMnemonic = async () => {
+  //   await AsyncStorageUtils.loadMnemonic().then(res =>
+  //     this.props.walletStore!.setMnemonic(res),
+  //   );
+  // };
 
   private navigateToDestination = async () => {
     await this.props.tokenStore!.loadTokenList();
-    this.props.navigation.navigate(
-      this.props.navigation.getParam('destination'),
-    );
+    if (
+      this.props.navigation.getParam('destination') ===
+      route.DELETE_WALLET_SCREEN
+    ) {
+      //자갑 삭제
+      await AsyncStorageUtils.removePin();
+      await AsyncStorageUtils.removeTokenStorage();
+      await AsyncStorageUtils.removeWalletStorage().then(() => {
+        this.props.navigation.navigate(route.INITIAL_SCREEN);
+      });
+    } else {
+      this.props.navigation.navigate(
+        this.props.navigation.getParam('destination'),
+      );
+    }
+
     // if (this.props.walletStore!.Mnemonic !== '') {
     //   console.log('지갑 있음');
     //   this.props.navigation.navigate(route.MAIN_SCREEN);

@@ -41,7 +41,7 @@ const getEtherInfo = async (userAddress: string) => {
 
 const getERC20TokenHistory = async (
   contractAddress: string,
-  userAddress: string,
+  userAddress?: string,
 ) => {
   try {
     console.log('userADdress@etherscanAPI: ' + userAddress);
@@ -61,7 +61,7 @@ const getERC20TokenHistory = async (
   }
 };
 
-const getEtherHistory = async (userAddress: string) => {
+const getEtherHistory = async (userAddress?: string) => {
   try {
     const finalApiUrl =
       'http://api-ropsten.etherscan.io/api?module=account&action=txlist' + //테스트넷

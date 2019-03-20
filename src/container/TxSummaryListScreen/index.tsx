@@ -56,10 +56,11 @@ export class TxSummaryListScreen extends React.Component<
       'contractaddress: ' + this.props.tokenStore!.clickedToken.address,
     );
     console.log(
-      'userAddress@txsummary: ' + this.props.walletStore!.eoa.address,
+      'userAddress@txsummary: ' +
+        this.props.walletStore!.currentWallet.walletAddress,
     );
     if (this.props.tokenStore!.clickedToken.address == ETHEREUM_ADDRESS) {
-      getEtherHistory(this.props.walletStore!.eoa.address).then(
+      getEtherHistory(this.props.walletStore!.currentWallet.walletAddress).then(
         (responseJson: TokenHistory | any) => {
           this.props.tokenStore!.tokenHistoryList = JSON.parse(responseJson);
         },
@@ -67,7 +68,7 @@ export class TxSummaryListScreen extends React.Component<
     } else {
       getERC20TokenHistory(
         this.props.tokenStore!.clickedToken.address,
-        this.props.walletStore!.eoa.address,
+        this.props.walletStore!.currentWallet.walletAddress,
       ).then((responseJson: TokenHistory | any) => {
         this.props.tokenStore!.tokenHistoryList = JSON.parse(responseJson);
       });
@@ -88,10 +89,11 @@ export class TxSummaryListScreen extends React.Component<
                   <List.Icon
                     icon={this.classifySendReceive(
                       token.from,
-                      this.props.walletStore!.eoa.address,
+                      this.props.walletStore!.currentWallet.walletAddress,
                     )}
                     color={
-                      token.from === this.props.walletStore!.eoa.address
+                      token.from ===
+                      this.props.walletStore!.currentWallet.walletAddress
                         ? SEND_ICON_COLOR
                         : RECEIVE_ICON_COLOR
                     }
@@ -120,7 +122,7 @@ export class TxSummaryListScreen extends React.Component<
   private convertValue = (value: string) => {
     return ethers.utils.formatEther(value);
   };
-  private classifySendReceive = (from: string, myAddress: string) => {
+  private classifySendReceive = (from: string, myAddress?: string) => {
     if (from === myAddress) {
       return SEND_ICON;
     } else {

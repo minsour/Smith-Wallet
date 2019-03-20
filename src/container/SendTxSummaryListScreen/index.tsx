@@ -35,7 +35,8 @@ export class SendTxSummaryListScreen extends React.Component<
         <List.Section style={styles.listSectionContainer}>
           <ScrollView>
             {tokenStore.tokenHistoryList.map(token =>
-              token.from === this.props.walletStore!.eoa.address ? (
+              token.from ===
+              this.props.walletStore!.currentWallet.walletAddress ? (
                 <List.Item
                   key={`${keyIndex++}`}
                   title={token.to}
@@ -44,10 +45,11 @@ export class SendTxSummaryListScreen extends React.Component<
                     <List.Icon
                       icon={this.classifySendReceive(
                         token.from,
-                        this.props.walletStore!.eoa.address,
+                        this.props.walletStore!.currentWallet.walletAddress,
                       )}
                       color={
-                        token.from === this.props.walletStore!.eoa.address
+                        token.from ===
+                        this.props.walletStore!.currentWallet.walletAddress
                           ? SEND_ICON_COLOR
                           : RECEIVE_ICON_COLOR
                       }
@@ -76,7 +78,7 @@ export class SendTxSummaryListScreen extends React.Component<
   private convertValue = (value: string) => {
     return ethers.utils.formatEther(value);
   };
-  private classifySendReceive = (from: string, myAddress: string) => {
+  private classifySendReceive = (from: string, myAddress?: string) => {
     if (from === myAddress) {
       return SEND_ICON;
     } else {
