@@ -38,7 +38,11 @@ export class ManageMnemonicScreen extends React.Component<
     //   return <Loading>지갑 생성중</Loading>
     // }
     return (
-      <Layout header={true} headerTitle="Mnemonic 백업">
+      <Layout
+        header={true}
+        headerTitle="Mnemonic 백업"
+        headerNavigation={this.props.navigation}
+      >
         <Title>Mnemonic Backup</Title>
         <Text>Mnemonic is used to restore the wallet</Text>
         <TextInput
