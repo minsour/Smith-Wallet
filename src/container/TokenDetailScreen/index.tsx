@@ -53,7 +53,7 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
   render() {
     const { tokenStore } = this.props;
     return (
-      <Layout header={false}>
+      <Layout header={true} headerNavigation={this.props.navigation}>
         {/* Start of Top Summary Container */}
         <View style={styles.summaryContainer}>
           <Text style={styles.summaryFont}>
@@ -94,7 +94,6 @@ export class TokenDetailScreen extends React.Component<TokenDetailScreenProps> {
           </View>
           {/* End of Button Container */}
         </View>
-
         {/* Start of TxList Container */}
         <PaperProvider>
           <TxSummaryListContainer />
