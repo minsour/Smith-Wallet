@@ -1,15 +1,18 @@
 import { AsyncStorage } from 'react-native';
 import AES from 'crypto-js/aes';
 import CryptoJS from 'crypto-js';
+import { string } from 'prop-types';
 
 export class AsyncStorageUtils {
-  static encrypt = (message:string):string => {
-    return AES.encrypt(message, "qlalfqjsgh is anjsemf").toString()
-  }
+  static encrypt = (message: string): string => {
+    return AES.encrypt(message, 'qlalfqjsgh is anjsemf').toString();
+  };
 
-  static decrypt = (encryptedMessage:string):string => {
-    return AES.decrypt(encryptedMessage, "qlalfqjsgh is anjsemf").toString(CryptoJS.enc.Utf8)
-  }
+  static decrypt = (encryptedMessage: string): string => {
+    return AES.decrypt(encryptedMessage, 'qlalfqjsgh is anjsemf').toString(
+      CryptoJS.enc.Utf8,
+    );
+  };
   // static storeMnemonic = async (newMnemonic: string) => {
   //   let encryptedMnemonic:string = AsyncStorageUtils.encrypt(newMnemonic)
   //   console.log(`encryptedMnemonic = ${encryptedMnemonic}`)
@@ -23,7 +26,10 @@ export class AsyncStorageUtils {
   // };
   static storeTokenStorage = async (tokenStorage: any) => {
     try {
-      await AsyncStorage.setItem('@MyStore:token', JSON.stringify(tokenStorage));
+      await AsyncStorage.setItem(
+        '@MyStore:token',
+        JSON.stringify(tokenStorage),
+      );
     } catch (error) {
       console.error(
         'Error occurs during saving data in @MyStore:token :::' + error,
@@ -33,8 +39,11 @@ export class AsyncStorageUtils {
 
   static storeWalletStorage = async (walletStorage: any) => {
     try {
-      console.log('storeWalletStorage')
-      await AsyncStorage.setItem('@MyStore:wallet', JSON.stringify(walletStorage));
+      console.log('storeWalletStorage');
+      await AsyncStorage.setItem(
+        '@MyStore:wallet',
+        JSON.stringify(walletStorage),
+      );
     } catch (error) {
       console.error(
         'Error occurs during saving data in @MyStore:wallet :::' + error,
@@ -65,62 +74,79 @@ export class AsyncStorageUtils {
   };
 
   static loadTokenStorage = async () => {
-    let tokenStorage
+    let tokenStorage;
     try {
       await AsyncStorage.getItem('@MyStore:token').then(stringTokenStorage => {
-        tokenStorage = JSON.parse(stringTokenStorage)
+        tokenStorage = JSON.parse(stringTokenStorage);
       });
     } catch (error) {
       console.error(
         'Error occurs during loading data in @MyStore:token :::' + error,
       );
     }
-    return tokenStorage
+    return tokenStorage;
   };
-  
+
   static loadWalletStorage = async () => {
-    let walletStorage
+    let walletStorage;
     try {
-      await AsyncStorage.getItem('@MyStore:wallet').then(stringWalletStorage => {
-        walletStorage = JSON.parse(stringWalletStorage)
-        console.log(stringWalletStorage)
-        console.log(walletStorage)
-      });
+      await AsyncStorage.getItem('@MyStore:wallet').then(
+        stringWalletStorage => {
+          walletStorage = JSON.parse(stringWalletStorage);
+          console.log(stringWalletStorage);
+          console.log(walletStorage);
+        },
+      );
     } catch (error) {
       console.error(
         'Error occurs during loading data in @MyStore:wallet :::' + error,
       );
     }
-    return walletStorage
+    return walletStorage;
   };
 
   static removePin = async () => {
     try {
-      await AsyncStorage.removeItem('@MyStore:pin')
+      await AsyncStorage.removeItem('@MyStore:pin').then(
+        stringWalletStorage => {
+          console.log('핀삭제');
+          console.log(stringWalletStorage);
+        },
+      );
     } catch (error) {
       console.error(
         'Error occurs during removing data in @MyStore:pin :::' + error,
       );
     }
-  }
+  };
 
   static removeTokenStorage = async () => {
     try {
-      await AsyncStorage.removeItem('@MyStore:token')
+      await AsyncStorage.removeItem('@MyStore:token').then(
+        stringTokenStorage => {
+          console.log('토큰삭제');
+          console.log(stringTokenStorage);
+        },
+      );
     } catch (error) {
       console.error(
         'Error occurs during removing data in @MyStore:token :::' + error,
       );
     }
-  }
+  };
 
   static removeWalletStorage = async () => {
     try {
-      await AsyncStorage.removeItem('@MyStore:wallet')
+      await AsyncStorage.removeItem('@MyStore:wallet').then(
+        stringWalletStorage => {
+          console.log('월렛삭제');
+          console.log(stringWalletStorage);
+        },
+      );
     } catch (error) {
       console.error(
         'Error occurs during removing data in @MyStore:wallet :::' + error,
       );
     }
-  }
+  };
 }
