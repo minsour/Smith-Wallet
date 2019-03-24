@@ -100,7 +100,7 @@ export class TxSummaryListScreen extends React.Component<
                   />
                 )}
                 right={() => (
-                  <Text>
+                  <Text style={styles.valueText}>
                     {this.convertValue(token.value)} {token.tokenSymbol}
                   </Text>
                 )}

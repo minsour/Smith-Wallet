@@ -11,11 +11,13 @@ export const styles = StyleSheet.create({
   summaryContainer: {
     flex: 1,
     backgroundColor: BG_COLOR,
+    // backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'center',
     width: DIMENSIONS_WIDTH,
     paddingTop: 10,
   },
+
   summaryFont: {
     fontSize: 20,
     marginBottom: 14,

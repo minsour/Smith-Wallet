@@ -21,13 +21,13 @@ export class ManagingScreen extends React.Component<NavigationScreenProps> {
         >
           니모닉 백업
         </Button>
-        <Button
+        {/* <Button
           style={styles.Button}
           mode="contained"
           onPress={this.navigateToBackUpQR} // 테스트용
         >
           QR 코드 백업
-        </Button>
+        </Button> */}
         <Button
           style={styles.Button}
           mode="contained"
